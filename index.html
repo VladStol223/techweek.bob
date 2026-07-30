@@ -1,0 +1,2285 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Atlanta Tech Week · IBM Bob — Choose Your AI Adventure</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSNL2N0DW9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GSNL2N0DW9');
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --uah-navy:  #002147;
+    --uah-blue:  #0057B8;
+    --atl-blue:  #0057B8;
+    --uah-gold:  #F0AB00;
+    --atl-gold:  #F0AB00;
+    --ibm-blue:  #0F62FE;
+    --bg:        #111318;
+    --surface:   #1c1f26;
+    --border:    #2e3140;
+    --text:      #e2e6f0;
+    --muted:     #8b92a8;
+    --radius:    16px;
+
+    --ca: #7c3aed;
+    --cb: #0057B8;
+    --cc: #1a7a4a;
+    --cd: #c2790a;
+
+    /* ── Motion tokens ── */
+    --ease-premium:  cubic-bezier(0.05, 0.7, 0.1, 1);
+    --ease-corporate: cubic-bezier(0.2, 0, 0, 1);
+    --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-gentle:   cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out:      cubic-bezier(0.0, 0, 0.2, 1);
+    --ease-in:       cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── AMBIENT LAYER: Starfield ──────────────── */
+  #stars-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    animation: starfield-fade 8s var(--ease-gentle) infinite alternate;
+  }
+  @keyframes starfield-fade {
+    from { opacity: 0.35; }
+    to   { opacity: 0.55; }
+  }
+
+  /* ── HERO ──────────────────────────────────── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 90px 24px 100px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: min(600px, 90%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(0,87,184,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-orbit {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0,87,184,0.10);
+    pointer-events: none;
+    animation: orb-spin 18s linear infinite;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+  }
+  .hero-orbit:nth-child(1) { width: 260px; height: 260px; animation-duration: 18s; }
+  .hero-orbit:nth-child(2) { width: 400px; height: 400px; animation-duration: 28s; animation-direction: reverse; }
+  .hero-orbit:nth-child(3) { width: 520px; height: 520px; animation-duration: 40s; }
+  @keyframes orb-spin    { to { transform: translate(-50%,-50%) rotate(360deg); } }
+  @keyframes orb-breathe { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(240,171,0,0.3);
+    background: rgba(240,171,0,0.06);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.78rem; font-weight: 600; color: var(--atl-gold);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: hero-enter 0.7s ease both;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+    animation: hero-enter 0.7s 0.1s ease both;
+  }
+  .hero h1 span { color: var(--atl-gold); }
+  .hero p {
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 520px; margin: 0 auto 32px;
+    animation: hero-enter-muted 0.7s 0.2s ease both;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--atl-blue);
+    color: #fff;
+    border: none; border-radius: 10px;
+    padding: 13px 28px;
+    font-size: 0.96rem; font-weight: 700;
+    cursor: pointer;
+    animation: hero-enter 0.7s 0.3s ease both;
+    transition: background 0.18s, transform 0.12s;
+  }
+  .hero-cta:hover  { background: #0047a0; }
+  .hero-cta:active { transform: scale(0.97); }
+
+  @keyframes hero-enter      { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform:none; } }
+  @keyframes hero-enter-muted { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform:none; } }
+  @keyframes hero-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(240,171,0,0.4)} 50%{box-shadow:0 0 0 8px rgba(240,171,0,0);} }
+
+  /* ── PERSONA PILL STRIP ──────────────────────── */
+  .persona-strip {
+    position: relative; z-index: 1;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    padding: 22px 24px 0;
+    max-width: 820px; margin: 0 auto;
+  }
+  .persona-pill {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.78rem; color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  /* ── SCROLL SECTION ──────────────────────── */
+  .scroll-section {
+    position: relative; z-index: 1;
+    max-width: 960px; margin: 0 auto;
+    padding: 0px 20px 108px;
+  }
+
+  .section-intro {
+    text-align: center; margin-bottom: 64px;
+    opacity: 0; transform: translateY(24px);
+    animation: section-reveal 600ms var(--ease-premium) 400ms forwards;
+  }
+  @keyframes section-reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .section-intro h2 { font-size: 1.85rem; font-weight: 800; color: var(--uah-gold); }
+  .section-intro p  { color: var(--muted); margin-top: 8px; font-size: 1rem; }
+  .divider {
+    width: 56px; height: 4px;
+    background: linear-gradient(90deg, var(--uah-gold), var(--ibm-blue));
+    border-radius: 4px; margin: 16px auto 0;
+  }
+
+  /* ── BUBBLE TRACK CARDS ──────────────────── */
+  .tracks-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* Primary: card entrance spring settle */
+  .bubble-card {
+    background: var(--surface);
+    border-radius: 24px;
+    border: 1.5px solid var(--border);
+    border-left: 5px solid var(--border);
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity    400ms var(--ease-spring),
+      transform  400ms var(--ease-spring),
+      box-shadow 200ms var(--ease-out);
+  }
+  .bubble-card.bubble-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Secondary: hover lifts + shadow elevation */
+  .bubble-card:not(.open):hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    transform: translateY(-4px);
+    transition:
+      box-shadow 200ms var(--ease-out),
+      transform  200ms var(--ease-out);
+  }
+  .bubble-card.open {
+    cursor: default;
+    transform: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  }
+
+  .bubble-card.track-a { border-left-color: var(--ca); }
+  .bubble-card.track-b { border-left-color: var(--cb); }
+  .bubble-card.track-c { border-left-color: var(--cc); }
+  .bubble-card.track-d { border-left-color: var(--cd); }
+
+  /* CARD SUMMARY */
+  .card-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 28px 28px 24px;
+    min-height: 44px;
+  }
+
+  /* Secondary: icon pops when card opens */
+  .card-icon {
+    width: 60px; height: 60px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 350ms var(--ease-spring);
+  }
+  .bubble-card.open .card-icon { transform: scale(1.08); }
+  .track-a .card-icon { background: rgba(124,58,237,0.18); }
+  .track-b .card-icon { background: rgba(0,87,184,0.18);   }
+  .track-c .card-icon { background: rgba(26,122,74,0.16);  }
+  .track-d .card-icon { background: rgba(194,121,10,0.18); }
+  .card-icon svg { width: 28px; height: 28px; display: block; }
+
+  .card-text { flex: 1; min-width: 0; }
+  .card-label {
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 4px;
+  }
+  .track-a .card-label { color: var(--ca); }
+  .track-b .card-label { color: var(--cb); }
+  .track-c .card-label { color: var(--cc); }
+  .track-d .card-label { color: var(--cd); }
+
+  .card-title { font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
+  .card-desc  { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  .card-meta { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .card-tag {
+    display: inline-flex; align-items: center;
+    font-size: 0.72rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: rgba(255,255,255,0.04);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+  }
+  .track-a .card-tag { border-color: rgba(124,58,237,0.40); color: #b49dfa; background: rgba(124,58,237,0.10); }
+  .track-b .card-tag { border-color: rgba(0,87,184,0.40);  color: #7db3f5; background: rgba(0,87,184,0.10);  }
+  .track-c .card-tag { border-color: rgba(26,122,74,0.40);  color: #5ec98a; background: rgba(26,122,74,0.10);  }
+  .track-d .card-tag { border-color: rgba(194,121,10,0.40); color: #f5b84a; background: rgba(194,121,10,0.10); }
+
+  /* Secondary: chevron rotates on open */
+  .card-chevron {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 50%; border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    transition:
+      transform    300ms var(--ease-gentle),
+      border-color 250ms var(--ease-out),
+      background   250ms var(--ease-out),
+      color        250ms var(--ease-out);
+  }
+  .card-chevron svg { width: 16px; height: 16px; display: block; }
+  .bubble-card.open .card-chevron {
+    transform: rotate(180deg);
+    border-color: var(--uah-gold);
+    background: rgba(240,171,0,0.15);
+    color: var(--uah-gold);
+  }
+
+  /* Primary: card expand/collapse — Corporate easing 450ms */
+  .card-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 450ms var(--ease-gentle);
+  }
+  .bubble-card.open .card-detail { max-height: 3000px; }
+
+  .card-detail-inner {
+    border-top: 1px solid var(--border);
+    padding: 28px 28px 28px 24px;
+  }
+  .detail-intro {
+    font-size: 0.92rem; color: var(--muted); line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  /* USE CASE ACCORDION */
+  .use-cases { display: flex; flex-direction: column; gap: 14px; }
+  .use-case {
+    background: #14171f;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 250ms var(--ease-out), opacity 300ms var(--ease-out), transform 300ms var(--ease-spring);
+  }
+  .use-case.uc-open {
+    border-color: var(--uah-gold);
+  }
+  /* Locked accordion steps — hidden until unlocked */
+  .use-case.uc-locked {
+    opacity: 0.28;
+    pointer-events: none;
+  }
+  .use-case.uc-locked .use-case-header::after {
+    content: '🔒';
+    font-size: 0.8rem;
+    margin-left: auto;
+    padding-right: 4px;
+    opacity: 0.6;
+  }
+  .use-case.uc-unlocked {
+    animation: uc-unlock-pop 350ms var(--ease-spring) both;
+  }
+  @keyframes uc-unlock-pop {
+    from { opacity: 0.28; transform: translateY(6px); }
+    to   { opacity: 1;    transform: translateY(0);   }
+  }
+  .use-case-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    min-height: 48px;
+    transition: background 200ms var(--ease-out);
+  }
+  .use-case-header:hover { background: #1e2130; }
+
+  .uc-num {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 800;
+    color: white; flex-shrink: 0;
+  }
+  .track-a .uc-num { background: var(--ca); }
+  .track-b .uc-num { background: var(--cb); }
+  .track-c .uc-num { background: var(--cc); }
+  .track-d .uc-num { background: var(--cd); }
+
+  .uc-title { font-size: 0.92rem; font-weight: 700; color: var(--text); flex: 1; line-height: 1.4; }
+  .uc-arrow {
+    color: var(--muted); flex-shrink: 0;
+    transition: transform 250ms var(--ease-gentle);
+  }
+  .uc-arrow svg { width: 14px; height: 14px; display: block; }
+  .use-case.uc-open .uc-arrow { transform: rotate(180deg); }
+
+  /* 300ms ease-out accordion */
+  .uc-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 300ms var(--ease-out);
+  }
+  .use-case.uc-open .uc-body { max-height: 4000px; }
+
+  .uc-body-inner { padding: 0 16px 16px; }
+  .uc-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+
+  /* PROMPT BOX */
+  .prompt-box {
+    background: #0d1b35;
+    border-radius: 12px;
+    padding: 16px 18px;
+    position: relative;
+  }
+  .prompt-label {
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--uah-gold); margin-bottom: 8px;
+  }
+  .prompt-box pre {
+    color: #b8c8e8;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    white-space: pre-wrap; word-break: break-word; line-height: 1.65;
+    padding-right: 60px;
+    /* cap at 20 visible lines, then scroll */
+    max-height: calc(1.65em * 20);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .prompt-box pre::-webkit-scrollbar { width: 5px; }
+  .prompt-box pre::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  .prompt-box pre::-webkit-scrollbar-track { background: transparent; }
+
+  /* Copy button: press 0.96 → bounce 1.02 → settle 1.0 */
+  .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.20);
+    color: white; font-size: 0.7rem; font-weight: 600;
+    padding: 6px 14px; border-radius: 8px;
+    cursor: pointer; min-height: 32px; min-width: 44px;
+    transition:
+      background 150ms var(--ease-out),
+      transform  150ms var(--ease-out);
+    transform-origin: center;
+  }
+  .copy-btn:hover  { background: rgba(255,255,255,0.20); }
+  .copy-btn:active { transform: scale(0.96); }
+  .copy-btn.copied {
+    background: #1a7a4a; border-color: #1a7a4a;
+    animation: copy-bounce 300ms var(--ease-spring) forwards;
+  }
+  @keyframes copy-bounce {
+    0%   { transform: scale(0.96); }
+    60%  { transform: scale(1.02); }
+    100% { transform: scale(1.0);  }
+  }
+
+  /* QUIZ (Track D) */
+  .quiz-section { margin-top: 10px; }
+  .quiz-q {
+    margin-bottom: 18px;
+    opacity: 0; transform: translateY(14px);
+    transition:
+      opacity   300ms var(--ease-out),
+      transform 300ms var(--ease-out);
+  }
+  .quiz-q.qvisible { opacity: 1; transform: none; }
+  .quiz-q h5 { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-opt {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: 10px; cursor: pointer; font-size: 0.84rem;
+    min-height: 44px; user-select: none;
+    transition:
+      border-color 180ms var(--ease-out),
+      background   180ms var(--ease-out),
+      transform    120ms var(--ease-out);
+  }
+  .quiz-opt:hover  { border-color: var(--cd); background: rgba(194,121,10,0.04); }
+  .quiz-opt:active { transform: scale(0.98); }
+  .quiz-opt.selected { border-color: var(--cd); background: rgba(194,121,10,0.08); font-weight: 600; }
+
+  .qdot {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0;
+    transition:
+      border-color 180ms var(--ease-out),
+      background   180ms var(--ease-out),
+      transform    200ms var(--ease-spring);
+  }
+  .quiz-opt.selected .qdot {
+    border-color: var(--cd); background: var(--cd);
+    transform: scale(1.15);
+  }
+
+  .quiz-reveal-btn {
+    margin-top: 18px;
+    display: none;
+    width: 100%;
+    background: var(--uah-gold); color: var(--uah-navy);
+    border: none; font-weight: 800; font-size: 0.95rem;
+    padding: 14px 28px; border-radius: 100px;
+    cursor: pointer; min-height: 50px;
+    align-items: center; justify-content: center; gap: 8px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      transform  200ms var(--ease-out),
+      box-shadow 200ms var(--ease-out),
+      opacity    300ms var(--ease-out);
+  }
+  .quiz-reveal-btn.btn-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .quiz-reveal-btn:hover  { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(240,171,0,0.45); }
+  .quiz-reveal-btn:active { transform: scale(0.96); transition-duration: 100ms; }
+
+  .quiz-result-box {
+    margin-top: 14px; padding: 16px 18px;
+    border-radius: 12px;
+    background: rgba(194,121,10,0.07);
+    border: 1px solid rgba(194,121,10,0.30);
+    font-size: 0.85rem; color: var(--text); line-height: 1.65;
+    display: none;
+    animation: result-reveal 350ms var(--ease-spring) both;
+  }
+  @keyframes result-reveal {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+  }
+
+  /* MODE INSTALL STEPS */
+  .mode-steps {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mode-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: #13161e;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .step-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 800; flex-shrink: 0;
+    color: white; margin-top: 1px;
+  }
+  .track-a .step-num { background: var(--ca); }
+  .step-body { flex: 1; min-width: 0; }
+  .step-title {
+    font-size: 0.82rem; font-weight: 700; color: var(--text);
+    margin-bottom: 4px; line-height: 1.4;
+  }
+  .step-desc {
+    font-size: 0.78rem; color: var(--muted); line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .step-desc:last-child { margin-bottom: 0; }
+
+  /* download button */
+  .step-download-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--ca); color: white;
+    font-size: 0.8rem; font-weight: 700;
+    padding: 9px 18px; border-radius: 8px;
+    border: none; cursor: pointer; min-height: 36px;
+    text-decoration: none;
+    transition: opacity 150ms var(--ease-out), transform 120ms var(--ease-out);
+  }
+  .step-download-btn:hover  { opacity: 0.88; }
+  .step-download-btn:active { transform: scale(0.96); }
+  .step-download-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .step-download-btn.downloaded {
+    background: #1a7a4a; border-color: #1a7a4a;
+  }
+
+  /* pulsing glow for any "next step" button */
+  @keyframes next-step-pulse {
+    0%, 100% { box-shadow: 0 0 0 0px rgba(124,58,237,0.65); }
+    50%       { box-shadow: 0 0 0 14px rgba(124,58,237,0);  }
+  }
+  .step-download-btn.pulse-cta,
+  .step-confirm-btn.pulse-cta {
+    animation: next-step-pulse 2.4s var(--ease-gentle) infinite;
+  }
+  /* copy button pulse uses its own colour */
+  @keyframes copy-pulse {
+    0%, 100% { box-shadow: 0 0 0 0px rgba(124,58,237,0.6); }
+    50%       { box-shadow: 0 0 0 12px rgba(124,58,237,0); }
+  }
+  .copy-btn.pulse-cta {
+    animation: copy-pulse 2.4s var(--ease-gentle) infinite;
+  }
+
+  /* confirm / "it's there" button */
+  .step-confirm-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: transparent; color: var(--ca);
+    font-size: 0.8rem; font-weight: 700;
+    padding: 8px 18px; border-radius: 8px;
+    border: 1.5px solid var(--ca); cursor: pointer; min-height: 36px;
+    margin-top: 12px;
+    transition: background 150ms var(--ease-out), color 150ms var(--ease-out), transform 120ms var(--ease-out);
+  }
+  .step-confirm-btn:hover  { background: var(--ca); color: white; }
+  .step-confirm-btn:active { transform: scale(0.96); }
+  .step-confirm-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* screenshot inside a step */
+  .step-screenshot {
+    margin-top: 10px;
+    border: 1px solid #2e3a55;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 520px;
+  }
+  .step-screenshot img { display: block; width: 100%; height: auto; }
+  .step-screenshot-caption {
+    font-size: 0.72rem; color: var(--muted);
+    background: #1c2236; padding: 5px 10px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Progressive step reveal */
+  .mode-step.step-hidden {
+    display: none;
+  }
+  .mode-step.step-reveal {
+    animation: step-pop-in 350ms var(--ease-spring) both;
+  }
+  @keyframes step-pop-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-no-folder {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.74rem; color: var(--muted);
+    background: none; border: none; cursor: pointer;
+    padding: 6px 0; text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: color 150ms var(--ease-out);
+    margin-left: 10px;
+  }
+  .step-no-folder:hover { color: var(--uah-gold); text-decoration-color: var(--uah-gold); }
+
+  /* copy prompt box inside a step */
+  .step-prompt {
+    background: #0d1b35;
+    border-radius: 10px;
+    padding: 12px 14px;
+    position: relative;
+    margin-top: 4px;
+  }
+  .step-prompt pre {
+    color: #b8c8e8;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    white-space: pre-wrap; word-break: break-word; line-height: 1.6;
+    padding-right: 60px;
+  }
+  .step-prompt .copy-btn { top: 8px; right: 8px; }
+
+  /* MODE INSTALL BOX (kept for legacy, hidden) */
+  .mode-install {
+    margin-top: 14px;
+    background: #0a1628;
+    border: 1px solid rgba(124,58,237,0.35);
+    border-radius: 12px;
+    padding: 14px 18px;
+    position: relative;
+  }
+  .mode-install-label {
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #a78bfa; margin-bottom: 8px;
+  }
+  .mode-install pre {
+    color: #c4b5fd;
+    font-family: 'Courier New', monospace;
+    font-size: 0.76rem;
+    white-space: pre-wrap; word-break: break-word; line-height: 1.6;
+    max-height: 220px; overflow-y: auto;
+    padding-right: 60px;
+  }
+  .mode-install .copy-btn { border-color: rgba(167,139,250,0.3); }
+
+  /* MODE SWITCH INSTRUCTIONS */
+  .mode-switch-box {
+    margin-top: 16px;
+    background: #161a24;
+    border: 1px solid #2e3a55;
+    border-radius: 12px;
+    padding: 14px 18px;
+  }
+  .mode-switch-label {
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ca); margin-bottom: 8px;
+  }
+  .mode-switch-box ol {
+    margin: 0; padding-left: 18px;
+    font-size: 0.84rem; color: var(--text); line-height: 1.75;
+  }
+  .mode-switch-box ol li { margin-bottom: 4px; }
+
+  /* ── AUDIT STATS (Track A) ────────────────── */
+  .audit-stats {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin: 16px 0; padding: 14px 16px;
+    background: rgba(0,87,184,0.06);
+    border: 1px solid rgba(0,87,184,0.25);
+    border-radius: 10px;
+  }
+  .stat-item { flex: 1; min-width: 100px; }
+  .stat-num { font-size: 1.6rem; font-weight: 900; color: var(--atl-gold); line-height: 1; }
+  .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .mode-switch-screenshot {
+    margin-top: 12px;
+    border: 1px solid #2e3a55;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 520px;
+  }
+  .mode-switch-screenshot img {
+    display: block; width: 100%; height: auto;
+  }
+  .mode-switch-caption {
+    font-size: 0.75rem; color: var(--muted);
+    background: #1c2236; padding: 6px 10px;
+    text-align: center;
+  }
+
+  /* STARTING PROMPT */
+  .card-starting-prompt {
+    margin-top: 22px;
+    background: #0d1b35;
+    border-radius: 14px;
+    padding: 18px 22px;
+  }
+  .csp-label {
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--uah-gold); margin-bottom: 8px;
+  }
+  .csp-text {
+    color: #b8c8e8; font-style: italic;
+    font-size: 0.85rem; line-height: 1.65;
+  }
+
+  /* BACK LINK */
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    font-size: 0.82rem; padding: 8px 18px;
+    border-radius: 100px; cursor: pointer;
+    min-height: 44px; margin-bottom: 24px;
+    transition:
+      border-color 180ms var(--ease-out),
+      color        180ms var(--ease-out);
+  }
+  .back-btn:hover { border-color: var(--uah-blue); color: var(--uah-blue); }
+
+  /* ── NEW TO BOB BUTTON + MODAL ─────────────── */
+  .new-to-bob-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    border: 1.5px solid rgba(240,171,0,0.45);
+    color: var(--uah-gold);
+    font-size: 0.88rem; font-weight: 600;
+    padding: 12px 28px; border-radius: 100px;
+    cursor: pointer; min-height: 44px;
+    margin-top: 16px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: hero-enter 560ms var(--ease-premium) 320ms forwards;
+    transition:
+      background   180ms var(--ease-out),
+      border-color 180ms var(--ease-out);
+    position: relative; z-index: 2;
+  }
+  .new-to-bob-btn:hover {
+    background: rgba(240,171,0,0.10);
+    border-color: var(--uah-gold);
+  }
+
+  /* Overlay backdrop */
+  .ntb-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .ntb-overlay.active { display: flex; }
+
+  /* Modal panel */
+  .ntb-modal {
+    background: #1c1f26;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    max-width: 520px; width: 100%;
+    padding: 32px 28px 28px;
+    position: relative;
+    animation: modal-pop 350ms var(--ease-spring) both;
+  }
+  @keyframes modal-pop {
+    from { opacity: 0; transform: scale(0.94) translateY(16px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);    }
+  }
+
+  .ntb-close {
+    position: absolute; top: 14px; right: 16px;
+    background: transparent; border: none;
+    color: var(--muted); cursor: pointer;
+    padding: 6px; border-radius: 8px;
+    font-size: 1.2rem; line-height: 1;
+    transition: color 150ms var(--ease-out);
+  }
+  .ntb-close:hover { color: var(--text); }
+
+  .ntb-modal h3 {
+    font-size: 1.15rem; font-weight: 800;
+    color: var(--uah-gold); margin-bottom: 6px;
+  }
+  .ntb-modal .ntb-subtitle {
+    font-size: 0.84rem; color: var(--muted);
+    margin-bottom: 24px; line-height: 1.55;
+  }
+
+  .ntb-section { margin-bottom: 22px; }
+  .ntb-section-label {
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+
+  .ntb-row {
+    display: flex; gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .ntb-icon-wrap {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(15,98,254,0.15);
+    border: 1px solid rgba(15,98,254,0.30);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ntb-icon-wrap svg { width: 18px; height: 18px; display: block; }
+  .ntb-row-text { flex: 1; }
+  .ntb-row-title { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .ntb-row-desc  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+  .ntb-divider {
+    width: 100%; height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  .ntb-screenshot-box {
+    background: #13161e;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 14px;
+  }
+  .ntb-screenshot-box .ntb-ss-caption {
+    font-size: 0.72rem; color: var(--muted);
+    background: #181b24; padding: 6px 12px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .ntb-screenshot-box img {
+    display: block; width: 100%; height: auto;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center; font-size: 0.78rem; color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding: 24px 20px;
+    position: relative; z-index: 1;
+  }
+
+  /* ── REDUCED MOTION ──────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .hero-badge, .hero h1, .hero p, .hero-cta,
+    .section-intro { opacity: 1; transform: none; }
+    .bubble-card { opacity: 1; transform: none; }
+  }
+
+  /* ── RESPONSIVE ──────────────────────────── */
+  @media (max-width: 600px) {
+    .card-summary { flex-wrap: wrap; }
+    .card-meta    { flex-direction: column; gap: 6px; }
+    .hero         { padding: 72px 20px 84px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-orbit"></div>
+  <div class="hero-orbit"></div>
+  <div class="hero-orbit"></div>
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <polygon points="6,0.5 7.5,4.5 12,4.5 8.5,7 9.8,11.5 6,9 2.2,11.5 3.5,7 0,4.5 4.5,4.5" fill="#F0AB00"/>
+    </svg>
+    Atlanta Tech Week · IBM Bob Demo
+  </div>
+  <h1>What Could <span>AI</span> Do<br/>For You?</h1>
+  <p>Four tracks for every background — developers, founders, learners, executives. Pick the path that fits where you are today. Click in, grab a prompt, and build something real in the next 15 minutes.</p>
+  <button class="hero-cta" id="hero-cta-btn">
+    Pick Your Track
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <br/>
+  <button class="new-to-bob-btn" id="new-to-bob-btn" aria-haspopup="dialog">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+    </svg>
+    New to Bob?
+  </button>
+</section>
+
+<!-- ═══ NEW-TO-BOB MODAL ══════════════════════════════════ -->
+<div class="ntb-overlay" id="ntb-overlay" role="dialog" aria-modal="true" aria-labelledby="ntb-title">
+  <div class="ntb-modal">
+    <button class="ntb-close" id="ntb-close" aria-label="Close">&times;</button>
+
+    <h3 id="ntb-title">First: Open a Folder</h3>
+    <p class="ntb-subtitle">Bob needs an open folder to do anything useful — write code, create files, remember context. Without one, it's just a chat window.</p>
+
+    <div class="ntb-section">
+      <div class="ntb-row">
+        <div class="ntb-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--ibm-blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div class="ntb-row-text">
+          <div class="ntb-row-title">Open Folder in the Explorer panel</div>
+          <div class="ntb-row-desc">In the <strong>Explorer</strong> panel (left sidebar), click <strong>Open Folder</strong>. Navigate to your folder and click <em>Select Folder</em>. Bob is ready to go the moment the folder loads.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ntb-divider"></div>
+
+    <div class="ntb-section">
+      <div class="ntb-section-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" style="display:inline-block;vertical-align:-1px;margin-right:5px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Use a dedicated, empty folder
+      </div>
+      <div class="ntb-row-desc" style="font-size:0.82rem;line-height:1.65;color:var(--muted)">
+        Create a <strong style="color:var(--text)">fresh, empty folder</strong> just for your Bob work — something like <code style="font-size:0.78rem;color:#7db3f5">~/bob-workspace</code>. Bob can read every file in the open folder, so keeping it dedicated means it only ever sees what you intentionally put there. <strong style="color:var(--text)">Don't open your home directory, Documents, or any folder with sensitive files.</strong>
+      </div>
+    </div>
+
+    <div class="ntb-screenshot-box">
+      <img src="image.png" alt="VS Code Explorer panel showing the Open Folder button"/>
+      <div class="ntb-ss-caption">VS Code Explorer — click "Open Folder" to get started</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TRACKS ══════════════════════════════════════════ -->
+<section class="scroll-section" id="tracks-section">
+  <div class="section-intro">
+    <h2>Choose Your Track</h2>
+    <p>Each bubble below is a different path into AI with Bob. Scroll down and click to open any track. There are four to choose from.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="tracks-stream">
+
+    <!-- ══════════════════════════════════════════════════════
+         TRACK A — INSTANT ENGINEERING AUDIT SKILL
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="bubble-card track-a" id="card-a">
+      <div class="card-summary">
+        <div class="card-icon" aria-label="Engineering audit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--ca)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-label">Track A</div>
+          <div class="card-title">Instant Engineering Audit — Your Codebase, Right Now</div>
+          <div class="card-desc">Run Bob's <strong>engineering-audit skill</strong> against a real codebase in this room. Watch it walk through 9 structured stages: repo discovery, security audit, remediation, verification, build validation, user journey review — all the way to a release report. See what a skill can do on its own.</div>
+          <div class="card-meta">
+            <span class="card-tag">Software Engineers</span>
+            <span class="card-tag">Engineering Managers</span>
+            <span class="card-tag">CTOs &amp; Founders</span>
+            <span class="card-tag">Your own repo</span>
+            <span class="card-tag">Live demo</span>
+          </div>
+        </div>
+        <div class="card-chevron" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l5 5 5-5"/></svg>
+        </div>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-intro">One IBM Bob skill — <strong>engineering-audit</strong> — runs a complete 9-stage software audit autonomously. The example below shows a real audit run against QisBob (IBM's quantum computing mentor) completed at Atlanta Tech Week. The numbers are real. Bring your own codebase and run it live.</div>
+
+          <!-- Live Audit Stats from the real run -->
+          <div class="audit-stats">
+            <div class="stat-item">
+              <div class="stat-num">9</div>
+              <div class="stat-label">Autonomous Stages</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">13</div>
+              <div class="stat-label">Findings Identified</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">16/16</div>
+              <div class="stat-label">Tests Passing</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">$35</div>
+              <div class="stat-label">Total AI Cost</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">Go</div>
+              <div class="stat-label">Release Verdict</div>
+            </div>
+          </div>
+
+          <div class="use-cases">
+
+            <!-- ── What the skill does ── -->
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">1</div>
+                <div class="uc-title">What the Engineering Audit Skill Does (9 Stages)</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">A single <code>/engineering-audit</code> command kicks off a structured 9-stage workflow that Bob runs autonomously. No templates to fill in. No checklist to follow manually. Bob does the work and reports findings in a structured format you can act on immediately.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">The 9 Audit Stages Bob Runs Autonomously</div>
+                  <pre>Stage 1 — Repository Discovery
+  Maps every layer: frontend, backend, DB, auth, tests, CI/CD, secrets.
+  Produces a full Architecture Map before touching source code.
+
+Stage 2 — Technical Audit
+  Opens source files. Classifies every finding: Critical, High, Medium, Low,
+  False Positive, or Product Decision Required.
+  Every finding includes: location, steps to reproduce, root cause, fix, effort.
+
+Stage 3 — Product Decision Gate
+  Any finding that requires a business decision is escalated here.
+  Bob presents options, tradeoffs, and a recommendation. Waits for your input.
+
+Stage 4 — Remediation
+  Implements the smallest safe fix for every Critical and High finding.
+  Adds regression tests where feasible. Marks each finding [FIXED].
+
+Stage 5 — Independent Verification
+  Acts as a new auditor who has never seen the code.
+  Re-opens every file. Verifies each fix with a source-code excerpt.
+
+Stage 6 — Validation
+  Runs: type check, lint, production build, unit tests, integration tests.
+  Reports each check as [PASS], [FAIL], or [SKIP] with explicit reason.
+
+Stage 7 — First-Time User Journey Audit
+  Traces every user flow as a new user who has never seen the product.
+  Identifies dead ends, false success messages, missing recovery paths.
+
+Stage 8 — Beta Readiness Triage
+  Classifies every open finding: Must Fix / Should Fix / Post-Beta / Known Dependency.
+  Gives a recommended fix sequence.
+
+Stage 9 — Release Report
+  Produces a complete release report.
+  Concludes with: Go / Go With Conditions / No-Go and the reasoning.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ── Real Audit Results ── -->
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">2</div>
+                <div class="uc-title">Real Audit Results — QisBob Codebase (July 2025)</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">This is the actual output from running <code>/engineering-audit</code> against QisBob — IBM's quantum computing mentor app. The audit ran fully autonomously through all 9 stages, identified 13 findings, fixed them all, and delivered a Go release recommendation. Every number below is from the real run.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Actual Audit Summary — QisBob · July 13, 2025</div>
+                  <pre>REPOSITORY: qisbob-main (Python, IBM Quantum, Flask backend)
+
+STAGE 2 FINDINGS — 13 total
+  Critical (1): Missing input sanitization on quantum circuit parameter endpoint
+                → Fixed: added bounds checking + type validation
+  High    (3): Unhandled exception paths in Qiskit v2.0 circuit execution
+               Hardcoded API token in config.py
+               No rate limiting on public quantum job submission endpoint
+               → All 3 fixed in Stage 4
+  Medium  (6): Missing error messages in 4 user-facing flows
+               Progress state not persisted on session timeout
+               Copy button silent failure on Safari
+               → All 6 fixed in Stage 4
+  Low     (3): Naming inconsistencies, unused imports, missing docstrings
+               → Fixed in Stage 4
+
+STAGE 5 — INDEPENDENT VERIFICATION
+  ✅ All 13 findings verified fixed. Source excerpts confirmed.
+
+STAGE 6 — VALIDATION
+  [PASS] pyflakes — 0 errors
+  [PASS] pytest — 16/16 tests passing
+  [PASS] Production build — clean
+  [SKIP] E2E tests — not configured (pre-existing, not caused by audit)
+
+STAGE 7 — USER JOURNEY
+  3 additional Medium findings surfaced:
+    → All 3 fixed before final report
+
+STAGE 9 — RELEASE VERDICT: ✅ GO
+  All Critical and High findings resolved.
+  Validation passes. No Must Fix items remain.
+  Recommended tag: v1.0.0-beta
+
+TOTAL COST: $35.34
+CONTEXT: 201,613 tokens across 9 stages</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ── Run it on your codebase ── -->
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">3</div>
+                <div class="uc-title">Run It On Your Codebase — Right Now</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">Open Bob in the directory of any project you're working on — a side project, a work codebase, a startup MVP. Paste the command below. Bob will run all 9 stages autonomously and return a full release report. The skill handles the structure; you just watch it work.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Activation Command — paste into Bob while in your project directory</div>
+                  <pre>/engineering-audit
+
+Run a full engineering audit on this codebase. Walk through all 9 stages in order.
+Do not skip or compress any stage. Update the todo list as you progress.
+I want a complete release report at the end with a Go / No-Go recommendation.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="prompt-box" style="margin-top:12px;">
+                  <div class="prompt-label">What to bring</div>
+                  <pre>Any codebase you have access to locally. Even a small project works well.
+Bob will open the directory, map the architecture, and run the full 9-stage workflow.
+
+Ideal candidates:
+  • A startup MVP or side project you are preparing to ship
+  • An open-source project you contribute to
+  • A work project you own or co-own
+  • Any web app, API, data pipeline, or CLI tool
+
+The skill works on: Python, JavaScript/TypeScript, Go, Rust, Ruby, Java, and mixed stacks.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ── What a skill IS ── -->
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">4</div>
+                <div class="uc-title">What This Demonstrates: Skills as Autonomous Workflows</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">The engineering-audit skill is one of over 200 skills in Bob's skill library. Skills are structured instruction sets — not just prompts — that encode professional workflows so Bob can execute them step-by-step with discipline. The same pattern that makes engineering-audit work applies to sales, legal, HR, finance, marketing, and every other domain. Any expert workflow can become a skill.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">The Pattern: How Skills Work</div>
+                  <pre>A Bob Skill is a SKILL.md file that encodes:
+  • WHO Bob becomes (role definition)
+  • WHAT triggers it (when to use)
+  • HOW it works (step-by-step workflow with gates and checkpoints)
+  • WHAT it produces (structured output format)
+
+The engineering-audit skill encodes the workflow a senior engineer follows
+before releasing software — into a reusable, consistently-executed workflow.
+
+Other examples of skills in the library:
+  /ibm-pre-001     → Company research + MEDDICC product-fit analysis
+  /ibm-des-006     → ROI calculator builder
+  /demo-guide-architect → Audience-calibrated demo guide from a raw script
+  /agentic-sdlc-lab-guide-builder → Full lab guide from a codebase
+  /pitch-master    → Sales narrative from a brief
+  /contagious-framework → Viral marketing strategy
+
+Any expert workflow you repeat can be a skill.
+A skill runs the same way every time, at the quality of the best practitioner who wrote it.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+              </div></div>
+            </div>
+
+
+            <!-- end use-cases for Track A -->
+            <!--
+            <div class="use-case" id="uc-step2-a-REMOVED" style="display:none">
+              <div class="use-case-header">
+                <div class="uc-num">hidden</div>
+                <div class="uc-title">Step 2 — Build the network map</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">Paste this prompt into Bob. It creates <code>dashboard.html</code> with the Florida map, warehouse and store nodes, connecting lines, and pan/zoom.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Bob Prompt — Step 2</div>
+                  <pre>Create a new file called `dashboard.html` in my workspace. Fully self-contained — all CSS and JS inline, no external files.
+
+This step builds ONLY the map. Do not add a side panel, delivery table, delivery timeline, truck animation, or any other features — those come in later steps.
+
+**Data:** Read `winn-dixie-data.json` and embed the full contents as `const WD = {...}` at the top of the script. All code reads from `WD`. No fetch or network requests.
+
+**Layout:** The entire page must fit within the browser viewport with no vertical scrolling. Use `height: 100vh` on the body, a fixed-height header (~60px), the map filling all remaining space, and a fixed-height footer (~28px). Do not let the map overflow or push content below the fold.
+
+**Header:** Dark navy (#002147), white text. Title "Winn-Dixie Operations Dashboard", subtitle "Supply Chain Overview". Legend: gold hexagon = Warehouse, colored circle = Store (green ≥70%, yellow 40–69%, red &lt;40%).
+
+**SVG map — critical architecture:**
+- Single `&lt;svg id="map-svg" viewBox="0 0 1792 1536" preserveAspectRatio="xMidYMid meet" width="100%" height="100%"&gt;` containing one `&lt;g id="world"&gt;`.
+- viewBox is FIXED at 0 0 1792 1536 and never changes. All x/y from the JSON are already in this space — use directly, no scaling.
+- Background: `&lt;image href="https://vladstol223.github.io/wd.bob/map.jpg" x="0" y="0" width="1792" height="1536"/&gt;` inside `&lt;g id="world"&gt;`. NOT a CSS background-image. (The base64 field in WD.map_background will be empty — ignore it, use this URL directly.)
+- Map container background color #abd3df.
+
+**Pan/zoom** — only ever update `&lt;g id="world"&gt;`'s transform, never the viewBox. Use this code exactly:
+```
+let cam = { x: 0, y: 0, scale: 1 };
+function applyCamera() {
+  world.setAttribute('transform', `translate(${cam.x},${cam.y}) scale(${cam.scale})`);
+}
+
+// Drag to pan
+let drag = null;
+svg.addEventListener('mousedown', e => {
+  drag = { sx: e.clientX, sy: e.clientY, cx: cam.x, cy: cam.y };
+  e.preventDefault();
+});
+window.addEventListener('mousemove', e => {
+  if (!drag) return;
+  cam.x = drag.cx + (e.clientX - drag.sx);
+  cam.y = drag.cy + (e.clientY - drag.sy);
+  applyCamera();
+});
+window.addEventListener('mouseup', () => { drag = null; });
+
+// Zoom toward cursor — use SVG viewport coords, not client coords
+svg.addEventListener('wheel', e => {
+  e.preventDefault();
+  const factor = e.deltaY &lt; 0 ? 1.12 : 0.89;
+  const rect = svg.getBoundingClientRect();
+  // cursor in viewBox space (1792×1536)
+  const mouseVBx = (e.clientX - rect.left) / rect.width  * 1792;
+  const mouseVBy = (e.clientY - rect.top)  / rect.height * 1536;
+  // world point under cursor
+  const worldX = (mouseVBx - cam.x) / cam.scale;
+  const worldY = (mouseVBy - cam.y) / cam.scale;
+  // apply new scale, keep world point fixed under cursor
+  cam.scale = Math.max(0.3, Math.min(10, cam.scale * factor));
+  cam.x = mouseVBx - worldX * cam.scale;
+  cam.y = mouseVBy - worldY * cam.scale;
+  applyCamera();
+}, { passive: false });
+
+document.getElementById('btnReset').addEventListener('click', () => {
+  cam = { x: 0, y: 0, scale: 1 }; applyCamera();
+});
+```
+
+**Nodes** (all inside `&lt;g id="world"&gt;`):
+- Warehouses: gold (#F0AB00) hexagon 28px radius, black label (name + city) below.
+- Stores: circle 14px, colored by avg section stock_pct (green/yellow/red), black city label below.
+- Line from each store to its warehouse (warehouse_id), store color, 35% opacity.
+- Click a node: highlight with a white SVG ring inside `&lt;g id="world"&gt;`.
+
+**Footer:** "Winn-Dixie Bobathon 2026"
+
+After saving, tell me to open `dashboard.html` in my browser.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(124,58,237,0.3)">
+                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#b49dfa;margin-bottom:5px;">After Bob finishes</div>
+                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Open <code style="color:#b8c8e8">dashboard.html</code> — double-click it from your file explorer, or right-click it in Bob's Explorer panel and choose <strong style="color:#e2e6f0">Open in Integrated Browser</strong>. You should see the Florida map with gold warehouse hexagons and colored store circles. Pan by dragging, zoom with scroll. Move on to Step 3 when ready.</div>
+                </div>
+              </div></div>
+            </div>
+
+            <div class="use-case uc-locked" id="uc-step3-a">
+              <div class="use-case-header">
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <div class="uc-title">Step 3 — Add animated delivery trucks</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">Paste this prompt into Bob. It adds 15 animated trucks driving their routes in real time, color-coded by delivery status.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Bob Prompt — Step 3</div>
+                  <pre>Update `dashboard.html` by adding to it — read the existing file first, then write the complete updated file with the new feature added. Do NOT remove `const WD` or any existing code.
+
+Add animated delivery trucks. All truck elements go inside `&lt;g id="world"&gt;` so they pan/zoom with the map.
+
+**Truck shape** (local coords centered at 0,0, no stroke):
+- Cab: rounded rect width 10, height 14, rx 3, centered at (0,−5)
+- Trailer: rect width 8, height 10, centered at (0,7)
+**Truck color and live status** — each truck has a `liveStatus` that changes based on the current phase:
+- `phase < 0.5` (outbound, heading to store): use the delivery's original `status` from `WD.deliveries` (`on_time`→#22c55e, `delayed`→#eab308)
+- `phase >= 0.5` (returning to warehouse): always treat as `delivered` → #6b7280
+
+Update the truck's SVG fill color every tick to match its current `liveStatus`.
+
+One `&lt;g class="truck" data-delivery-id="..."&gt;` per delivery, `cursor:pointer`.
+
+**Animation** — `setInterval` at 33ms, update only `transform` and fill color each tick:
+```
+const CYCLE_MS = 120000;
+function getTruckState(delivery, index) {
+  const phase = ((Date.now() + (index/WD.deliveries.length)*CYCLE_MS) % CYCLE_MS) / CYCLE_MS;
+  const wh = WD.warehouses.find(w => w.id === delivery.from_warehouse_id);
+  const st = WD.stores.find(s => s.id === delivery.to_store_id);
+  let x, y, dx, dy;
+  if (phase &lt; 0.5) {
+    const t = phase/0.5;
+    x = wh.x+(st.x-wh.x)*t; y = wh.y+(st.y-wh.y)*t; dx=st.x-wh.x; dy=st.y-wh.y;
+  } else {
+    const t = (phase-0.5)/0.5;
+    x = st.x+(wh.x-st.x)*t; y = st.y+(wh.y-st.y)*t; dx=wh.x-st.x; dy=wh.y-st.y;
+  }
+  const angleDeg = Math.atan2(dy,dx)*180/Math.PI+90;
+  const liveStatus = phase &lt; 0.5 ? delivery.status : 'delivered';
+  const color = liveStatus === 'delayed' ? '#eab308' : liveStatus === 'delivered' ? '#6b7280' : '#22c55e';
+  return { x, y, angleDeg, direction: phase&lt;0.5?'Outbound':'Returning', liveStatus, color };
+}
+// each tick:
+// truckEl.setAttribute('transform', `translate(${s.x},${s.y}) rotate(${s.angleDeg})`);
+// truckEl.querySelectorAll('rect').forEach(r => r.setAttribute('fill', s.color));
+```
+
+**Click tooltip:** clicking a truck shows a small `position:absolute` box inside the map div with delivery ID, "[warehouse] → [store]", live status badge (using `liveStatus` and its color), items, direction ("Outbound" or "Returning"). Click elsewhere to close. Set `window.selectedDeliveryId` (null when closed). Store `window.getTruckLiveStatus = (deliveryId) => liveStatus` so the delivery section in Step 5 can read the current live status of each truck.
+
+After saving, tell me to refresh `dashboard.html`.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(124,58,237,0.3)">
+                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#b49dfa;margin-bottom:5px;">After Bob finishes</div>
+                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code>. You should now see <strong>15 trucks driving in real time</strong>, color-coded green/yellow/grey. Click any truck to see its delivery details. Move on to Step 4 when ready.</div>
+                </div>
+              </div></div>
+            </div>
+
+            <div class="use-case uc-locked" id="uc-step4-a">
+              <div class="use-case-header">
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <div class="uc-title">Step 4 — Add store &amp; warehouse drill-down</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">Paste this prompt into Bob. It will update <code>dashboard.html</code> so that clicking any node opens a detail panel — a visual floor plan for stores, and a dock &amp; inventory breakdown for warehouses.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Bob Prompt — Step 4</div>
+                  <pre>Update `dashboard.html` by adding to it — read the existing file first, then write the complete updated file with the new feature added. Do NOT remove `const WD`, the truck simulation loop, or any existing code.
+
+Add a click-to-explore detail panel and delivery filtering logic. All data is available at runtime via the `WD` constant.
+
+**Side Panel (slides in from the right on warehouse or store node click):**
+- Takes up 32% of the page width; the map SVG fills the remaining 68%
+- The map SVG uses `viewBox="0 0 1792 1536"` and `preserveAspectRatio="xMidYMid meet"` — do NOT change the viewBox or add any JS width/height scaling. The SVG will rescale automatically when its container resizes.
+- Has a close (×) button top-right; clicking it deselects the node and restores the full-width map
+- Panel heading: node name and city, with a colored status badge (store health color, or gold for warehouse)
+
+**For a Store node, the panel shows (top to bottom):**
+1. **Overall Health** — the average stock_pct across all sections shown as a large number (e.g. "62%") with a color-coded label ("Healthy" / "At-Risk" / "Critical")
+2. **Critical Sections** — immediately below the health number, a red callout box listing any section with stock_pct &lt; 30, each with a ⚠ icon and the section name + percentage. If none, show a small green "All sections OK" line instead.
+3. **Floor Plan** — below the critical sections callout, a floor plan grid that fills the full panel width:
+   - Rendered from the store's `floor_plan` 2D array using a CSS grid
+   - The floor background is white. Cell colors: "S" = shelf (#1e3a5f dark blue), "A" = aisle (white), "E" = entrance (#F0AB00 at 55% opacity), "C" = checkout (#7c3aed at 55% opacity), "O" = open (white)
+   - All cells have a 1px solid #e5e7eb border so the grid lines are visible and every cell connects to its neighbours (no gaps between cells). Use `gap: 0` on the grid container.
+   - Aisle rows must separate shelf rows from the checkout row — shelves must not touch or connect to checkout cells. The floor_plan array already encodes this layout; just render it faithfully.
+   - The grid must stretch to fill 100% of the panel's inner width. To get the panel width, use `Math.round(window.innerWidth * 0.32) - 48` as a reliable fallback (do NOT use `sidePanel.offsetWidth` which returns 0 when the panel is hidden). Calculate tile size as `Math.floor(panelWidth / numCols)` so all tiles are square and the grid is as large as possible.
+   - On each "S" tile that has a matching section (by row/col, 1-indexed): overlay the section name in small white text (font-size ~9px, truncated if needed) and a colored fill bar spanning the full tile width at the bottom (5px tall), colored green/yellow/red by stock_pct. Every "S" tile must render its label — do not skip any shelf cells.
+
+**For a Warehouse node, the panel shows:**
+1. **Dock Utilization** — "Docks Active: X / Y" with a gold filled progress bar
+2. **Inventory Table** — one row per category: name, units on hand / capacity, and a fill bar (green/yellow/red). Flag any category below 30% with ⚠
+
+**Delivery filtering (no visible UI yet — just the logic):**
+- Store a variable `activeFilter = null`
+- When a store node is clicked: set `activeFilter = { type: 'store', id: storeId }`
+- When a warehouse node is clicked: set `activeFilter = { type: 'warehouse', id: warehouseId }`
+- When the panel is closed: set `activeFilter = null`
+- Export a `window.getActiveFilter = () => activeFilter` function so Step 5 can read it
+
+After overwriting the file, tell me to refresh `dashboard.html` in my browser.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(124,58,237,0.3)">
+                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#b49dfa;margin-bottom:5px;">After Bob finishes</div>
+                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code> in your browser. Click any store node to see its floor plan, or any warehouse node to see dock and inventory details. Move on to Step 5 when ready.</div>
+                </div>
+              </div></div>
+            </div>
+
+            <div class="use-case uc-locked" id="uc-step5-a">
+              <div class="use-case-header">
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </div>
+                <div class="uc-title">Step 5 — Add the delivery timeline</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">Paste this final prompt into Bob. It adds a live delivery tracker below the map — a swimlane view of every active and completed delivery, with status badges and timeline bars.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Bob Prompt — Step 5</div>
+                  <pre>Update `dashboard.html` by adding to it — read the existing file first, then write the complete updated file with the new feature added. Do NOT remove `const WD`, the truck simulation loop, or any existing code.
+
+Add a delivery section below the map. All data is available at runtime via the `WD` constant.
+
+**Delivery Section layout — three equal columns side by side:**
+- Section heading: "Deliveries" with three count badges inline: a red badge for delayed count, green for on-time count, grey for delivered count
+- Below the heading, render three equal-width columns with a thin divider between them:
+  - Left column header: "⚠ Delayed" (red accent)
+  - Center column header: "✓ On Time" (green accent)
+  - Right column header: "✔ Delivered" (grey accent)
+- Each delivery's column is determined by its **live status**, not the static `status` field in `WD`. Use `window.getTruckLiveStatus(delivery.id)` if available, falling back to `delivery.status`. Re-render the columns every 500ms so the column assignments update as trucks switch from outbound to returning.
+
+**Each delivery card (inside its column) contains:**
+1. Route label in bold: "[warehouse name] → [store name]" (look up names from the JSON)
+2. A compact horizontal timeline bar (full card width, ~10px tall):
+   - Dark background track
+   - Filled segment showing elapsed time as a proportion of total journey (depart → eta), using July 14 2026 9:00 AM as "now"
+   - Fill color: yellow for delayed, green for on_time, grey for delivered
+3. ETA time on the right of the bar — red text if delayed
+4. Items list below the bar: "Produce × 600, Meat &amp; Deli × 200" in small muted text
+5. Delayed cards only: a small pulsing red "DELAYED" badge in the top-right corner of the card
+
+**Filtering (using the `window.getActiveFilter()` function wired up in Step 4):**
+- On page load and whenever `activeFilter` changes, re-render the delivery columns
+- If `activeFilter` is null: show all deliveries
+- If `activeFilter.type === 'store'`: show only deliveries where `to_store_id` matches, in all three columns
+- If `activeFilter.type === 'warehouse'`: show only deliveries where `from_warehouse_id` matches, in all three columns
+- If a column has no matching deliveries after filtering, show a small muted "No deliveries" placeholder in that column
+- Poll `window.getActiveFilter()` every 300ms to detect filter changes. Store the interval ID in a variable (e.g. `window._deliveryPollId`) and always call `clearInterval(window._deliveryPollId)` before starting a new interval, so only one poll loop ever runs at a time.
+
+After overwriting the file, tell me to refresh `dashboard.html` in my browser to see the completed operations dashboard.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(124,58,237,0.3)">
+                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#b49dfa;margin-bottom:5px;">After Bob finishes</div>
+                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code> one final time. Your full operations dashboard is complete — network map, drill-down panels, and a live delivery tracker. You're ready for the noon briefing.</div>
+                </div>
+              </div></div>
+            </div>
+            -->
+
+          </div>
+
+          <div class="card-starting-prompt">
+            <div class="csp-label">Quickest Entry Point</div>
+            <div class="csp-text">"/engineering-audit — Run a full engineering audit on this codebase. Walk through all 9 stages in order. I want a complete release report with a Go / No-Go recommendation at the end."</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- end Track A -->
+
+    <!-- ══════════════════════════════════════════════════════
+         TRACK B — LEANTIME (COMING SOON)
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="bubble-card track-b" id="card-b">
+      <div class="card-summary">
+        <div class="card-icon" aria-label="LeanTime project management">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--cb)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-label">Track B</div>
+          <div class="card-title">LeanTime — Open-Source Project Management</div>
+          <div class="card-desc">This track uses the <strong>LeanTime</strong> open-source project management platform as its subject. Content is currently being developed — check back soon or explore the repo at <a href="https://github.com/leantime" target="_blank" rel="noopener" style="color:var(--cb)">github.com/leantime</a>.</div>
+          <div class="card-meta">
+            <span class="card-tag">Project Managers</span>
+            <span class="card-tag">Open Source</span>
+            <span class="card-tag">Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-chevron" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l5 5 5-5"/></svg>
+        </div>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-intro">This track is under development. The content will demonstrate Bob working with the LeanTime codebase — an open-source project management tool built with PHP and modern web technologies.</div>
+          <div class="use-cases">
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">1</div>
+                <div class="uc-title">About LeanTime</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">LeanTime is an open-source strategic project management system for non-project managers. It's built in PHP, ships with Docker support, and is actively maintained on GitHub. Track B will demonstrate Bob interacting with its codebase.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Explore the Repo</div>
+                  <pre>GitHub: https://github.com/leantime/leantime
+
+LeanTime is an open-source project management tool designed for teams
+who want structure without complexity. Key features:
+  • Kanban boards, sprints, and timelines
+  • Goal tracking and OKR management
+  • Time tracking and reporting
+  • Docker-first deployment
+
+Tech stack: PHP, MySQL, Docker, JavaScript</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+              </div></div>
+            </div>
+          </div>
+          <div class="card-starting-prompt">
+            <div class="csp-label">Content Coming Soon</div>
+            <div class="csp-text">"This track is being developed. In the meantime, explore the LeanTime GitHub repo at github.com/leantime or try one of the other tracks above."</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- end Track B -->
+
+    <!-- ══════════════════════════════════════════════════════
+         TRACK C — GUIDED LEARNING MODES
+         (QisBob · PyBob · SqlBob · Jenny Language Mentor)
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="bubble-card track-c" id="card-c">
+      <div class="card-summary">
+        <div class="card-icon" aria-label="Books">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--cc)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-label">Track C</div>
+          <div class="card-title">Guided Learning Modes</div>
+          <div class="card-desc">Four structured learning paths with Bob as your tutor. Pick <strong>QisBob</strong> for quantum computing, <strong>PyBob</strong> for Python, <strong>SqlBob</strong> for databases, or <strong>Jenny</strong> to reach professional fluency in a new language — no prior experience needed for any of them.</div>
+          <div class="card-meta">
+            <span class="card-tag">Students &amp; Career Changers</span>
+            <span class="card-tag">No experience needed</span>
+            <span class="card-tag">Interactive lessons</span>
+            <span class="card-tag">Quantified progress</span>
+            <span class="card-tag">8 human languages</span>
+          </div>
+        </div>
+        <div class="card-chevron" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l5 5 5-5"/></svg>
+        </div>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-intro">Each mode below turns Bob into a dedicated tutor. Bob assesses your level, adapts its teaching style to how you learn, tracks your progress across sessions, and never lectures without pausing to check in. Pick the one that matches your goal today.</div>
+          <div class="use-cases">
+
+            <!-- ── QisBob ──────────────────────────────────── -->
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div class="uc-title">QisBob — Quantum Computing with IBM Quantum</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">QisBob is a full Bob mode that acts as a warm, Socratic quantum mentor. It assesses your Python level, picks a learning track (Executive, Developer, or Hardware), and walks you gate-by-gate through Qiskit v2.0+ circuits on real IBM Quantum hardware — quizzing you at every step. No physics PhD required.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Starting Prompt — paste directly into Bob</div>
+                  <pre>Switch to QisBob Quantum Mentor mode.
+
+I want to learn quantum computing. I have [no / some / strong] Python experience and [no / basic / advanced] quantum background. Start my quantum loop — assess where I am and build me a personalized learning path. Start the first lesson when you're ready.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="mode-switch-box">
+                  <div class="mode-switch-label">How to activate QisBob mode</div>
+                  <ol>
+                    <li>Open Bob and click the <strong>modes</strong> button at the bottom-left of the chat input.</li>
+                    <li>Select <strong>QisBob Quantum Mentor</strong> from the list.</li>
+                    <li>Type <em>"Start my quantum loop"</em> and press Enter.</li>
+                  </ol>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ── PyBob ──────────────────────────────────── -->
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <div class="uc-title">PyBob — Python for Real Problems</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">PyBob turns Bob into a Python coach that detects how you learn (videos, games, or hands-on), assesses your experience level, and teaches Python through a real task you actually want to automate or build — line by line, with Socratic checkpoints throughout. Works for marketers, ops managers, and engineers alike.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Starting Prompt — paste directly into Bob</div>
+                  <pre>Switch to PyBob Python Mentor mode.
+
+Start my Python loop. I want to learn Python to [describe what you want to build or automate — e.g., "automate my weekly reporting" / "build a simple web scraper" / "analyze CSV data from my job"]. I currently know [nothing / a little / intermediate Python].</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="mode-switch-box">
+                  <div class="mode-switch-label">How to activate PyBob mode</div>
+                  <ol>
+                    <li>Click the <strong>modes</strong> button at the bottom-left of the Bob chat input.</li>
+                    <li>Select <strong>PyBob Python Mentor</strong>.</li>
+                    <li>Type <em>"Start my Python loop"</em> and press Enter.</li>
+                  </ol>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ── SqlBob ──────────────────────────────────── -->
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                </div>
+                <div class="uc-title">SqlBob — Query Databases from Scratch</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">SqlBob builds a realistic sample dataset in your field, then teaches SQL by having you write real queries against it — SELECT through window functions — with instant feedback. Relevant for analysts, product managers, marketers, and anyone who wants to stop waiting for a data pull and answer their own questions.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Starting Prompt — paste directly into Bob</div>
+                  <pre>Switch to SqlBob Database Mentor mode.
+
+Start my SQL loop. I work in [your field / industry — e.g., "healthcare operations" / "e-commerce marketing" / "financial services"]. I have [never written SQL / written basic SELECT queries / moderate SQL experience]. Assess my level and create a sample database in my field so we can start querying immediately.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="mode-switch-box">
+                  <div class="mode-switch-label">How to activate SqlBob mode</div>
+                  <ol>
+                    <li>Click the <strong>modes</strong> button at the bottom-left of the Bob chat input.</li>
+                    <li>Select <strong>SqlBob Database Mentor</strong>.</li>
+                    <li>Type <em>"Start my SQL loop"</em> and press Enter.</li>
+                  </ol>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ── Jenny Language Mentor ──────────────────── -->
+            <div class="use-case">
+              <div class="use-case-header">
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <div class="uc-title">Jenny — Professional Language Fluency in 8 Languages</div>
+                <div class="uc-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                </div>
+              </div>
+              <div class="uc-body"><div class="uc-body-inner">
+                <p class="uc-desc">Jenny is Bob's language mentor — a culturally intelligent tutor covering Spanish, French, German, Russian, Mandarin, Arabic, Portuguese, and Khmer. She assesses your level, identifies your professional context, and builds a learning path around real conversations you'll actually have — business meetings, travel negotiations, client relationships. Not flashcards. Not drills. Real language for real situations.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Starting Prompt — paste directly into Bob</div>
+                  <pre>Switch to Jenny the Language Mentor mode.
+
+Teach me [Spanish / French / German / Russian / Mandarin / Arabic / Portuguese / Khmer].
+
+My current level: [complete beginner / conversational / professional working proficiency].
+My goal: [business travel to [country] / client meetings in [language] / cultural fluency / career advancement].
+
+Start my first lesson.</pre>
+                  <button class="copy-btn">Copy</button>
+                </div>
+                <div class="mode-switch-box">
+                  <div class="mode-switch-label">How to activate Jenny mode</div>
+                  <ol>
+                    <li>Click the <strong>modes</strong> button at the bottom-left of the Bob chat input.</li>
+                    <li>Select <strong>Jenny the Language Mentor</strong>.</li>
+                    <li>Tell Jenny which language and your goal — she handles the rest.</li>
+                  </ol>
+                </div>
+              </div></div>
+            </div>
+
+          </div><!-- end use-cases -->
+          <div class="card-starting-prompt">
+            <div class="csp-label">Quickest Entry Point</div>
+            <div class="csp-text">"I've never written [Python / SQL / quantum code] before. Start from zero and walk me through my first real challenge step by step — ask me one question at a time."</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- end Track C -->
+
+    <!-- ── TRACK D: Bring Your Own ─────────────────────── -->
+    <div class="bubble-card track-d" id="card-d">
+      <div class="card-summary">
+        <div class="card-icon" aria-label="Lightbulb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--cd)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21h6M12 3a6 6 0 0 1 4.24 10.24C15.5 14 15 15 15 16H9c0-1-.5-2-1.24-2.76A6 6 0 0 1 12 3z"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-label">Track D</div>
+          <div class="card-title">Bring Your Own Problem</div>
+          <div class="card-desc">Have a specific <strong>file, workflow, idea, or problem</strong> in mind that none of the other tracks cover? Bring it. Three quick questions generate a custom Bob prompt matched to your background and your goal.</div>
+          <div class="card-meta">
+            <span class="card-tag">Any background</span>
+            <span class="card-tag">Your own idea</span>
+            <span class="card-tag">Open-ended</span>
+            <span class="card-tag">Goal set together</span>
+          </div>
+        </div>
+        <div class="card-chevron" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l5 5 5-5"/></svg>
+        </div>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-intro">Answer three quick questions and we will generate a custom Bob prompt matched to your role, your biggest blocker, and what you want to walk away with today.</div>
+
+          <div class="quiz-section" id="quiz-d">
+            <div class="quiz-q" id="dq1">
+              <h5>1. Which best describes you today?</h5>
+              <div class="quiz-opts">
+                <div class="quiz-opt" data-q="dq1" data-v="professional"><div class="qdot"></div> Software Engineer / Developer</div>
+                <div class="quiz-opt" data-q="dq1" data-v="professional"><div class="qdot"></div> Product or Project Manager</div>
+                <div class="quiz-opt" data-q="dq1" data-v="professional"><div class="qdot"></div> Data Scientist / AI Specialist</div>
+                <div class="quiz-opt" data-q="dq1" data-v="builder"><div class="qdot"></div> Designer, Developer Advocate, or creative builder</div>
+                <div class="quiz-opt" data-q="dq1" data-v="professional"><div class="qdot"></div> DevOps, Security, QA, or Technical Support</div>
+                <div class="quiz-opt" data-q="dq1" data-v="exec"><div class="qdot"></div> Executive or Strategic Leader</div>
+                <div class="quiz-opt" data-q="dq1" data-v="explorer"><div class="qdot"></div> Student, Recruiter, HR, or just curious</div>
+              </div>
+            </div>
+
+            <div class="quiz-q" id="dq2" style="display:none">
+              <h5>2. What would be most valuable to you right now?</h5>
+              <div class="quiz-opts">
+                <div class="quiz-opt" data-q="dq2" data-v="automate"><div class="qdot"></div> Automate something I do manually and repeatedly</div>
+                <div class="quiz-opt" data-q="dq2" data-v="analyze"><div class="qdot"></div> Analyze data, research, or documents I already have</div>
+                <div class="quiz-opt" data-q="dq2" data-v="create"><div class="qdot"></div> Create something — a proposal, pitch, report, or strategy</div>
+                <div class="quiz-opt" data-q="dq2" data-v="understand"><div class="qdot"></div> Understand what's possible before I commit to anything</div>
+              </div>
+            </div>
+
+            <div class="quiz-q" id="dq3" style="display:none">
+              <h5>3. What do you want to walk out of Atlanta Tech Week with?</h5>
+              <div class="quiz-opts">
+                <div class="quiz-opt" data-q="dq3" data-v="working"><div class="qdot"></div> Something working — code, output, or a draft I can use</div>
+                <div class="quiz-opt" data-q="dq3" data-v="prompt"><div class="qdot"></div> A prompt I can paste into Bob tomorrow and save real time</div>
+                <div class="quiz-opt" data-q="dq3" data-v="understanding"><div class="qdot"></div> A clear mental model of how to use Bob in my daily work</div>
+                <div class="quiz-opt" data-q="dq3" data-v="idea"><div class="qdot"></div> One specific idea for an AI use case I should pursue</div>
+              </div>
+              <button class="quiz-reveal-btn" id="quiz-reveal-btn">Generate My Bob Prompt &#x2192;</button>
+            </div>
+
+            <div class="quiz-result-box" id="quiz-result-box"></div>
+          </div>
+
+          <div class="card-starting-prompt">
+            <div class="csp-label">No Quiz? Start Here</div>
+            <div class="csp-text">"I work in [your role / industry]. The biggest thing I want AI to help me with is [describe your problem]. I want to walk away today with [describe your goal]. What's the best way to use Bob for this?"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end tracks-stream -->
+</section>
+
+<footer>Made with IBM Bob &nbsp;&middot;&nbsp; Atlanta Tech Week 2025 &nbsp;&middot;&nbsp; IBM</footer>
+
+<script>
+(function() {
+
+  // ── STARFIELD ──────────────────────────────────────────
+  var c = document.getElementById('stars-canvas');
+  var ctx = c.getContext('2d');
+  var W, H, stars = [];
+  function resizeStars() {
+    W = c.width  = window.innerWidth;
+    H = c.height = Math.max(document.body.scrollHeight, window.innerHeight);
+  }
+  function initStars() {
+    resizeStars();
+    stars = [];
+    for (var i = 0; i < 180; i++) {
+      stars.push({
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        r:  Math.random() * 1.4 + 0.3,
+        a:  Math.random(),
+        da: (Math.random() - 0.5) * 0.005
+      });
+    }
+  }
+  function drawStars() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      s.a = Math.max(0.08, Math.min(1, s.a + s.da));
+      if (s.a <= 0.08 || s.a >= 1) s.da *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(180,200,255,' + s.a + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(drawStars);
+  }
+  window.addEventListener('resize', initStars);
+  initStars();
+  drawStars();
+
+  // ── SCROLL DEPTH TRACKING ──────────────────────────────
+  var scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener('scroll', function() {
+    var scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+    [25, 50, 75, 100].forEach(function(m) {
+      if (!scrollMilestones[m] && scrolled >= m) {
+        scrollMilestones[m] = true;
+        gtag('event', 'scroll_depth', { depth_percent: m });
+      }
+    });
+  }, { passive: true });
+
+  // ── HERO SCROLL CTA ────────────────────────────────────
+  document.getElementById('hero-cta-btn').addEventListener('click', function() {
+    gtag('event', 'hero_cta_click');
+    document.getElementById('tracks-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // ── NEW TO BOB MODAL ───────────────────────────────────
+  var ntbOverlay = document.getElementById('ntb-overlay');
+  function openNtb() {
+    ntbOverlay.classList.add('active');
+    document.getElementById('ntb-close').focus();
+  }
+  document.getElementById('new-to-bob-btn').addEventListener('click', function() {
+    gtag('event', 'new_to_bob_open');
+    openNtb();
+  });
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('[data-ntb]')) openNtb();
+  });
+  document.getElementById('ntb-close').addEventListener('click', function() {
+    ntbOverlay.classList.remove('active');
+  });
+  ntbOverlay.addEventListener('click', function(e) {
+    if (e.target === ntbOverlay) ntbOverlay.classList.remove('active');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') ntbOverlay.classList.remove('active');
+  });
+
+  // ── BUBBLE POP-IN via IntersectionObserver ─────────────
+  // Stagger 60ms per card, capped at 420ms total
+  var cards = document.querySelectorAll('.bubble-card');
+  if ('IntersectionObserver' in window) {
+    var cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var idx = Array.prototype.indexOf.call(cards, entry.target);
+          var delay = Math.min(idx * 60, 420);
+          setTimeout(function(t) {
+            t.classList.add('bubble-in');
+          }, delay, entry.target);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.10 });
+    cards.forEach(function(card) { cardObserver.observe(card); });
+  } else {
+    cards.forEach(function(card) { card.classList.add('bubble-in'); });
+  }
+
+  // ── TRACK CARD TOGGLE (open/close) ─────────────────────
+  cards.forEach(function(card) {
+    var summary = card.querySelector('.card-summary');
+    summary.addEventListener('click', function() {
+      var isOpen = card.classList.contains('open');
+      cards.forEach(function(c) { c.classList.remove('open'); });
+      if (!isOpen) {
+        card.classList.add('open');
+        gtag('event', 'track_open', { track_id: card.id, track_name: { 'card-a': 'EngineeringAudit', 'card-b': 'LeanTime', 'card-c': 'GuidedLearning', 'card-d': 'BringYourOwn' }[card.id] || card.id });
+        setTimeout(function() {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+        if (card.id === 'card-d') {
+          setTimeout(function() {
+            document.getElementById('dq1').classList.add('qvisible');
+          }, 320);
+        }
+      }
+    });
+  });
+
+  // ── USE CASE ACCORDION ─────────────────────────────────
+  var ucHeaders = document.querySelectorAll('.use-case-header');
+  ucHeaders.forEach(function(header) {
+    header.addEventListener('click', function() {
+      var uc = header.closest('.use-case');
+      var isOpen = uc.classList.contains('uc-open');
+      uc.closest('.use-cases').querySelectorAll('.use-case').forEach(function(s) {
+        s.classList.remove('uc-open');
+      });
+      if (!isOpen) {
+        uc.classList.add('uc-open');
+        gtag('event', 'usecase_open', { usecase_id: uc.id || header.textContent.trim().slice(0, 60) });
+      }
+    });
+  });
+
+  // ── MARKETPLACE LINK BUTTONS ────────────────────────────
+  // Add pulse on load; reveal step 2 when clicked
+  document.querySelectorAll('[data-marketplace-link]').forEach(function(a) {
+    a.classList.add('pulse-cta');
+  });
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('[data-marketplace-link]');
+    if (!link) return;
+    link.classList.remove('pulse-cta');
+    gtag('event', 'marketplace_open', { item: link.href });
+    var stepsBlock = link.closest('.mode-steps');
+    if (stepsBlock) revealStep(stepsBlock, 2);
+  });
+
+  // ── DOWNLOAD BUTTONS ───────────────────────────────────
+  // Add pulse to all download buttons on load
+  document.querySelectorAll('[data-download-file]').forEach(function(b) {
+    b.classList.add('pulse-cta');
+  });
+
+  // Fetch the YAML file and trigger a real browser download,
+  // then reveal step 2 in the same .mode-steps container.
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-download-file]');
+    if (!btn) return;
+    btn.classList.remove('pulse-cta');
+    var filename = btn.getAttribute('data-download-file');
+    btn.disabled = true;
+    fetch(filename)
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.blob();
+      })
+      .then(function(blob) {
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+        gtag('event', 'yaml_download', { filename: filename });
+        // Mark button as done
+        btn.classList.add('downloaded');
+        btn.querySelector('svg').style.display = 'none';
+        // Update the text node inside the button
+        for (var i = btn.childNodes.length - 1; i >= 0; i--) {
+          if (btn.childNodes[i].nodeType === 3 && btn.childNodes[i].textContent.trim()) {
+            btn.childNodes[i].textContent = ' \u2713 Downloaded!';
+            break;
+          }
+        }
+        // Reveal step 2 in this mode-steps block
+        var stepsBlock = btn.closest('.mode-steps');
+        if (stepsBlock) revealStep(stepsBlock, 2);
+      })
+      .catch(function() {
+        // Fallback: plain link download
+        var a = document.createElement('a');
+        a.href = filename;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        btn.disabled = false;
+        var stepsBlock = btn.closest('.mode-steps');
+        if (stepsBlock) revealStep(stepsBlock, 2);
+      });
+  });
+
+  // ── CONFIRM BUTTON ("It's there — continue") ───────────
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-confirm-step]');
+    if (!btn) return;
+    btn.classList.remove('pulse-cta');
+    btn.disabled = true;
+    btn.textContent = '\u2713 Confirmed';
+    btn.style.background = 'var(--ca)';
+    btn.style.color = 'white';
+    var parentStep = btn.closest('.mode-step');
+    var currentNum = parentStep ? parseInt(parentStep.querySelector('.step-num').textContent.trim(), 10) : 2;
+    var parentCard = btn.closest('.bubble-card');
+    var cardId = parentCard ? parentCard.id : 'unknown';
+    gtag('event', 'step_confirm', {
+      track_id:   cardId,
+      track_name: trackNames[cardId] || cardId,
+      step:       currentNum
+    });
+    var stepsBlock = btn.closest('.mode-steps');
+    if (stepsBlock) revealStep(stepsBlock, currentNum + 1);
+  });
+
+  function revealStep(stepsBlock, stepNum) {
+    var steps = stepsBlock.querySelectorAll('.mode-step');
+    steps.forEach(function(s) {
+      var num = parseInt(s.querySelector('.step-num').textContent.trim(), 10);
+      if (num === stepNum && s.classList.contains('step-hidden')) {
+        s.classList.remove('step-hidden');
+        s.classList.add('step-reveal');
+        // pulse the action button in the newly revealed step
+        setTimeout(function() {
+          if (stepNum === 2 || stepNum === 4) {
+            var cb = s.querySelector('.step-confirm-btn');
+            if (cb) cb.classList.add('pulse-cta');
+          } else if (stepNum === 3 || stepNum === 5) {
+            var cp = s.querySelector('.copy-btn');
+            if (cp) cp.classList.add('pulse-cta');
+          }
+          s.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 60);
+      }
+    });
+  }
+
+  // ── COPY COMPLETION TRACKING STATE ────────────────────
+  // Map each track card to the set of copy-btn elements that have been used.
+  // Keys match card IDs. Totals per track:
+  //   card-a: 5 copy btns (uc-step1 through uc-step5)
+  //   card-b: 3 copy btns
+  //   card-c: 6 copy btns (2 per sub-track × 3 sub-tracks)
+  //   card-d: 1 copy btn (quiz result)
+  var copyState = { 'card-a': new Set(), 'card-b': new Set(), 'card-c': new Set(), 'card-d': new Set() };
+  var copyTotals = { 'card-a': 8, 'card-b': 1, 'card-c': 4, 'card-d': 1 };
+  var trackNames = { 'card-a': 'EngineeringAudit', 'card-b': 'LeanTime', 'card-c': 'GuidedLearning', 'card-d': 'BringYourOwn' };
+
+  // ── COPY BUTTONS ───────────────────────────────────────
+  document.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('copy-btn')) return;
+    var btn = e.target;
+    var pre = btn.parentElement.querySelector('pre');
+    if (!pre) return;
+    var text = pre.textContent;
+    function done() {
+      btn.classList.remove('pulse-cta');
+      btn.textContent = '\u2713 Copied!';
+      btn.classList.remove('copied');
+      void btn.offsetWidth; // force reflow so animation retriggers
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+
+      // ── GA4: prompt_copy event ──────────────────────────
+      var parentCard = btn.closest('.bubble-card');
+      var cardId = parentCard ? parentCard.id : 'unknown';
+      var parentUcEl = btn.closest('.use-case');
+      var ucId = parentUcEl ? (parentUcEl.id || 'unknown') : 'unknown';
+      var parentModeStep = btn.closest('.mode-step');
+      var stepLabel = parentModeStep ? ('step-' + (parentModeStep.querySelector('.step-num') ? parentModeStep.querySelector('.step-num').textContent.trim() : '?')) : ucId;
+      gtag('event', 'prompt_copy', {
+        track_id:   cardId,
+        track_name: trackNames[cardId] || cardId,
+        step:       stepLabel
+      });
+
+      // ── GA4: track_complete when all copies done ────────
+      if (copyState[cardId]) {
+        copyState[cardId].add(btn);
+        if (copyState[cardId].size >= copyTotals[cardId]) {
+          gtag('event', 'track_complete', {
+            track_id:   cardId,
+            track_name: trackNames[cardId] || cardId
+          });
+        }
+      }
+
+      // If this copy-btn is inside a step-3 mode-step, reveal step 4
+      var parentStep = btn.closest('.mode-step');
+      if (parentStep) {
+        var stepNum = parseInt(parentStep.querySelector('.step-num').textContent.trim(), 10);
+        if (stepNum === 3) {
+          var stepsBlock = parentStep.closest('.mode-steps');
+          if (stepsBlock) revealStep(stepsBlock, 4);
+        }
+      }
+      // data-unlock-uc attribute: unlock a specific accordion step on copy
+      var unlockTarget = btn.getAttribute('data-unlock-uc');
+      if (unlockTarget) {
+        collapseCurrentUc(btn);
+        unlockUcStep(unlockTarget);
+      }
+      // Track A accordion unlock: copy in uc-step2-a → unlock uc-step3-a, etc.
+      var parentUc = btn.closest('.use-case');
+      if (parentUc) {
+        if (parentUc.id === 'uc-step2-a') { collapseCurrentUc(btn); unlockUcStep('uc-step3-a'); }
+        else if (parentUc.id === 'uc-step3-a') { collapseCurrentUc(btn); unlockUcStep('uc-step4-a'); }
+        else if (parentUc.id === 'uc-step4-a') { collapseCurrentUc(btn); unlockUcStep('uc-step5-a'); }
+      }
+    }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(done).catch(function() {
+        fallbackCopy(text); done();
+      });
+    } else {
+      fallbackCopy(text); done();
+    }
+  });
+  function collapseCurrentUc(btn) {
+    var uc = btn.closest('.use-case');
+    if (uc) uc.classList.remove('uc-open');
+  }
+  function unlockUcStep(id) {
+    var el = document.getElementById(id);
+    if (!el || !el.classList.contains('uc-locked')) return;
+    el.classList.remove('uc-locked');
+    el.classList.add('uc-unlocked');
+    // auto-open the newly unlocked step — no scroll
+    el.classList.add('uc-open');
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+
+  // ── QUIZ (Track D) ─────────────────────────────────────
+  var quizAnswers = {};
+  var prompts = {
+    exec_automate_working:    "I'm a [your title] responsible for [your domain]. The process I want to automate is [describe the manual workflow — inputs, steps, outputs, frequency]. Build a working script or automation that handles this. Walk me through how it works so I can maintain it. Tell me what I need to install.",
+    exec_automate_prompt:     "I'm an executive and I need to automate [describe task]. Give me a Bob prompt I can reuse every week that produces [describe output] from [describe input] in under 2 minutes of my time.",
+    exec_analyze_working:     "I'm a [title] and I have [describe data / documents]. Analyze this for me: [paste content or describe it]. Give me the 5 most important insights, ranked by strategic impact. Flag anything I should act on immediately.",
+    exec_create_working:      "I'm a [title] and I need to produce [describe deliverable — board memo / investor update / strategic narrative]. Here's the context: [describe situation, audience, objective]. Produce a first draft that's ready for my edits, not yours.",
+    exec_understand_idea:     "I'm an executive exploring how to apply AI in [your industry / function]. Don't give me a generic overview. Tell me the 3 highest-ROI AI use cases for someone in my specific role, what the implementation path looks like, and what the biggest risk is for each.",
+    builder_automate_working: "I'm building [describe your product / business]. Here's a manual process in my workflow that I need to automate: [describe it — inputs, steps, outputs]. Build the automation. Use Python unless there's a better reason. Add comments explaining each section.",
+    builder_analyze_working:  "I'm building [describe startup / product]. I need to analyze [describe data / research / market]. Here's what I have: [paste or describe]. Give me structured competitive intelligence: what does this tell me about what to build, what to avoid, and what my unfair advantage should be?",
+    builder_create_working:   "I'm building [describe product]. I need to create [pitch deck narrative / investor email / product spec / PRD]. Here's my current thinking: [describe]. Produce a first draft that's sharp, specific, and assumes a sophisticated audience.",
+    builder_understand_idea:  "I'm building [describe idea] and I want to understand: is this worth pursuing? Pressure-test it. What problem does it solve, who pays for it, what's the business model, what are the top 3 failure modes, and what would make this a 10x better version of itself?",
+    professional_automate_working: "I do [describe manual task] every [frequency]. It involves [describe inputs, steps, outputs]. Build me a Python script or automation that does this for me. Walk me through how it works so I can modify it, and tell me what I need to install to run it.",
+    professional_automate_prompt:  "I need a reusable Bob prompt that [describe what it should do automatically]. I'll paste this prompt in Bob every [frequency] and it should produce [describe output] without me having to think about the structure each time.",
+    professional_analyze_working:  "I have [describe data / reports / documents — e.g., 'a 50-row CSV of sales data', 'a 20-page contract', 'a competitor's pricing page']. Analyze this: [paste or describe]. Give me the 5 most actionable insights specific to my role as [your role].",
+    professional_create_working:   "I need to write [describe document — report / proposal / email sequence / presentation]. My audience is [describe]. The goal is [describe]. Here's my raw thinking: [paste or describe]. Produce a polished first draft.",
+    explorer_understand_idea: "I'm new to AI and I want to understand what Bob can actually do — not in theory, but for someone like me. I work in [your field]. Give me 5 specific, concrete examples of how someone in my role is using AI right now to save time or produce better work. Then pick the easiest one to start with today and show me how."
+  };
+
+  function getPromptKey() {
+    var r = quizAnswers;
+    if (!r.dq1 || !r.dq2 || !r.dq3) return null;
+    var key = r.dq1 + '_' + r.dq2 + '_' + r.dq3;
+    if (prompts[key]) return key;
+    // fallback by first two dimensions
+    for (var k in prompts) {
+      if (k.indexOf(r.dq1 + '_' + r.dq2) === 0) return k;
+    }
+    return 'explorer_understand_idea';
+  }
+
+  document.addEventListener('click', function(e) {
+    var opt = e.target.closest('.quiz-opt');
+    if (!opt) return;
+    var qId = opt.getAttribute('data-q');
+    var val = opt.getAttribute('data-v');
+    if (!qId || !val) return;
+
+    opt.closest('.quiz-opts').querySelectorAll('.quiz-opt').forEach(function(o) {
+      o.classList.remove('selected');
+    });
+    opt.classList.add('selected');
+    quizAnswers[qId] = val;
+    gtag('event', 'quiz_answer', { question: qId, answer: val });
+
+    var nextMap = { dq1: 'dq2', dq2: 'dq3' };
+    var nextId = nextMap[qId];
+    if (nextId) {
+      setTimeout(function() {
+        var nextQ = document.getElementById(nextId);
+        nextQ.style.display = '';
+        setTimeout(function() { nextQ.classList.add('qvisible'); }, 30);
+        nextQ.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+    }
+  });
+
+  var revealBtn = document.getElementById('quiz-reveal-btn');
+  if (revealBtn) {
+    revealBtn.addEventListener('click', function() {
+      if (!quizAnswers.dq1 || !quizAnswers.dq2 || !quizAnswers.dq3) {
+        revealBtn.textContent = 'Answer all 3 questions first';
+        setTimeout(function() { revealBtn.innerHTML = 'Generate My Bob Prompt &#x2192;'; }, 2000);
+        return;
+      }
+      var key = getPromptKey();
+      var promptText = prompts[key] || prompts['explorer_understand_idea'];
+      gtag('event', 'quiz_complete', { type: quizAnswers.dq1, value: quizAnswers.dq2, outcome: quizAnswers.dq3 });
+      var box = document.getElementById('quiz-result-box');
+      box.innerHTML =
+        '<div class="prompt-box" style="margin-top:0">' +
+          '<div class="prompt-label">Your custom Bob prompt — paste this in</div>' +
+          '<pre>' + promptText.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>' +
+          '<button class="copy-btn quiz-copy-btn">Copy</button>' +
+        '</div>';
+      box.style.display = 'block';
+      void box.offsetWidth;
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      box.querySelector('.quiz-copy-btn').addEventListener('click', function() {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(promptText).then(function() {
+            box.querySelector('.quiz-copy-btn').textContent = '\u2713 Copied!';
+            setTimeout(function() { box.querySelector('.quiz-copy-btn').textContent = 'Copy'; }, 2000);
+          });
+        }
+      });
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
