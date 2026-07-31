@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buc-ee's Florida Locations — OpenStreetMap</title>
+
+  <!-- Leaflet CSS (OSM map library) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      background: #ffffff;
+      color: #1f2328;
+      padding: 32px 16px 48px;
+    }
+
+    .container { max-width: 760px; margin: 0 auto; }
+
+    /* ── HEADER ── */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .beaver-icon { width: 52px; height: 52px; }
+
+    .header h1 { font-size: 26px; font-weight: 700; color: #1f2328; letter-spacing: -0.3px; }
+    .header .subtitle { font-size: 13px; color: #57606a; margin-top: 4px; }
+
+    .source-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: #f7f8fa;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 12px;
+      color: #57606a;
+    }
+
+    .count-banner {
+      background: #f7f8fa;
+      border: 1px solid #e5e7eb;
+      border-left: 4px solid #3b82d4;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: #1f2328;
+    }
+
+    .count-banner strong { color: #3b82d4; font-size: 18px; }
+
+    /* ── MAP ── */
+    .map-section {
+      margin-bottom: 32px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .map-title {
+      background: #f7f8fa;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #57606a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .osm-badge {
+      font-size: 11px;
+      color: #3b82d4;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+
+    /* ── Custom Leaflet pin styling ── */
+    .bucees-pin {
+      background: #ea4335;
+      border: 2px solid #c0392b;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    }
+
+    .bucees-pin span {
+      transform: rotate(45deg);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: Arial, sans-serif;
+      line-height: 1;
+    }
+
+    /* Leaflet popup overrides */
+    .leaflet-popup-content-wrapper {
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .leaflet-popup-content {
+      margin: 0;
+      min-width: 220px;
+    }
+
+    .popup-header {
+      background: #ea4335;
+      color: white;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+    }
+
+    .popup-store-num {
+      font-size: 10px;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-bottom: 2px;
+    }
+
+    .popup-body {
+      padding: 10px 14px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #1f2328;
+    }
+
+    .popup-address {
+      color: #5f6368;
+      margin-bottom: 8px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .popup-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .popup-tag {
+      font-size: 11px;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-weight: 600;
+    }
+
+    .popup-tag.carwash { background: #eff6ff; color: #3b82d4; }
+    .popup-tag.def     { background: #f5f3ff; color: #7c5cd8; }
+    .popup-tag.ethanol { background: #f0fdf4; color: #16a34a; }
+
+    .popup-directions {
+      display: block;
+      text-align: center;
+      background: #ea4335;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+    }
+
+    .popup-directions:hover { background: #c0392b; }
+
+    /* ── CARDS ── */
+    .location-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: #fef3c7;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .store-num {
+      background: #d97706;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .card-header h2 { font-size: 17px; font-weight: 700; color: #1f2328; }
+
+    .card-body {
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .info-block h3 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #57606a;
+      margin-bottom: 4px;
+    }
+
+    .info-block p { font-size: 14px; color: #1f2328; }
+
+    .amenity-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+
+    .amenity-tag {
+      background: #f7f8fa;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 12px;
+      color: #1f2328;
+    }
+
+    .amenity-tag.carwash { border-color: #3b82d4; color: #3b82d4; background: #eff6ff; }
+    .amenity-tag.def     { border-color: #7c5cd8; color: #7c5cd8; background: #f5f3ff; }
+    .amenity-tag.ethanol { border-color: #16a34a; color: #16a34a; background: #f0fdf4; }
+
+    .card-footer {
+      padding: 10px 18px;
+      border-top: 1px solid #e5e7eb;
+      background: #f7f8fa;
+    }
+
+    .directions-link {
+      font-size: 13px;
+      color: #3b82d4;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .directions-link:hover { text-decoration: underline; }
+
+    .page-footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      font-size: 12px;
+      color: #57606a;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-area">
+      <svg class="beaver-icon" viewBox="0 0 52 52" fill="none">
+        <circle cx="26" cy="26" r="26" fill="#fef3c7"/>
+        <ellipse cx="26" cy="30" rx="13" ry="11" fill="#d97706"/>
+        <circle cx="21" cy="22" r="3" fill="#1f2328"/><circle cx="31" cy="22" r="3" fill="#1f2328"/>
+        <circle cx="21.8" cy="21.2" r="1" fill="white"/><circle cx="31.8" cy="21.2" r="1" fill="white"/>
+        <rect x="22" y="31" width="3" height="5" rx="1" fill="#fef9c3"/>
+        <rect x="27" y="31" width="3" height="5" rx="1" fill="#fef9c3"/>
+        <ellipse cx="26" cy="27" rx="4" ry="2.5" fill="#b45309"/>
+        <path d="M13 25 Q10 20 14 17" stroke="#d97706" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M39 25 Q42 20 38 17" stroke="#d97706" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <ellipse cx="26" cy="17" rx="8" ry="6" fill="#d97706"/>
+        <ellipse cx="20" cy="13" rx="4" ry="5" fill="#d97706"/>
+        <ellipse cx="32" cy="13" rx="4" ry="5" fill="#d97706"/>
+      </svg>
+      <h1>Buc-ee's Florida Locations</h1>
+    </div>
+    <p class="subtitle">All current locations in the state of Florida</p>
+    <span class="source-badge">Source: buc-ees.com/locations — live data</span>
+  </div>
+
+  <div class="count-banner">
+    <strong>2</strong> &nbsp;Buc-ee's locations currently open in Florida
+  </div>
+
+  <!-- MAP -->
+  <div class="map-section">
+    <div class="map-title">
+      <span>Florida — Live Map</span>
+      <span class="osm-badge">© Stadia Maps · © OpenStreetMap contributors</span>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <!-- LOCATION CARDS -->
+  <div class="location-card">
+    <div class="card-header">
+      <span class="store-num">Store #46</span>
+      <h2>Saint Augustine, FL</h2>
+    </div>
+    <div class="card-body">
+      <div class="info-block">
+        <h3>Address</h3>
+        <p>200 World Commerce Pkwy<br>Saint Augustine, Florida 32092</p>
+      </div>
+      <div class="info-block">
+        <h3>Amenities</h3>
+        <div class="amenity-list">
+          <span class="amenity-tag def">DEF</span>
+          <span class="amenity-tag ethanol">Ethanol-Free: 87 &amp; 90 Oct</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="directions-link"
+         href="https://www.google.com/maps/search/200+World+Commerce+Pkwy+Saint+Augustine+Florida+32092"
+         target="_blank">&#9656; Get Directions on Google Maps</a>
+    </div>
+  </div>
+
+  <div class="location-card">
+    <div class="card-header">
+      <span class="store-num">Store #47</span>
+      <h2>Daytona Beach, FL</h2>
+    </div>
+    <div class="card-body">
+      <div class="info-block">
+        <h3>Address</h3>
+        <p>2330 Gateway North Drive<br>Daytona Beach, Florida 32117</p>
+      </div>
+      <div class="info-block">
+        <h3>Amenities</h3>
+        <div class="amenity-list">
+          <span class="amenity-tag carwash">Car Wash (7AM–10PM)</span>
+          <span class="amenity-tag def">DEF</span>
+          <span class="amenity-tag ethanol">Ethanol-Free: 87 &amp; 90 Oct</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="directions-link"
+         href="https://www.google.com/maps/search/2330+Gateway+North+Drive+Daytona+Beach+Florida+32117"
+         target="_blank">&#9656; Get Directions on Google Maps</a>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    Map tiles © <a href="https://stadiamaps.com/" target="_blank" style="color:#3b82d4;">Stadia Maps</a> &nbsp;·&nbsp;
+    Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" style="color:#3b82d4;">OpenStreetMap</a> contributors &nbsp;|&nbsp;
+    Store data from <a href="https://buc-ees.com/locations/" target="_blank" style="color:#3b82d4;">buc-ees.com</a> &nbsp;|&nbsp;
+    Made with IBM Bob
+  </div>
+
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // ── Initialise map centred on Florida ──
+  const map = L.map('map', {
+    center: [27.8, -81.8],
+    zoom: 7,
+    zoomControl: true,
+    scrollWheelZoom: false   // friendlier in a page context
+  });
+
+  // ── Stadia Maps (OSM-based, no referrer policy) ──
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> ' +
+                 '&copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> ' +
+                 '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // ── Custom teardrop pin icon factory ──
+  function makePinIcon(storeNum) {
+    return L.divIcon({
+      className: '',
+      html: `<div class="bucees-pin"><span>#${storeNum}</span></div>`,
+      iconSize:   [32, 32],
+      iconAnchor: [16, 32],   // tip of the teardrop
+      popupAnchor:[0, -34]
+    });
+  }
+
+  // ── Location data ──
+  const locations = [
+    {
+      storeNum: 46,
+      name: 'Saint Augustine',
+      address: '200 World Commerce Pkwy\nSaint Augustine, FL 32092',
+      lat: 29.9382,
+      lng: -81.5231,
+      amenities: [
+        { label: 'DEF',             cls: 'def'     },
+        { label: 'Ethanol-Free: 87 & 90 Oct', cls: 'ethanol' }
+      ],
+      mapsUrl: 'https://www.google.com/maps/search/200+World+Commerce+Pkwy+Saint+Augustine+Florida+32092'
+    },
+    {
+      storeNum: 47,
+      name: 'Daytona Beach',
+      address: '2330 Gateway North Drive\nDaytona Beach, FL 32117',
+      lat: 29.2108,
+      lng: -81.0927,
+      amenities: [
+        { label: 'Car Wash (7AM–10PM)', cls: 'carwash' },
+        { label: 'DEF',                  cls: 'def'     },
+        { label: 'Ethanol-Free: 87 & 90 Oct', cls: 'ethanol' }
+      ],
+      mapsUrl: 'https://www.google.com/maps/search/2330+Gateway+North+Drive+Daytona+Beach+Florida+32117'
+    }
+  ];
+
+  // ── Place markers ──
+  locations.forEach(loc => {
+    const tagHtml = loc.amenities
+      .map(a => `<span class="popup-tag ${a.cls}">${a.label}</span>`)
+      .join('');
+
+    const addrHtml = loc.address.replace('\n', '<br>');
+
+    const popupHtml = `
+      <div class="popup-header">
+        <div class="popup-store-num">Store #${loc.storeNum}</div>
+        ${loc.name}, FL
+      </div>
+      <div class="popup-body">
+        <div class="popup-address">${addrHtml}</div>
+        <div class="popup-tags">${tagHtml}</div>
+        <a class="popup-directions" href="${loc.mapsUrl}" target="_blank">
+          &#9656; Get Directions
+        </a>
+      </div>
+    `;
+
+    L.marker([loc.lat, loc.lng], { icon: makePinIcon(loc.storeNum) })
+      .addTo(map)
+      .bindPopup(popupHtml, { maxWidth: 260, minWidth: 220 });
+  });
+</script>
+
+</body>
+</html>

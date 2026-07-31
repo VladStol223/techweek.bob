@@ -1,0 +1,240 @@
+{
+  "map_background": {
+    "data_uri_prefix": "data:image/jpeg;base64,",
+    "base64": "",
+    "width": 1792,
+    "height": 1536,
+    "bounds": { "lon_left": -88.59375, "lon_right": -78.75, "lat_top": 32.99023, "lat_bottom": 24.20688 }
+  },
+  "warehouses": [
+    {
+      "id": "WH-01",
+      "name": "Suncoast Distribution Center",
+      "city": "Palmetto",
+      "state": "FL",
+      "x": 1097,
+      "y": 930,
+      "docks_total": 24,
+      "docks_active": 18,
+      "inventory": [
+        { "category": "Produce",      "units_on_hand": 8400,  "capacity": 12000 },
+        { "category": "Dairy",        "units_on_hand": 3100,  "capacity": 8000  },
+        { "category": "Frozen",       "units_on_hand": 6200,  "capacity": 9000  },
+        { "category": "Dry Goods",    "units_on_hand": 14500, "capacity": 18000 },
+        { "category": "Meat & Deli",  "units_on_hand": 2800,  "capacity": 5000  },
+        { "category": "Bakery",       "units_on_hand": 1900,  "capacity": 3000  }
+      ]
+    },
+    {
+      "id": "WH-02",
+      "name": "Gulf Coast Logistics Hub",
+      "city": "Panama City",
+      "state": "FL",
+      "x": 530,
+      "y": 379,
+      "docks_total": 20,
+      "docks_active": 20,
+      "inventory": [
+        { "category": "Produce",      "units_on_hand": 5100,  "capacity": 10000 },
+        { "category": "Dairy",        "units_on_hand": 7200,  "capacity": 8000  },
+        { "category": "Frozen",       "units_on_hand": 3800,  "capacity": 7000  },
+        { "category": "Dry Goods",    "units_on_hand": 16000, "capacity": 16000 },
+        { "category": "Meat & Deli",  "units_on_hand": 4400,  "capacity": 5000  },
+        { "category": "Bakery",       "units_on_hand": 2600,  "capacity": 3500  }
+      ]
+    },
+    {
+      "id": "WH-03",
+      "name": "Atlantic Ridge Fulfillment",
+      "city": "Daytona Beach",
+      "state": "FL",
+      "x": 1370,
+      "y": 586,
+      "docks_total": 18,
+      "docks_active": 11,
+      "inventory": [
+        { "category": "Produce",      "units_on_hand": 2200,  "capacity": 10000 },
+        { "category": "Dairy",        "units_on_hand": 1800,  "capacity": 7000  },
+        { "category": "Frozen",       "units_on_hand": 4100,  "capacity": 7000  },
+        { "category": "Dry Goods",    "units_on_hand": 9800,  "capacity": 15000 },
+        { "category": "Meat & Deli",  "units_on_hand": 1100,  "capacity": 4500  },
+        { "category": "Bakery",       "units_on_hand": 900,   "capacity": 3000  }
+      ]
+    }
+  ],
+  "stores": [
+    {
+      "id": "ST-01", "name": "Bayshore Market", "city": "Clearwater", "state": "FL",
+      "x": 1062, "y": 837, "warehouse_id": "WH-01",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 88 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 22 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 75 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 91 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 60 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 45 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-02", "name": "Lakewood Commons", "city": "Lakeland", "state": "FL",
+      "x": 1209, "y": 823, "warehouse_id": "WH-01",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 55 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 70 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 82 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 95 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 38 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 67 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-03", "name": "Sunset Ridge Market", "city": "Sarasota", "state": "FL",
+      "x": 1104, "y": 967, "warehouse_id": "WH-01",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 19 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 25 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 44 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 78 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 15 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 52 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-04", "name": "Northgate Village", "city": "Pensacola", "state": "FL",
+      "x": 250, "y": 326, "warehouse_id": "WH-02",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 72 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 88 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 61 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 94 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 77 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 83 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-05", "name": "Harbor Walk Grocery", "city": "Fort Walton Beach", "state": "FL",
+      "x": 359, "y": 328, "warehouse_id": "WH-02",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 48 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 91 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 33 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 85 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 29 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 74 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-06", "name": "Magnolia Square Market", "city": "Gainesville", "state": "FL",
+      "x": 1140, "y": 488, "warehouse_id": "WH-02",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 96 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 89 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 77 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 100 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 92 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 81 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-07", "name": "Riverfront Plaza", "city": "Tallahassee", "state": "FL",
+      "x": 785, "y": 322, "warehouse_id": "WH-02",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 41 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 58 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 66 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 73 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 27 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 49 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-08", "name": "Pinewood Crossing", "city": "Ocala", "state": "FL",
+      "x": 1177, "y": 584, "warehouse_id": "WH-02",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 63 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 71 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 55 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 88 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 44 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 36 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-09", "name": "Coastal Palms Store", "city": "Daytona Beach", "state": "FL",
+      "x": 1379, "y": 580, "warehouse_id": "WH-03",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 84 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 76 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 69 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 93 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 57 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 62 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-10", "name": "Palmetto Park Market", "city": "Jacksonville", "state": "FL",
+      "x": 1262, "y": 345, "warehouse_id": "WH-03",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 17 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 31 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 24 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 68 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 12 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 43 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-11", "name": "Blue Ridge Grocery", "city": "Fort Pierce", "state": "FL",
+      "x": 1504, "y": 944, "warehouse_id": "WH-03",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 53 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 47 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 58 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 81 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 39 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 65 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    },
+    {
+      "id": "ST-12", "name": "Tidewater Marketplace", "city": "St. Augustine", "state": "FL",
+      "x": 1326, "y": 438, "warehouse_id": "WH-03",
+      "sections": [
+        { "name": "Produce",     "row": 1, "col": 1, "stock_pct": 78 },
+        { "name": "Dairy",       "row": 1, "col": 2, "stock_pct": 82 },
+        { "name": "Frozen",      "row": 2, "col": 1, "stock_pct": 90 },
+        { "name": "Dry Goods",   "row": 2, "col": 2, "stock_pct": 87 },
+        { "name": "Meat & Deli", "row": 3, "col": 1, "stock_pct": 74 },
+        { "name": "Bakery",      "row": 3, "col": 2, "stock_pct": 79 }
+      ],
+      "floor_plan": [["E","E","E","E","E","E","E","E"],["C","C","A","A","A","A","C","C"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","S","S","A","A","S","S","A"],["A","A","A","A","A","A","A","A"]]
+    }
+  ],
+  "deliveries": [
+    { "id": "DLV-001", "from_warehouse_id": "WH-01", "to_store_id": "ST-01", "departed": "2026-07-14T06:00", "eta": "2026-07-14T10:00", "status": "on_time",   "items": [{ "category": "Dairy",        "qty": 480 }, { "category": "Produce",     "qty": 320 }] },
+    { "id": "DLV-002", "from_warehouse_id": "WH-01", "to_store_id": "ST-03", "departed": "2026-07-14T04:30", "eta": "2026-07-14T09:00", "status": "delayed",   "items": [{ "category": "Produce",     "qty": 600 }, { "category": "Meat & Deli", "qty": 200 }] },
+    { "id": "DLV-003", "from_warehouse_id": "WH-01", "to_store_id": "ST-02", "departed": "2026-07-14T07:00", "eta": "2026-07-14T11:30", "status": "on_time",   "items": [{ "category": "Meat & Deli", "qty": 280 }, { "category": "Bakery",      "qty": 150 }] },
+    { "id": "DLV-004", "from_warehouse_id": "WH-02", "to_store_id": "ST-07", "departed": "2026-07-14T05:00", "eta": "2026-07-14T08:30", "status": "delayed",   "items": [{ "category": "Produce",     "qty": 420 }, { "category": "Meat & Deli", "qty": 180 }] },
+    { "id": "DLV-005", "from_warehouse_id": "WH-02", "to_store_id": "ST-04", "departed": "2026-07-14T06:30", "eta": "2026-07-14T10:30", "status": "on_time",   "items": [{ "category": "Frozen",       "qty": 340 }, { "category": "Dairy",       "qty": 260 }] },
+    { "id": "DLV-006", "from_warehouse_id": "WH-02", "to_store_id": "ST-08", "departed": "2026-07-14T03:00", "eta": "2026-07-14T08:00", "status": "delivered", "items": [{ "category": "Dry Goods",    "qty": 900 }, { "category": "Bakery",      "qty": 200 }] },
+    { "id": "DLV-007", "from_warehouse_id": "WH-02", "to_store_id": "ST-05", "departed": "2026-07-14T05:45", "eta": "2026-07-14T09:15", "status": "delayed",   "items": [{ "category": "Produce",     "qty": 510 }, { "category": "Frozen",      "qty": 290 }] },
+    { "id": "DLV-008", "from_warehouse_id": "WH-03", "to_store_id": "ST-10", "departed": "2026-07-14T04:00", "eta": "2026-07-14T07:30", "status": "delayed",   "items": [{ "category": "Produce",     "qty": 380 }, { "category": "Meat & Deli", "qty": 220 }, { "category": "Dairy", "qty": 310 }] },
+    { "id": "DLV-009", "from_warehouse_id": "WH-03", "to_store_id": "ST-09", "departed": "2026-07-14T06:00", "eta": "2026-07-14T10:45", "status": "on_time",   "items": [{ "category": "Frozen",       "qty": 400 }, { "category": "Dry Goods",   "qty": 550 }] },
+    { "id": "DLV-010", "from_warehouse_id": "WH-03", "to_store_id": "ST-11", "departed": "2026-07-14T05:15", "eta": "2026-07-14T09:00", "status": "on_time",   "items": [{ "category": "Bakery",       "qty": 175 }, { "category": "Dairy",       "qty": 300 }] },
+    { "id": "DLV-011", "from_warehouse_id": "WH-03", "to_store_id": "ST-12", "departed": "2026-07-14T07:30", "eta": "2026-07-14T11:00", "status": "on_time",   "items": [{ "category": "Produce",     "qty": 220 }, { "category": "Meat & Deli", "qty": 160 }] },
+    { "id": "DLV-012", "from_warehouse_id": "WH-01", "to_store_id": "ST-03", "departed": "2026-07-13T18:00", "eta": "2026-07-13T22:00", "status": "delivered", "items": [{ "category": "Dry Goods",    "qty": 740 }] },
+    { "id": "DLV-013", "from_warehouse_id": "WH-02", "to_store_id": "ST-06", "departed": "2026-07-14T06:00", "eta": "2026-07-14T09:30", "status": "on_time",   "items": [{ "category": "Produce",     "qty": 460 }, { "category": "Dairy",       "qty": 390 }] },
+    { "id": "DLV-014", "from_warehouse_id": "WH-01", "to_store_id": "ST-02", "departed": "2026-07-13T20:00", "eta": "2026-07-14T00:30", "status": "delivered", "items": [{ "category": "Frozen",       "qty": 610 }] },
+    { "id": "DLV-015", "from_warehouse_id": "WH-03", "to_store_id": "ST-10", "departed": "2026-07-14T08:00", "eta": "2026-07-14T12:30", "status": "on_time",   "items": [{ "category": "Dry Goods",    "qty": 820 }, { "category": "Bakery",      "qty": 140 }] }
+  ]
+}

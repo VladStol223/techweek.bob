@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Atlanta Tech Week · IBM Bob — Choose Your AI Adventure</title>
+<title>Winn Dixie x IBM Bob -- Choose Your AI Adventure</title>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSNL2N0DW9"></script>
 <script>
@@ -18,9 +18,7 @@
   :root {
     --uah-navy:  #002147;
     --uah-blue:  #0057B8;
-    --atl-blue:  #0057B8;
     --uah-gold:  #F0AB00;
-    --atl-gold:  #F0AB00;
     --ibm-blue:  #0F62FE;
     --bg:        #111318;
     --surface:   #1c1f26;
@@ -71,100 +69,138 @@
   /* ── HERO ──────────────────────────────────── */
   .hero {
     position: relative;
-    z-index: 1;
+    background: linear-gradient(165deg, var(--uah-navy) 0%, #0a2a5e 50%, #0d2f65 80%, #0e1520 100%);
+    color: white;
     text-align: center;
-    padding: 90px 24px 100px;
-    max-width: 720px;
-    margin: 0 auto;
+    padding: 96px 24px 180px;
+    overflow: hidden;
+    z-index: 1;
   }
+
+  /* Fade edge: hero bleeds into dark background */
   .hero::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: min(600px, 90%);
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    bottom: 0; left: 0; right: 0;
+    height: 320px;
+    background: linear-gradient(to bottom, transparent 0%, transparent 40%, var(--bg) 100%);
+    pointer-events: none;
+    z-index: 0;
   }
+
+  /* Ambient: glassmorphism radial glow */
   .hero::before {
     content: '';
     position: absolute;
-    top: 0; left: 50%; transform: translateX(-50%);
-    width: 360px; height: 360px;
-    background: radial-gradient(circle, rgba(0,87,184,0.12), transparent 70%);
+    width: 340px; height: 340px;
+    background: radial-gradient(circle, rgba(15,98,254,0.18) 0%, transparent 70%);
+    top: -60px; right: 10%;
+    border-radius: 50%;
     pointer-events: none;
+    animation: orb-breathe 14s var(--ease-gentle) infinite alternate;
   }
+
+  /* Ambient: orb rings — scale + opacity breathe + spin */
   .hero-orbit {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(0,87,184,0.10);
+    border: 1px solid rgba(240,171,0,0.14);
     pointer-events: none;
-    animation: orb-spin 18s linear infinite;
-    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    animation:
+      orb-breathe var(--orb-dur, 28s) var(--ease-gentle) infinite alternate,
+      orb-spin    var(--orb-rot, 30s) linear             infinite;
   }
-  .hero-orbit:nth-child(1) { width: 260px; height: 260px; animation-duration: 18s; }
-  .hero-orbit:nth-child(2) { width: 400px; height: 400px; animation-duration: 28s; animation-direction: reverse; }
-  .hero-orbit:nth-child(3) { width: 520px; height: 520px; animation-duration: 40s; }
-  @keyframes orb-spin    { to { transform: translate(-50%,-50%) rotate(360deg); } }
-  @keyframes orb-breathe { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .hero-orbit:nth-child(1) {
+    width: 480px; height: 480px; top: -170px; left: -140px;
+    --orb-dur: 28s; --orb-rot: 30s;
+  }
+  .hero-orbit:nth-child(2) {
+    width: 320px; height: 320px; bottom: -100px; right: -80px;
+    --orb-dur: 22s; --orb-rot: 22s;
+    animation-direction: alternate, reverse;
+  }
+  .hero-orbit:nth-child(3) {
+    width: 210px; height: 210px; top: 28px; right: 18%;
+    --orb-dur: 18s; --orb-rot: 16s;
+  }
+  @keyframes orb-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes orb-breathe {
+    from { opacity: 0.5; transform: scale(0.97); }
+    to   { opacity: 1.0; transform: scale(1.03); }
+  }
 
+  /* Primary: hero content — staggered entrance */
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
-    border: 1px solid rgba(240,171,0,0.3);
-    background: rgba(240,171,0,0.06);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 0.78rem; font-weight: 600; color: var(--atl-gold);
-    letter-spacing: 0.04em; text-transform: uppercase;
-    margin-bottom: 24px;
-    animation: hero-enter 0.7s ease both;
+    background: rgba(240,171,0,0.12);
+    border: 1px solid rgba(240,171,0,0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--uah-gold);
+    border-radius: 100px;
+    padding: 7px 22px;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: hero-enter 550ms var(--ease-premium) 0ms forwards;
   }
   .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 900;
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-    margin-bottom: 18px;
-    animation: hero-enter 0.7s 0.1s ease both;
+    font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.13;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: hero-enter 560ms var(--ease-premium) 80ms forwards;
   }
-  .hero h1 span { color: var(--atl-gold); }
+  .hero h1 span { color: var(--uah-gold); }
   .hero p {
-    font-size: 1.05rem; color: var(--muted);
-    max-width: 520px; margin: 0 auto 32px;
-    animation: hero-enter-muted 0.7s 0.2s ease both;
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    max-width: 600px; margin: 0 auto 44px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: hero-enter-muted 560ms var(--ease-premium) 160ms forwards;
   }
   .hero-cta {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--atl-blue);
-    color: #fff;
-    border: none; border-radius: 10px;
-    padding: 13px 28px;
-    font-size: 0.96rem; font-weight: 700;
-    cursor: pointer;
-    animation: hero-enter 0.7s 0.3s ease both;
-    transition: background 0.18s, transform 0.12s;
+    background: var(--uah-gold); color: var(--uah-navy);
+    font-weight: 800; font-size: 1rem;
+    padding: 15px 44px; border-radius: 100px;
+    border: none; cursor: pointer;
+    min-height: 50px; min-width: 44px;
+    display: inline-flex; align-items: center; gap: 8px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation:
+      hero-enter 560ms var(--ease-premium) 240ms forwards,
+      hero-pulse 2.5s  var(--ease-gentle)  2s    infinite;
+    transition:
+      transform  180ms var(--ease-out),
+      box-shadow 180ms var(--ease-out);
+    position: relative; z-index: 2;
   }
-  .hero-cta:hover  { background: #0047a0; }
-  .hero-cta:active { transform: scale(0.97); }
-
-  @keyframes hero-enter      { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform:none; } }
-  @keyframes hero-enter-muted { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform:none; } }
-  @keyframes hero-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(240,171,0,0.4)} 50%{box-shadow:0 0 0 8px rgba(240,171,0,0);} }
-
-  /* ── PERSONA PILL STRIP ──────────────────────── */
-  .persona-strip {
-    position: relative; z-index: 1;
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-    padding: 22px 24px 0;
-    max-width: 820px; margin: 0 auto;
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(240,171,0,0.45);
   }
-  .persona-pill {
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,0.03);
-    border-radius: 20px;
-    padding: 5px 14px;
-    font-size: 0.78rem; color: var(--muted);
-    letter-spacing: 0.03em;
+  .hero-cta:active {
+    transform: scale(0.96);
+    transition: transform 120ms var(--ease-corporate);
+  }
+
+  @keyframes hero-enter {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes hero-enter-muted {
+    from { opacity: 0;    transform: translateY(-20px); }
+    to   { opacity: 0.85; transform: translateY(0); }
+  }
+  @keyframes hero-pulse {
+    0%, 100% { box-shadow: 0 0 0 0    rgba(240,171,0,0.45); }
+    50%       { box-shadow: 0 0 0 14px rgba(240,171,0,0);   }
   }
 
   /* ── SCROLL SECTION ──────────────────────── */
@@ -707,18 +743,6 @@
     font-size: 0.84rem; color: var(--text); line-height: 1.75;
   }
   .mode-switch-box ol li { margin-bottom: 4px; }
-
-  /* ── AUDIT STATS (Track A) ────────────────── */
-  .audit-stats {
-    display: flex; flex-wrap: wrap; gap: 12px;
-    margin: 16px 0; padding: 14px 16px;
-    background: rgba(0,87,184,0.06);
-    border: 1px solid rgba(0,87,184,0.25);
-    border-radius: 10px;
-  }
-  .stat-item { flex: 1; min-width: 100px; }
-  .stat-num { font-size: 1.6rem; font-weight: 900; color: var(--atl-gold); line-height: 1; }
-  .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
   .mode-switch-screenshot {
     margin-top: 12px;
     border: 1px solid #2e3a55;
@@ -924,12 +948,12 @@
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <polygon points="6,0.5 7.5,4.5 12,4.5 8.5,7 9.8,11.5 6,9 2.2,11.5 3.5,7 0,4.5 4.5,4.5" fill="#F0AB00"/>
     </svg>
-    Atlanta Tech Week · IBM Bob Demo
+    Winn Dixie x IBM Bobathon 2026
   </div>
   <h1>What Could <span>AI</span> Do<br/>For You?</h1>
-  <p>Four tracks for every background — developers, founders, learners, executives. Pick the path that fits where you are today. Click in, grab a prompt, and build something real in the next 15 minutes.</p>
+  <p>Four tracks. Pick the one that fits where you are today. Click in, grab a prompt, and build something real.</p>
   <button class="hero-cta" id="hero-cta-btn">
-    Pick Your Track
+    Explore the Tracks
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -994,27 +1018,26 @@
 
   <div class="tracks-stream">
 
-    <!-- ══════════════════════════════════════════════════════
-         TRACK A — INSTANT ENGINEERING AUDIT SKILL
-    ═══════════════════════════════════════════════════════════ -->
+    <!-- ── TRACK A: Build a Delivery Dashboard ──────────── -->
     <div class="bubble-card track-a" id="card-a">
       <div class="card-summary">
-        <div class="card-icon" aria-label="Engineering audit">
+        <div class="card-icon" aria-label="Dashboard">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--ca)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 11l3 3L22 4"/>
-            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
           </svg>
         </div>
         <div class="card-text">
           <div class="card-label">Track A</div>
-          <div class="card-title">Audit Your Codebase Now</div>
-          <div class="card-desc">Run Bob's <strong>engineering-audit skill</strong> against a real codebase in this room. Watch it walk through 9 structured stages: repo discovery, security audit, remediation, verification, build validation, user journey review — all the way to a release report. See what a skill can do on its own.</div>
+          <div class="card-title">Supply Chain Operations Dashboard</div>
+          <div class="card-desc">Step into the role of a regional operations director and use Bob to build a live supply chain dashboard — a draggable network map with <strong>animated delivery trucks</strong>, per-store floor plan views, and a delivery timeline. No coding experience needed.</div>
           <div class="card-meta">
-            <span class="card-tag">Software Engineers</span>
-            <span class="card-tag">Engineering Managers</span>
-            <span class="card-tag">CTOs &amp; Founders</span>
-            <span class="card-tag">Your own repo</span>
-            <span class="card-tag">Live demo</span>
+            <span class="card-tag">No experience needed</span>
+            <span class="card-tag">Animated trucks</span>
+            <span class="card-tag">~30 min</span>
+            <span class="card-tag">Fully guided</span>
           </div>
         </div>
         <div class="card-chevron" aria-hidden="true">
@@ -1023,222 +1046,54 @@
       </div>
       <div class="card-detail">
         <div class="card-detail-inner">
-          <div class="detail-intro">One IBM Bob skill — <strong>engineering-audit</strong> — runs a complete 9-stage software audit autonomously. The example below shows a real audit run against QisBob (IBM's quantum computing mentor) completed at Atlanta Tech Week. The numbers are real. Bring your own codebase and run it live.</div>
-
-          <!-- Live Audit Stats from the real run -->
-          <div class="audit-stats">
-            <div class="stat-item">
-              <div class="stat-num">9</div>
-              <div class="stat-label">Autonomous Stages</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-num">13</div>
-              <div class="stat-label">Findings Identified</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-num">16/16</div>
-              <div class="stat-label">Tests Passing</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-num">$35</div>
-              <div class="stat-label">Total AI Cost</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-num">Go</div>
-              <div class="stat-label">Release Verdict</div>
-            </div>
-          </div>
+          <div class="detail-intro">You're a regional operations director at Winn-Dixie. It's Monday morning and you've just been asked to get ahead of a potential supply chain disruption before the exec briefing at noon. In the next 30 minutes, you'll use Bob to build a fully interactive operations dashboard — a network map with animated delivery trucks driving warehouse-to-store routes in real time, store floor plans you can click into, and a delivery tracker. Just follow the steps below.</div>
 
           <div class="use-cases">
 
-            <!-- ── What the skill does ── -->
             <div class="use-case">
               <div class="use-case-header">
-                <div class="uc-num">1</div>
-                <div class="uc-title">What the Engineering Audit Skill Does (9 Stages)</div>
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <div class="uc-title">Step 1 — Connect to the live data feed</div>
                 <div class="uc-arrow" aria-hidden="true">
                   <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
                 </div>
               </div>
               <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">A single <code>/engineering-audit</code> command kicks off a structured 9-stage workflow that Bob runs autonomously. No templates to fill in. No checklist to follow manually. Bob does the work and reports findings in a structured format you can act on immediately.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">The 9 Audit Stages Bob Runs Autonomously</div>
-                  <pre>Stage 1 — Repository Discovery
-  Maps every layer: frontend, backend, DB, auth, tests, CI/CD, secrets.
-  Produces a full Architecture Map before touching source code.
+                <p class="uc-desc">The supply chain data is in <code>winn-dixie-data.json</code> — 3 warehouses, 12 stores, inventory levels, floor plans, and 15 delivery routes. Copy the prompt below and paste it into Bob to get started.</p>
+                <div class="mode-steps">
 
-Stage 2 — Technical Audit
-  Opens source files. Classifies every finding: Critical, High, Medium, Low,
-  False Positive, or Product Decision Required.
-  Every finding includes: location, steps to reproduce, root cause, fix, effort.
+                  <div class="mode-step">
+                    <div class="step-num">1</div>
+                    <div class="step-body">
+                      <div class="step-title">Download the data file into your workspace</div>
+                      <div class="step-desc">Copy this prompt and paste it into Bob. It downloads the supply chain data and strips the large map image out of it so the next step runs quickly.</div>
+                      <div class="step-prompt">
+                        <pre>Please do the following two things in my workspace, in order:
 
-Stage 3 — Product Decision Gate
-  Any finding that requires a business decision is escalated here.
-  Bob presents options, tradeoffs, and a recommendation. Waits for your input.
+1. Download the file at https://vladstol223.github.io/wd.bob/winn-dixie-data.json and save it as `winn-dixie-data.json` in the workspace folder.
+2. Once that's done, open the file, set the `map_background.base64` field to an empty string, and save it again. Leave every other field untouched.
 
-Stage 4 — Remediation
-  Implements the smallest safe fix for every Critical and High finding.
-  Adds regression tests where feasible. Marks each finding [FIXED].
+Once both steps are complete, confirm the file is saved and tell me you are ready for the next prompt.</pre>
+                        <button class="copy-btn" data-unlock-uc="uc-step2-a">Copy</button>
+                      </div>
+                      <button class="step-no-folder" data-ntb="true">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                        No folder open?
+                      </button>
+                    </div>
+                  </div>
 
-Stage 5 — Independent Verification
-  Acts as a new auditor who has never seen the code.
-  Re-opens every file. Verifies each fix with a source-code excerpt.
-
-Stage 6 — Validation
-  Runs: type check, lint, production build, unit tests, integration tests.
-  Reports each check as [PASS], [FAIL], or [SKIP] with explicit reason.
-
-Stage 7 — First-Time User Journey Audit
-  Traces every user flow as a new user who has never seen the product.
-  Identifies dead ends, false success messages, missing recovery paths.
-
-Stage 8 — Beta Readiness Triage
-  Classifies every open finding: Must Fix / Should Fix / Post-Beta / Known Dependency.
-  Gives a recommended fix sequence.
-
-Stage 9 — Release Report
-  Produces a complete release report.
-  Concludes with: Go / Go With Conditions / No-Go and the reasoning.</pre>
-                  <button class="copy-btn">Copy</button>
                 </div>
               </div></div>
             </div>
 
-            <!-- ── Real Audit Results ── -->
-            <div class="use-case">
+            <div class="use-case uc-locked" id="uc-step2-a">
               <div class="use-case-header">
-                <div class="uc-num">2</div>
-                <div class="uc-title">Real Audit Results — QisBob Codebase (July 2025)</div>
-                <div class="uc-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
+                <div class="uc-num">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                 </div>
-              </div>
-              <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">This is the actual output from running <code>/engineering-audit</code> against QisBob — IBM's quantum computing mentor app. The audit ran fully autonomously through all 9 stages, identified 13 findings, fixed them all, and delivered a Go release recommendation. Every number below is from the real run.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">Actual Audit Summary — QisBob · July 13, 2025</div>
-                  <pre>REPOSITORY: qisbob-main (Python, IBM Quantum, Flask backend)
-
-STAGE 2 FINDINGS — 13 total
-  Critical (1): Missing input sanitization on quantum circuit parameter endpoint
-                → Fixed: added bounds checking + type validation
-  High    (3): Unhandled exception paths in Qiskit v2.0 circuit execution
-               Hardcoded API token in config.py
-               No rate limiting on public quantum job submission endpoint
-               → All 3 fixed in Stage 4
-  Medium  (6): Missing error messages in 4 user-facing flows
-               Progress state not persisted on session timeout
-               Copy button silent failure on Safari
-               → All 6 fixed in Stage 4
-  Low     (3): Naming inconsistencies, unused imports, missing docstrings
-               → Fixed in Stage 4
-
-STAGE 5 — INDEPENDENT VERIFICATION
-  ✅ All 13 findings verified fixed. Source excerpts confirmed.
-
-STAGE 6 — VALIDATION
-  [PASS] pyflakes — 0 errors
-  [PASS] pytest — 16/16 tests passing
-  [PASS] Production build — clean
-  [SKIP] E2E tests — not configured (pre-existing, not caused by audit)
-
-STAGE 7 — USER JOURNEY
-  3 additional Medium findings surfaced:
-    → All 3 fixed before final report
-
-STAGE 9 — RELEASE VERDICT: ✅ GO
-  All Critical and High findings resolved.
-  Validation passes. No Must Fix items remain.
-  Recommended tag: v1.0.0-beta
-
-TOTAL COST: $35.34
-CONTEXT: 201,613 tokens across 9 stages</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-              </div></div>
-            </div>
-
-            <!-- ── Run it on your codebase ── -->
-            <div class="use-case">
-              <div class="use-case-header">
-                <div class="uc-num">3</div>
-                <div class="uc-title">Run It On Your Codebase — Right Now</div>
-                <div class="uc-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
-                </div>
-              </div>
-              <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">Open Bob in the directory of any project you're working on — a side project, a work codebase, a startup MVP. Paste the command below. Bob will run all 9 stages autonomously and return a full release report. The skill handles the structure; you just watch it work.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">Activation Command — paste into Bob while in your project directory</div>
-                  <pre>/engineering-audit
-
-Run a full engineering audit on this codebase. Walk through all 9 stages in order.
-Do not skip or compress any stage. Update the todo list as you progress.
-I want a complete release report at the end with a Go / No-Go recommendation.</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-                <div class="prompt-box" style="margin-top:12px;">
-                  <div class="prompt-label">What to bring</div>
-                  <pre>Any codebase you have access to locally. Even a small project works well.
-Bob will open the directory, map the architecture, and run the full 9-stage workflow.
-
-Ideal candidates:
-  • A startup MVP or side project you are preparing to ship
-  • An open-source project you contribute to
-  • A work project you own or co-own
-  • Any web app, API, data pipeline, or CLI tool
-
-The skill works on: Python, JavaScript/TypeScript, Go, Rust, Ruby, Java, and mixed stacks.</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-              </div></div>
-            </div>
-
-            <!-- ── What a skill IS ── -->
-            <div class="use-case">
-              <div class="use-case-header">
-                <div class="uc-num">4</div>
-                <div class="uc-title">What This Demonstrates: Skills as Autonomous Workflows</div>
-                <div class="uc-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
-                </div>
-              </div>
-              <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">The engineering-audit skill is one of over 200 skills in Bob's skill library. Skills are structured instruction sets — not just prompts — that encode professional workflows so Bob can execute them step-by-step with discipline. The same pattern that makes engineering-audit work applies to sales, legal, HR, finance, marketing, and every other domain. Any expert workflow can become a skill.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">The Pattern: How Skills Work</div>
-                  <pre>A Bob Skill is a SKILL.md file that encodes:
-  • WHO Bob becomes (role definition)
-  • WHAT triggers it (when to use)
-  • HOW it works (step-by-step workflow with gates and checkpoints)
-  • WHAT it produces (structured output format)
-
-The engineering-audit skill encodes the workflow a senior engineer follows
-before releasing software — into a reusable, consistently-executed workflow.
-
-Other examples of skills in the library:
-  /ibm-pre-001     → Company research + MEDDICC product-fit analysis
-  /ibm-des-006     → ROI calculator builder
-  /demo-guide-architect → Audience-calibrated demo guide from a raw script
-  /agentic-sdlc-lab-guide-builder → Full lab guide from a codebase
-  /pitch-master    → Sales narrative from a brief
-  /contagious-framework → Viral marketing strategy
-
-Any expert workflow you repeat can be a skill.
-A skill runs the same way every time, at the quality of the best practitioner who wrote it.</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-              </div></div>
-            </div>
-
-
-            <!-- end use-cases for Track A -->
-            <!--
-            <div class="use-case" id="uc-step2-a-REMOVED" style="display:none">
-              <div class="use-case-header">
-                <div class="uc-num">hidden</div>
                 <div class="uc-title">Step 2 — Build the network map</div>
                 <div class="uc-arrow" aria-hidden="true">
                   <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
@@ -1501,39 +1356,35 @@ After overwriting the file, tell me to refresh `dashboard.html` in my browser to
                 </div>
               </div></div>
             </div>
-            -->
 
           </div>
 
           <div class="card-starting-prompt">
-            <div class="csp-label">Quickest Entry Point</div>
-            <div class="csp-text">"/engineering-audit — Run a full engineering audit on this codebase. Walk through all 9 stages in order. I want a complete release report with a Go / No-Go recommendation at the end."</div>
+            <div class="csp-label">Starting Prompt from the Bobathon Deck</div>
+            <div class="csp-text">"I have a live data feed with warehouse, store, and delivery data. Help me build a visual operations dashboard — a network map with animated delivery trucks, store floor plans I can click into, and a delivery tracker."</div>
           </div>
         </div>
       </div>
-    </div><!-- end Track A -->
+    </div>
 
-    <!-- ══════════════════════════════════════════════════════
-         TRACK B — SUPPLY CHAIN OPERATIONS DASHBOARD
-    ═══════════════════════════════════════════════════════════ -->
+    <!-- ── TRACK B: Debug with Bob ─────────────────────── -->
     <div class="bubble-card track-b" id="card-b">
       <div class="card-summary">
-        <div class="card-icon" aria-label="Dashboard">
+        <div class="card-icon" aria-label="Error log">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--cb)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="7" rx="1"/>
-            <rect x="14" y="3" width="7" height="7" rx="1"/>
-            <rect x="3" y="14" width="7" height="7" rx="1"/>
-            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
         </div>
         <div class="card-text">
           <div class="card-label">Track B</div>
-          <div class="card-title">Supply Chain Operations Dashboard</div>
-          <div class="card-desc">Step into the role of a regional operations director and use Bob to build a live supply chain dashboard — an interactive map with <strong>animated delivery trucks</strong>, per-store floor plan views, and a delivery timeline. No coding experience needed.</div>
+          <div class="card-title">Diagnose &amp; Document Operational Issues with Bob</div>
+          <div class="card-desc">Something broke and the error message means nothing to you. Paste it into Bob and he'll explain what went wrong in plain English, help you figure out if it's a people problem, a system problem, or a process problem — then turn the whole thing into a runbook your team can actually use.</div>
           <div class="card-meta">
             <span class="card-tag">No experience needed</span>
-            <span class="card-tag">Animated trucks</span>
-            <span class="card-tag">~30 min</span>
+            <span class="card-tag">Real error scenarios</span>
+            <span class="card-tag">~20 min</span>
             <span class="card-tag">Fully guided</span>
           </div>
         </div>
@@ -1543,38 +1394,50 @@ After overwriting the file, tell me to refresh `dashboard.html` in my browser to
       </div>
       <div class="card-detail">
         <div class="card-detail-inner">
-          <div class="detail-intro">You're a regional operations director. It's Monday morning and you've just been asked to get ahead of a potential supply chain disruption before the exec briefing at noon. In the next 30 minutes, you'll use Bob to build a fully interactive operations dashboard — a live map with animated delivery trucks, store floor plans you can click into, and a delivery tracker. Just follow the steps below.</div>
+          <div class="detail-intro">It's 9 AM and two things are already broken. The overnight inventory sync failed for one of your stores, and the morning sales report is showing numbers that don't add up. You don't need to know how any of this works under the hood — Bob will read the logs, explain what happened in plain English, tell you who to call, and write up a runbook so your team handles it the same way every time.</div>
 
           <div class="use-cases">
 
             <div class="use-case">
               <div class="use-case-header">
                 <div class="uc-num">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 </div>
-                <div class="uc-title">Step 1 — Connect to the live data feed</div>
+                <div class="uc-title">Step 1 — The overnight inventory sync failed</div>
                 <div class="uc-arrow" aria-hidden="true">
                   <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
                 </div>
               </div>
               <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">The supply chain data is in <code>winn-dixie-data.json</code> — 3 warehouses, 12 stores, inventory levels, floor plans, and 15 delivery routes. Copy the prompt below and paste it into Bob to get started.</p>
-                <div class="mode-steps">
-                  <div class="mode-step">
-                    <div class="step-num">1</div>
-                    <div class="step-body">
-                      <div class="step-title">Download the data file into your workspace</div>
-                      <div class="step-desc">Copy this prompt and paste it into Bob. It downloads the supply chain data file directly into your workspace.</div>
-                      <div class="step-prompt">
-                        <pre>Please download the file at https://vladstol223.github.io/techweek.bob/winn-dixie-data.json and save it as `winn-dixie-data.json` in my workspace folder. Once saved, confirm the file is there and tell me you are ready for the next prompt.</pre>
-                        <button class="copy-btn" data-unlock-uc="uc-step2-b">Copy</button>
-                      </div>
-                      <button class="step-no-folder" data-ntb="true">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-                        No folder open?
-                      </button>
-                    </div>
-                  </div>
+                <p class="uc-desc">Your monitoring system flagged a failure on the overnight inventory sync for store ST-03. You've pulled the log — it's full of technical jargon. Paste the prompt below into Bob and he'll translate it into plain English and tell you exactly who needs to take action.</p>
+                <div class="prompt-box">
+                  <div class="prompt-label">Bob Prompt — Step 1</div>
+                  <pre>I have an error log from our inventory sync service and I have no idea what it means. Can you read through it, explain in plain English what went wrong, why it happened, and what I should do to fix it?
+
+Here is the log:
+
+[2026-07-14 08:43:11] INFO  Inventory sync job started (store=ST-03, warehouse=WH-01)
+[2026-07-14 08:43:11] INFO  Connecting to database at db-primary.wdx.internal:5432
+[2026-07-14 08:43:14] ERROR ConnectionError: connect ETIMEDOUT db-primary.wdx.internal:5432
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1157:16)
+    at Object.exports.connect (node:net:282:5)
+[2026-07-14 08:43:14] WARN  Retrying connection (attempt 1 of 3, backoff=2s)
+[2026-07-14 08:43:16] ERROR ConnectionError: connect ETIMEDOUT db-primary.wdx.internal:5432
+[2026-07-14 08:43:16] WARN  Retrying connection (attempt 2 of 3, backoff=4s)
+[2026-07-14 08:43:20] ERROR ConnectionError: connect ETIMEDOUT db-primary.wdx.internal:5432
+[2026-07-14 08:43:20] ERROR Max retries reached. Failing job.
+[2026-07-14 08:43:20] ERROR UnhandledPromiseRejectionWarning: SyncJobError: Database unavailable after 3 attempts
+    at SyncJob.run (/app/jobs/inventorySync.js:87:11)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-07-14 08:43:20] INFO  Sync job failed — store ST-03 inventory NOT updated
+[2026-07-14 08:43:20] INFO  Next retry scheduled at 09:13:11
+
+After you explain it, tell me: is this a code bug I need to fix, or something outside the code that an infrastructure or network team should look at?</pre>
+                  <button class="copy-btn" data-unlock-uc="uc-step2-b">Copy</button>
+                </div>
+                <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
+                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">What to expect</div>
+                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Bob will explain that the database server couldn't be reached (a network/infrastructure issue, not a code bug), walk through the retry sequence, and tell you to loop in the infrastructure team. Once he's done, move on to Step 2.</div>
                 </div>
               </div></div>
             </div>
@@ -1582,84 +1445,36 @@ After overwriting the file, tell me to refresh `dashboard.html` in my browser to
             <div class="use-case uc-locked" id="uc-step2-b">
               <div class="use-case-header">
                 <div class="uc-num">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
                 </div>
-                <div class="uc-title">Step 2 — Build the network map</div>
+                <div class="uc-title">Step 2 — The morning sales report doesn't add up</div>
                 <div class="uc-arrow" aria-hidden="true">
                   <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
                 </div>
               </div>
               <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">Paste this prompt into Bob. It creates <code>dashboard.html</code> — a live interactive map using OpenStreetMap tiles with warehouse and store nodes, connecting lines, and pan/zoom.</p>
+                <p class="uc-desc">Your store manager at ST-03 (Sunset Ridge) just texted you — the Monday morning sales report shows a $4,200 discrepancy between the POS system and the inventory ledger. You pull the system event log. Paste the prompt below into Bob and he'll figure out the connection between the two problems.</p>
                 <div class="prompt-box">
                   <div class="prompt-label">Bob Prompt — Step 2</div>
-                  <pre>Create a new file called `dashboard.html` in my workspace. Fully self-contained — all CSS inline, no external files except the Leaflet library loaded from CDN.
+                  <pre>Still in the same conversation from Step 1. Now I have a second problem. My store manager at Sunset Ridge (ST-03) is reporting that the Monday morning sales report shows a $4,200 discrepancy — the POS system recorded $87,450 in sales, but the inventory ledger only accounts for $83,250 worth of stock movement. Here is the system event log from Sunday night through Monday morning:
 
-This step builds ONLY the map. Do not add a side panel, delivery table, delivery timeline, or truck animation — those come in later steps.
+[2026-07-13 22:00:14] INFO  End-of-day inventory snapshot complete (store=ST-03)
+[2026-07-13 22:00:15] INFO  Snapshot saved to ledger. Total on-hand value: $142,800
+[2026-07-14 06:00:02] INFO  Beginning-of-day inventory sync (store=ST-03, warehouse=WH-01)
+[2026-07-14 06:00:03] INFO  Sync job completed. 3 new deliveries recorded, ledger updated.
+[2026-07-14 08:43:11] INFO  Scheduled mid-morning sync started (store=ST-03, warehouse=WH-01)
+[2026-07-14 08:43:20] ERROR Sync job failed — database unavailable (see earlier error)
+[2026-07-14 08:43:20] INFO  Ledger NOT updated. Last successful sync: 06:00:03
+[2026-07-14 09:01:17] INFO  POS daily sales report generated. Total sales: $87,450
+[2026-07-14 09:01:17] WARN  Ledger-POS reconciliation check: MISMATCH ($4,200 delta)
+[2026-07-14 09:01:17] WARN  Reconciliation check skipped — proceeding with stale ledger data
 
-**Data:** Read `winn-dixie-data.json` and embed the full contents as `const WD = {...}` at the top of the script. All code reads from `WD`. No fetch or network requests for data.
-
-**Libraries:** Load Leaflet 1.9.4 in the &lt;head&gt;:
-  &lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/&gt;
-Load the Leaflet JS at the bottom of &lt;body&gt; (after the map div), then your init script after it:
-  &lt;script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"&gt;&lt;/script&gt;
-Do NOT add integrity or crossorigin attributes — they cause errors on file:// pages.
-
-**Layout:** The entire page must fit within the browser viewport with no vertical scrolling. Use `height: 100vh` on the body, a fixed-height header (~60px), the map div filling all remaining space via flex, and a fixed-height footer (~28px).
-
-**Header:** Dark navy (#002147), white text. Title "Winn-Dixie Operations Dashboard", subtitle "Supply Chain Overview". Legend: gold hexagon = Warehouse, colored circle = Store (green ≥70%, yellow 40–69%, red &lt;40%).
-
-**Map initialisation:**
-```js
-const map = L.map('map', {
-  center: [27.8, -81.8],
-  zoom: 7,
-  zoomControl: true,
-  scrollWheelZoom: true
-});
-
-L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
-  maxZoom: 20,
-  attribution: '© Stadia Maps © OpenStreetMap contributors'
-}).addTo(map);
-```
-
-**Coordinate conversion:** The JSON stores warehouse and store positions as pixel x/y in a 1792×1536 coordinate space mapping to these geographic bounds:
-  lon_left: -88.59375, lon_right: -78.75
-  lat_top:  32.99023,  lat_bottom: 24.20688
-
-Convert each x/y to lat/lng using:
-```js
-function xyToLatLng(x, y) {
-  const lng = -88.59375 + (x / 1792) * (-78.75 - -88.59375);
-  const lat =  32.99023 - (y / 1536) * ( 32.99023 - 24.20688);
-  return [lat, lng];
-}
-```
-
-**Warehouse markers:** Use L.divIcon with a gold hexagon shape (CSS clip-path or SVG inline), label = warehouse name + city. iconAnchor centred on the hexagon.
-
-**Store markers:** Use L.divIcon with a colored circle (green ≥70%, yellow 40–69%, red &lt;40% — based on average section stock_pct), label = city name below. iconAnchor centred.
-
-**Connecting lines:** Draw a L.polyline from each store to its warehouse (warehouse_id), colored to match the store circle color, opacity 0.4.
-
-**Click popup:** Clicking a warehouse or store marker opens a Leaflet popup showing the node name, city, and health status (stores) or dock utilisation (warehouses). Keep popups simple for now — drill-down panels come in Step 4.
-
-**Store window globals needed by later steps:**
-```js
-window.WD = WD;                        // expose data globally
-window.xyToLatLng = xyToLatLng;        // expose converter
-window.leafletMap = map;               // expose map instance
-```
-
-**Footer:** "Winn-Dixie Operations Dashboard · © OpenStreetMap contributors"
-
-After saving, tell me to open `dashboard.html` in my browser.</pre>
-                  <button class="copy-btn">Copy</button>
+Given what you already know from the first error, explain: why does this mismatch exist, is the $4,200 figure reliable or approximate, and what is the correct sequence of steps to resolve it before end of business today?</pre>
+                  <button class="copy-btn" data-unlock-uc="uc-step3-b">Copy</button>
                 </div>
                 <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
-                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">After Bob finishes</div>
-                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Open <code style="color:#b8c8e8">dashboard.html</code> in your browser. You should see a live OpenStreetMap of Florida with gold warehouse hexagons and coloured store circles. Pan by dragging, zoom with scroll. Move on to Step 3 when ready.</div>
+                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">What to expect</div>
+                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Bob will connect the dots — the failed sync from Step 1 left the ledger stale, so when the POS report ran it compared against outdated stock data. He'll give you a prioritized resolution checklist. Once he's done, move on to Step 3.</div>
                 </div>
               </div></div>
             </div>
@@ -1667,156 +1482,34 @@ After saving, tell me to open `dashboard.html` in my browser.</pre>
             <div class="use-case uc-locked" id="uc-step3-b">
               <div class="use-case-header">
                 <div class="uc-num">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                 </div>
-                <div class="uc-title">Step 3 — Add animated delivery trucks</div>
+                <div class="uc-title">Step 3 — Turn it into a runbook</div>
                 <div class="uc-arrow" aria-hidden="true">
                   <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
                 </div>
               </div>
               <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">Paste this prompt into Bob. It adds 15 animated trucks driving their routes in real time on the live map, color-coded by delivery status.</p>
+                <p class="uc-desc">Bob just diagnosed two connected problems in plain English. Now turn that diagnosis into a permanent runbook — a step-by-step document your store managers and ops team can follow the next time this happens, without needing to call anyone technical.</p>
                 <div class="prompt-box">
                   <div class="prompt-label">Bob Prompt — Step 3</div>
-                  <pre>Update `dashboard.html` — read the existing file first, then write the complete updated file with the new feature added. Do NOT remove `const WD`, the Leaflet map, or any existing code.
+                  <pre>Based on everything we just worked through, write a runbook in plain English that a non-technical store manager could follow if this happens again. Structure it like this:
 
-Add animated delivery trucks as Leaflet markers that move along routes in real time.
+**Runbook: Inventory Sync Failure &amp; Sales Report Discrepancy**
 
-**Truck icon:** Use L.divIcon — a small colored rectangle (12×18px) with a rounded top (the cab), rotated to face its direction of travel. Colors: green (#22c55e) for on_time, yellow (#eab308) for delayed, grey (#6b7280) for returned/delivered.
+1. **What this runbook covers** — one sentence description of the scenario
+2. **How to know this is happening** — the 2–3 signs a manager would notice (e.g. alert emails, report flags, what they'd see on screen)
+3. **Immediate actions (first 30 minutes)** — numbered list of what to do right now, who to contact, what information to gather
+4. **Resolution steps** — what the infrastructure team needs to do, what the store manager needs to verify once it's fixed
+5. **How to prevent it next time** — 2–3 specific recommendations
+6. **Escalation path** — who owns this problem at each stage (store manager → ops lead → infrastructure team → management)
 
-**Animation loop** — use setInterval at 100ms. For each delivery in WD.deliveries:
-```js
-const CYCLE_MS = 120000;
-function getTruckState(delivery, index) {
-  const phase = ((Date.now() + (index / WD.deliveries.length) * CYCLE_MS) % CYCLE_MS) / CYCLE_MS;
-  const wh = WD.warehouses.find(w => w.id === delivery.from_warehouse_id);
-  const st = WD.stores.find(s => s.id === delivery.to_store_id);
-  const [whLat, whLng] = window.xyToLatLng(wh.x, wh.y);
-  const [stLat, stLng] = window.xyToLatLng(st.x, st.y);
-  let lat, lng, dLat, dLng;
-  if (phase &lt; 0.5) {
-    const t = phase / 0.5;
-    lat = whLat + (stLat - whLat) * t; lng = whLng + (stLng - whLng) * t;
-    dLat = stLat - whLat; dLng = stLng - whLng;
-  } else {
-    const t = (phase - 0.5) / 0.5;
-    lat = stLat + (whLat - stLat) * t; lng = stLng + (whLng - stLng) * t;
-    dLat = whLat - stLat; dLng = whLng - stLng;
-  }
-  const angleDeg = Math.atan2(dLng, dLat) * 180 / Math.PI;
-  const liveStatus = phase &lt; 0.5 ? delivery.status : 'delivered';
-  const color = liveStatus === 'delayed' ? '#eab308' : liveStatus === 'delivered' ? '#6b7280' : '#22c55e';
-  return { lat, lng, angleDeg, direction: phase &lt; 0.5 ? 'Outbound' : 'Returning', liveStatus, color };
-}
-```
-
-Move each truck marker by calling `marker.setLatLng([state.lat, state.lng])` and update its icon HTML to reflect current color and rotation angle.
-
-**Click popup on truck:** Show delivery ID, "[warehouse name] → [store name]", live status badge, items list, direction. Store `window.getTruckLiveStatus = (deliveryId) => liveStatus` for use in Step 5.
-
-After saving, tell me to refresh `dashboard.html`.</pre>
+Keep the language simple. Avoid technical jargon. If a technical term is unavoidable, explain it in parentheses. Write it so that someone who has never seen a log file could follow it.</pre>
                   <button class="copy-btn">Copy</button>
                 </div>
                 <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
-                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">After Bob finishes</div>
-                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code>. You should now see <strong>15 trucks moving in real time</strong> on the live map, color-coded green/yellow/grey. Click any truck to see its delivery details. Move on to Step 4 when ready.</div>
-                </div>
-              </div></div>
-            </div>
-
-            <div class="use-case uc-locked" id="uc-step4-b">
-              <div class="use-case-header">
-                <div class="uc-num">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                </div>
-                <div class="uc-title">Step 4 — Add store &amp; warehouse drill-down</div>
-                <div class="uc-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
-                </div>
-              </div>
-              <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">Paste this prompt into Bob. It updates <code>dashboard.html</code> so that clicking any node opens a side detail panel — a visual floor plan for stores, and a dock &amp; inventory breakdown for warehouses.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">Bob Prompt — Step 4</div>
-                  <pre>Update `dashboard.html` — read the existing file first, then write the complete updated file. Do NOT remove `const WD`, the Leaflet map, the truck animation, or any existing code.
-
-Add a side panel that slides in from the right when a warehouse or store marker is clicked.
-
-**Layout:** The page splits into map (left, fills remaining width) + panel (right, fixed 320px wide) when a node is clicked. The Leaflet map auto-resizes via `window.leafletMap.invalidateSize()` after the layout change. A close (×) button in the panel header restores full-width map.
-
-**Store panel (top to bottom):**
-1. Panel heading: store name + city, colored health badge (green/yellow/red)
-2. Overall Health — average stock_pct as a large number with label ("Healthy" ≥70% / "At-Risk" 40–69% / "Critical" &lt;40%)
-3. Critical Sections — red callout box listing sections with stock_pct &lt; 30 (⚠ icon + name + %). If none, show green "All sections OK".
-4. Floor Plan grid — rendered from store.floor_plan 2D array using CSS grid.
-   Cell colors: "S" = shelf (#1e3a5f), "A" = aisle (white), "E" = entrance (#F0AB00 at 55% opacity), "C" = checkout (#7c3aed at 55% opacity). gap: 0, 1px solid #e5e7eb borders on all cells.
-   On each "S" cell that matches a section (1-indexed row/col): overlay section name in white 9px text + a 5px fill bar at the bottom (green/yellow/red by stock_pct).
-
-**Warehouse panel:**
-1. Panel heading: warehouse name + city (gold badge)
-2. Dock Utilization — "Docks Active: X / Y" with a gold progress bar
-3. Inventory Table — one row per category: name, units/capacity, colored fill bar. Flag &lt;30% with ⚠
-
-**Delivery filtering (wired up for Step 5):**
-- `window.activeFilter = null`
-- Store click → `window.activeFilter = { type: 'store', id: storeId }`
-- Warehouse click → `window.activeFilter = { type: 'warehouse', id: warehouseId }`
-- Panel close → `window.activeFilter = null`
-- `window.getActiveFilter = () => window.activeFilter`
-
-After saving, tell me to refresh `dashboard.html`.</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-                <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
-                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">After Bob finishes</div>
-                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code>. Click any store or warehouse marker to open the drill-down panel. Move on to Step 5 when ready.</div>
-                </div>
-              </div></div>
-            </div>
-
-            <div class="use-case uc-locked" id="uc-step5-b">
-              <div class="use-case-header">
-                <div class="uc-num">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                </div>
-                <div class="uc-title">Step 5 — Add the delivery timeline</div>
-                <div class="uc-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
-                </div>
-              </div>
-              <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">Paste this final prompt into Bob. It adds a live delivery tracker below the map — a swimlane view of every active and completed delivery, with status badges and timeline bars.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">Bob Prompt — Step 5</div>
-                  <pre>Update `dashboard.html` — read the existing file first, then write the complete updated file. Do NOT remove `const WD`, the Leaflet map, the truck animation, or any existing code.
-
-Add a delivery section below the map. All data is in `window.WD`.
-
-**Delivery Section layout — three equal columns:**
-- Section heading: "Deliveries" with inline count badges: red = delayed, green = on-time, grey = delivered
-- Three columns below: "⚠ Delayed" (red), "✓ On Time" (green), "✔ Delivered" (grey)
-- Each delivery's column is determined by its live status. Use `window.getTruckLiveStatus(delivery.id)` if available, fallback to `delivery.status`. Re-render every 500ms.
-
-**Each delivery card contains:**
-1. Route: "[warehouse name] → [store name]" in bold
-2. Horizontal timeline bar (full width, 10px tall): dark track, filled segment = elapsed / total journey (depart → eta, using July 14 2026 9:00 AM as "now"). Fill: yellow=delayed, green=on_time, grey=delivered.
-3. ETA time right-aligned — red text if delayed
-4. Items: "Produce × 600, Meat &amp; Deli × 200" in small muted text
-5. Delayed cards only: pulsing red "DELAYED" badge top-right
-
-**Filtering (using `window.getActiveFilter()` from Step 4):**
-- null → show all deliveries
-- type 'store' → only deliveries where to_store_id matches
-- type 'warehouse' → only deliveries where from_warehouse_id matches
-- Empty column → show muted "No deliveries" placeholder
-- Poll `window.getActiveFilter()` every 300ms. Store interval in `window._deliveryPollId`, call clearInterval before starting.
-
-After saving, tell me to refresh `dashboard.html` to see the completed operations dashboard.</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-                <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
-                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">After Bob finishes</div>
-                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code> one final time. Your full operations dashboard is complete — live OSM map, animated trucks, drill-down panels, and a live delivery tracker.</div>
+                  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">Bonus: bring your own log</div>
+                  <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Try it with a real error or system message from your own environment. Paste it into a new Bob chat, ask the same questions from Step 1, and then ask Bob to write a runbook for that too. You can have a draft runbook for any issue in under 5 minutes.</div>
                 </div>
               </div></div>
             </div>
@@ -1824,17 +1517,14 @@ After saving, tell me to refresh `dashboard.html` to see the completed operation
           </div>
 
           <div class="card-starting-prompt">
-            <div class="csp-label">Starting Prompt</div>
-            <div class="csp-text">"I have a live data feed with warehouse, store, and delivery data. Help me build a visual operations dashboard — a live map with animated delivery trucks, store floor plans I can click into, and a delivery tracker."</div>
+            <div class="csp-label">Starting Prompt from the Bobathon Deck</div>
+            <div class="csp-text">"Here's an error log I don't understand. Walk me through what went wrong, why, and what to do next — then help me write a runbook so my team handles it the same way every time."</div>
           </div>
         </div>
       </div>
-    </div><!-- end Track B -->
+    </div>
 
-    <!-- ══════════════════════════════════════════════════════
-         TRACK C — GUIDED LEARNING MODES
-         (QisBob · PyBob · SqlBob · Jenny Language Mentor)
-    ═══════════════════════════════════════════════════════════ -->
+    <!-- ── TRACK C: Guided Learning Modes ───────────────── -->
     <div class="bubble-card track-c" id="card-c">
       <div class="card-summary">
         <div class="card-icon" aria-label="Books">
@@ -1846,13 +1536,11 @@ After saving, tell me to refresh `dashboard.html` to see the completed operation
         <div class="card-text">
           <div class="card-label">Track C</div>
           <div class="card-title">Guided Learning Modes</div>
-          <div class="card-desc">Four structured learning paths with Bob as your tutor. Pick <strong>QisBob</strong> for quantum computing, <strong>PyBob</strong> for Python, <strong>SqlBob</strong> for databases, or <strong>Jenny</strong> to reach professional fluency in a new language — no prior experience needed for any of them.</div>
+          <div class="card-desc">Three structured learning paths with Bob as your tutor. Choose <strong>Qiskit</strong> for quantum, <strong>PyBob</strong> for Python, or <strong>SQL</strong> to learn database querying from scratch.</div>
           <div class="card-meta">
-            <span class="card-tag">Students &amp; Career Changers</span>
             <span class="card-tag">No experience needed</span>
             <span class="card-tag">Interactive lessons</span>
-            <span class="card-tag">Quantified progress</span>
-            <span class="card-tag">8 human languages</span>
+            <span class="card-tag">Write real code</span>
           </div>
         </div>
         <div class="card-chevron" aria-hidden="true">
@@ -1861,146 +1549,191 @@ After saving, tell me to refresh `dashboard.html` to see the completed operation
       </div>
       <div class="card-detail">
         <div class="card-detail-inner">
-          <div class="detail-intro">Each mode below turns Bob into a dedicated tutor. Bob assesses your level, adapts its teaching style to how you learn, tracks your progress across sessions, and never lectures without pausing to check in. Pick the one that matches your goal today.</div>
+          <div class="detail-intro">Pick the mode that fits your goals. Each one turns Bob into a step-by-step tutor that explains concepts, writes code with you, and quizzes you along the way.</div>
           <div class="use-cases">
 
-            <!-- ── QisBob ──────────────────────────────────── -->
             <div class="use-case">
               <div class="use-case-header">
                 <div class="uc-num">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 </div>
-                <div class="uc-title">QisBob — Quantum Computing with IBM Quantum</div>
+                <div class="uc-title">QisBob - Quantum Computing with IBM</div>
                 <div class="uc-arrow" aria-hidden="true">
                   <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
                 </div>
               </div>
               <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">QisBob is a full Bob mode that acts as a warm, Socratic quantum mentor. It assesses your Python level, picks a learning track (Executive, Developer, or Hardware), and walks you gate-by-gate through Qiskit v2.0+ circuits on real IBM Quantum hardware — quizzing you at every step. No physics PhD required.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">Starting Prompt — paste directly into Bob</div>
-                  <pre>Switch to QisBob Quantum Mentor mode.
+                <p class="uc-desc">QisBob is a full custom Bob mode that acts as a warm, Socratic quantum mentor. It assesses your Python level, picks a learning track (Executive, Developer, or Hardware), and walks you gate by gate through Qiskit v2.0+ circuits on real IBM Quantum hardware -- quizzing you at every step.</p>
+                <div class="mode-steps">
 
-I want to learn quantum computing. I have [no / some / strong] Python experience and [no / basic / advanced] quantum background. Start my quantum loop — assess where I am and build me a personalized learning path. Start the first lesson when you're ready.</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-                <div class="mode-switch-box">
-                  <div class="mode-switch-label">How to activate QisBob mode</div>
-                  <ol>
-                    <li>Open Bob and click the <strong>modes</strong> button at the bottom-left of the chat input.</li>
-                    <li>Select <strong>QisBob Quantum Mentor</strong> from the list.</li>
-                    <li>Type <em>"Start my quantum loop"</em> and press Enter.</li>
-                  </ol>
+                  <div class="mode-step">
+                    <div class="step-num">1</div>
+                    <div class="step-body">
+                      <div class="step-title">Find QisBob on the Bob Marketplace</div>
+                      <div class="step-desc">Open the marketplace listing for QisBob, then follow the install instructions there to add it to Bob.</div>
+                      <a class="step-download-btn" href="https://vladstol223.github.io/bob.marketplace/?q=quantum+mentor" target="_blank" rel="noopener" data-marketplace-link="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        View QisBob on Marketplace
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="mode-step step-hidden">
+                    <div class="step-num">2</div>
+                    <div class="step-body">
+                      <div class="step-title">Switch to QisBob Quantum Mentor mode</div>
+                      <div class="step-desc">Once installed, click the <strong>modes</strong> button at the bottom-left of the Bob chat input and switch to <strong>QisBob Quantum Mentor</strong>.</div>
+
+                      <div class="mode-switch-screenshot" style="margin-top:10px">
+                    <img src="agent_switch.gif" alt="Animated demo showing how to switch modes in Bob" loading="lazy" />
+                    <div class="mode-switch-caption">The <strong>modes</strong> button sits at the bottom-left of the Bob chat input — click it to switch modes.</div>
+                    </div>
+                      <button class="step-confirm-btn" data-confirm-step="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        Mode switched — continue
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="mode-step step-hidden">
+                    <div class="step-num">3</div>
+                    <div class="step-body">
+                      <div class="step-title">Send the start prompt</div>
+                      <div class="step-desc">Copy and send this to kick off your quantum learning session:</div>
+                      <div class="step-prompt">
+                        <pre>Start my quantum loop. I want to learn quantum computing and Qiskit. Assess my current level and help me pick a project before we begin.</pre>
+                        <button class="copy-btn">Copy</button>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div></div>
             </div>
 
-            <!-- ── PyBob ──────────────────────────────────── -->
             <div class="use-case">
               <div class="use-case-header">
                 <div class="uc-num">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 </div>
-                <div class="uc-title">PyBob — Python for Real Problems</div>
+                <div class="uc-title">PyBob - Python for Real Problems</div>
                 <div class="uc-arrow" aria-hidden="true">
                   <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
                 </div>
               </div>
               <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">PyBob turns Bob into a Python coach that detects how you learn (videos, games, or hands-on), assesses your experience level, and teaches Python through a real task you actually want to automate or build — line by line, with Socratic checkpoints throughout. Works for marketers, ops managers, and engineers alike.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">Starting Prompt — paste directly into Bob</div>
-                  <pre>Switch to PyBob Python Mentor mode.
+                <p class="uc-desc">PyBob is a custom Bob mode that turns Bob into a Python coach. It assesses your experience level, detects how you learn best (videos, games, or hands-on), and teaches Python through a real task you actually want to automate or build -- line by line, with Socratic checkpoints throughout.</p>
+                <div class="mode-steps">
 
-Start my Python loop. I want to learn Python to [describe what you want to build or automate — e.g., "automate my weekly reporting" / "build a simple web scraper" / "analyze CSV data from my job"]. I currently know [nothing / a little / intermediate Python].</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-                <div class="mode-switch-box">
-                  <div class="mode-switch-label">How to activate PyBob mode</div>
-                  <ol>
-                    <li>Click the <strong>modes</strong> button at the bottom-left of the Bob chat input.</li>
-                    <li>Select <strong>PyBob Python Mentor</strong>.</li>
-                    <li>Type <em>"Start my Python loop"</em> and press Enter.</li>
-                  </ol>
+                  <div class="mode-step">
+                    <div class="step-num">1</div>
+                    <div class="step-body">
+                      <div class="step-title">Find PyBob on the Bob Marketplace</div>
+                      <div class="step-desc">Open the marketplace listing for PyBob, then follow the install instructions there to add it to Bob.</div>
+                      <a class="step-download-btn" href="https://vladstol223.github.io/bob.marketplace/?q=python+mentor" target="_blank" rel="noopener" data-marketplace-link="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        View PyBob on Marketplace
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="mode-step step-hidden">
+                    <div class="step-num">2</div>
+                    <div class="step-body">
+                      <div class="step-title">Switch to PyBob Python Mentor mode</div>
+                      <div class="step-desc">Click the <strong>modes</strong> button at the bottom-left of the Bob chat input and select <strong>PyBob Python Mentor</strong>.</div>
+                      <div class="mode-switch-screenshot" style="margin-top:10px">
+                    <img src="agent_switch.gif" alt="Animated demo showing how to switch modes in Bob" loading="lazy" />
+                        <div class="mode-switch-caption">The <strong>modes</strong> button sits at the bottom-left of the Bob chat input — click it to switch modes.</div>
+                      </div>
+                      <button class="step-confirm-btn" data-confirm-step="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        Mode switched — continue
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="mode-step step-hidden">
+                    <div class="step-num">3</div>
+                    <div class="step-body">
+                      <div class="step-title">Send the start prompt</div>
+                      <div class="step-desc">Copy and send this to kick off your Python learning session:</div>
+                      <div class="step-prompt">
+                        <pre>Start my Python loop. I want to learn Python. Assess my current level and help me pick a project to learn through before we begin.</pre>
+                        <button class="copy-btn">Copy</button>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div></div>
             </div>
-
-            <!-- ── SqlBob ──────────────────────────────────── -->
             <div class="use-case">
               <div class="use-case-header">
                 <div class="uc-num">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
                 </div>
-                <div class="uc-title">SqlBob — Query Databases from Scratch</div>
+                <div class="uc-title">SqlBob - Query Databases from Scratch</div>
                 <div class="uc-arrow" aria-hidden="true">
                   <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
                 </div>
               </div>
               <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">SqlBob builds a realistic sample dataset in your field, then teaches SQL by having you write real queries against it — SELECT through window functions — with instant feedback. Relevant for analysts, product managers, marketers, and anyone who wants to stop waiting for a data pull and answer their own questions.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">Starting Prompt — paste directly into Bob</div>
-                  <pre>Switch to SqlBob Database Mentor mode.
+                <p class="uc-desc">SqlBob is a custom Bob mode that turns Bob into a database mentor. It builds a realistic sample dataset in your field, then teaches SQL by having you write real queries against it -- SELECT through window functions -- with instant feedback on every query you write.</p>
+                <div class="mode-steps">
 
-Start my SQL loop. I work in [your field / industry — e.g., "healthcare operations" / "e-commerce marketing" / "financial services"]. I have [never written SQL / written basic SELECT queries / moderate SQL experience]. Assess my level and create a sample database in my field so we can start querying immediately.</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-                <div class="mode-switch-box">
-                  <div class="mode-switch-label">How to activate SqlBob mode</div>
-                  <ol>
-                    <li>Click the <strong>modes</strong> button at the bottom-left of the Bob chat input.</li>
-                    <li>Select <strong>SqlBob Database Mentor</strong>.</li>
-                    <li>Type <em>"Start my SQL loop"</em> and press Enter.</li>
-                  </ol>
-                </div>
-              </div></div>
-            </div>
+                  <div class="mode-step">
+                    <div class="step-num">1</div>
+                    <div class="step-body">
+                      <div class="step-title">Find SqlBob on the Bob Marketplace</div>
+                      <div class="step-desc">Open the marketplace listing for SqlBob, then follow the install instructions there to add it to Bob.</div>
+                      <a class="step-download-btn" href="https://vladstol223.github.io/bob.marketplace/?q=database+mentor" target="_blank" rel="noopener" data-marketplace-link="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        View SqlBob on Marketplace
+                      </a>
+                    </div>
+                  </div>
 
-            <!-- ── Jenny Language Mentor ──────────────────── -->
-            <div class="use-case">
-              <div class="use-case-header">
-                <div class="uc-num">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                </div>
-                <div class="uc-title">Jenny — Professional Language Fluency in 8 Languages</div>
-                <div class="uc-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg>
-                </div>
-              </div>
-              <div class="uc-body"><div class="uc-body-inner">
-                <p class="uc-desc">Jenny is Bob's language mentor — a culturally intelligent tutor covering Spanish, French, German, Russian, Mandarin, Arabic, Portuguese, and Khmer. She assesses your level, identifies your professional context, and builds a learning path around real conversations you'll actually have — business meetings, travel negotiations, client relationships. Not flashcards. Not drills. Real language for real situations.</p>
-                <div class="prompt-box">
-                  <div class="prompt-label">Starting Prompt — paste directly into Bob</div>
-                  <pre>Switch to Jenny the Language Mentor mode.
+                  <div class="mode-step step-hidden">
+                    <div class="step-num">2</div>
+                    <div class="step-body">
+                      <div class="step-title">Switch to SqlBob Database Mentor mode</div>
+                      <div class="step-desc">Click the <strong>modes</strong> button at the bottom-left of the Bob chat input and select <strong>SqlBob Database Mentor</strong>.</div>
+                      <div class="mode-switch-screenshot" style="margin-top:10px">
+                    <img src="agent_switch.gif" alt="Animated demo showing how to switch modes in Bob" loading="lazy" />
+                        <div class="mode-switch-caption">The <strong>modes</strong> button sits at the bottom-left of the Bob chat input — click it to switch modes.</div>
+                      </div>
+                      <button class="step-confirm-btn" data-confirm-step="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        Mode switched — continue
+                      </button>
+                    </div>
+                  </div>
 
-Teach me [Spanish / French / German / Russian / Mandarin / Arabic / Portuguese / Khmer].
+                  <div class="mode-step step-hidden">
+                    <div class="step-num">3</div>
+                    <div class="step-body">
+                      <div class="step-title">Send the start prompt</div>
+                      <div class="step-desc">Copy and send this to kick off your SQL learning session:</div>
+                      <div class="step-prompt">
+                        <pre>Start my SQL loop. I want to learn SQL and databases. Assess my current level and create a sample database in my field so we can start querying immediately.</pre>
+                        <button class="copy-btn">Copy</button>
+                      </div>
+                    </div>
+                  </div>
 
-My current level: [complete beginner / conversational / professional working proficiency].
-My goal: [business travel to [country] / client meetings in [language] / cultural fluency / career advancement].
-
-Start my first lesson.</pre>
-                  <button class="copy-btn">Copy</button>
-                </div>
-                <div class="mode-switch-box">
-                  <div class="mode-switch-label">How to activate Jenny mode</div>
-                  <ol>
-                    <li>Click the <strong>modes</strong> button at the bottom-left of the Bob chat input.</li>
-                    <li>Select <strong>Jenny the Language Mentor</strong>.</li>
-                    <li>Tell Jenny which language and your goal — she handles the rest.</li>
-                  </ol>
                 </div>
               </div></div>
             </div>
 
-          </div><!-- end use-cases -->
+          </div>
           <div class="card-starting-prompt">
-            <div class="csp-label">Quickest Entry Point</div>
-            <div class="csp-text">"I've never written [Python / SQL / quantum code] before. Start from zero and walk me through my first real challenge step by step — ask me one question at a time."</div>
+            <div class="csp-label">Starting Prompt from the Bobathon Deck</div>
+            <div class="csp-text">"I've never written quantum code before. Set up a beginner-friendly Qiskit environment and walk me through my first quantum circuit, step by step."</div>
           </div>
         </div>
       </div>
-    </div><!-- end Track C -->
+    </div>
 
     <!-- ── TRACK D: Bring Your Own ─────────────────────── -->
     <div class="bubble-card track-d" id="card-d">
@@ -2012,8 +1745,8 @@ Start my first lesson.</pre>
         </div>
         <div class="card-text">
           <div class="card-label">Track D</div>
-          <div class="card-title">Bring Your Own Problem</div>
-          <div class="card-desc">Have a specific <strong>file, workflow, idea, or problem</strong> in mind that none of the other tracks cover? Bring it. Three quick questions generate a custom Bob prompt matched to your background and your goal.</div>
+          <div class="card-title">Bring Your Own</div>
+          <div class="card-desc">Have a specific <strong>file, idea, or problem</strong> in mind? Bring it. If none of the other tracks match what you're actually trying to solve, we'd rather you work on <strong>something real</strong>.</div>
           <div class="card-meta">
             <span class="card-tag">Any background</span>
             <span class="card-tag">Your own idea</span>
@@ -2027,39 +1760,36 @@ Start my first lesson.</pre>
       </div>
       <div class="card-detail">
         <div class="card-detail-inner">
-          <div class="detail-intro">Answer three quick questions and we will generate a custom Bob prompt matched to your role, your biggest blocker, and what you want to walk away with today.</div>
+          <div class="detail-intro">Answer three quick questions below and we will generate a custom Bob prompt matched to your idea, your biggest blocker, and what you want to accomplish at Winn Dixie.</div>
 
-          <div class="quiz-section" id="quiz-d">
+          <div class="quiz-section" id="quiz-c">
             <div class="quiz-q" id="dq1">
-              <h5>1. Which best describes you today?</h5>
+              <h5>1. What kind of idea do you have?</h5>
               <div class="quiz-opts">
-                <div class="quiz-opt" data-q="dq1" data-v="professional"><div class="qdot"></div> Software Engineer / Developer</div>
-                <div class="quiz-opt" data-q="dq1" data-v="professional"><div class="qdot"></div> Product or Project Manager</div>
-                <div class="quiz-opt" data-q="dq1" data-v="professional"><div class="qdot"></div> Data Scientist / AI Specialist</div>
-                <div class="quiz-opt" data-q="dq1" data-v="builder"><div class="qdot"></div> Designer, Developer Advocate, or creative builder</div>
-                <div class="quiz-opt" data-q="dq1" data-v="professional"><div class="qdot"></div> DevOps, Security, QA, or Technical Support</div>
-                <div class="quiz-opt" data-q="dq1" data-v="exec"><div class="qdot"></div> Executive or Strategic Leader</div>
-                <div class="quiz-opt" data-q="dq1" data-v="explorer"><div class="qdot"></div> Student, Recruiter, HR, or just curious</div>
+                <div class="quiz-opt" data-q="dq1" data-v="startup"><div class="qdot"></div> A process improvement or automation idea</div>
+                <div class="quiz-opt" data-q="dq1" data-v="app"><div class="qdot"></div> A dashboard or internal tool I want to build</div>
+                <div class="quiz-opt" data-q="dq1" data-v="research"><div class="qdot"></div> A data or analytics project</div>
+                <div class="quiz-opt" data-q="dq1" data-v="notyet"><div class="qdot"></div> I do not have one yet -- help me find one</div>
               </div>
             </div>
 
             <div class="quiz-q" id="dq2" style="display:none">
-              <h5>2. What would be most valuable to you right now?</h5>
+              <h5>2. What is the biggest thing holding you back?</h5>
               <div class="quiz-opts">
-                <div class="quiz-opt" data-q="dq2" data-v="automate"><div class="qdot"></div> Automate something I do manually and repeatedly</div>
-                <div class="quiz-opt" data-q="dq2" data-v="analyze"><div class="qdot"></div> Analyze data, research, or documents I already have</div>
-                <div class="quiz-opt" data-q="dq2" data-v="create"><div class="qdot"></div> Create something — a proposal, pitch, report, or strategy</div>
-                <div class="quiz-opt" data-q="dq2" data-v="understand"><div class="qdot"></div> Understand what's possible before I commit to anything</div>
+                <div class="quiz-opt" data-q="dq2" data-v="validation"><div class="qdot"></div> I am not sure if my idea is worth pursuing</div>
+                <div class="quiz-opt" data-q="dq2" data-v="technical"><div class="qdot"></div> I do not know how to build it technically</div>
+                <div class="quiz-opt" data-q="dq2" data-v="pitch"><div class="qdot"></div> I need to pitch it to leadership or stakeholders</div>
+                <div class="quiz-opt" data-q="dq2" data-v="team"><div class="qdot"></div> I need collaborators or buy-in from my team</div>
               </div>
             </div>
 
             <div class="quiz-q" id="dq3" style="display:none">
-              <h5>3. What do you want to walk out of Atlanta Tech Week with?</h5>
+              <h5>3. What outcome matters most to you?</h5>
               <div class="quiz-opts">
-                <div class="quiz-opt" data-q="dq3" data-v="working"><div class="qdot"></div> Something working — code, output, or a draft I can use</div>
-                <div class="quiz-opt" data-q="dq3" data-v="prompt"><div class="qdot"></div> A prompt I can paste into Bob tomorrow and save real time</div>
-                <div class="quiz-opt" data-q="dq3" data-v="understanding"><div class="qdot"></div> A clear mental model of how to use Bob in my daily work</div>
-                <div class="quiz-opt" data-q="dq3" data-v="idea"><div class="qdot"></div> One specific idea for an AI use case I should pursue</div>
+                <div class="quiz-opt" data-q="dq3" data-v="efficiency"><div class="qdot"></div> Save time or reduce manual work</div>
+                <div class="quiz-opt" data-q="dq3" data-v="visibility"><div class="qdot"></div> Better visibility into data or operations</div>
+                <div class="quiz-opt" data-q="dq3" data-v="customer"><div class="qdot"></div> Improve the customer or associate experience</div>
+                <div class="quiz-opt" data-q="dq3" data-v="prototype"><div class="qdot"></div> Walk away with a working prototype today</div>
               </div>
               <button class="quiz-reveal-btn" id="quiz-reveal-btn">Generate My Bob Prompt &#x2192;</button>
             </div>
@@ -2068,8 +1798,8 @@ Start my first lesson.</pre>
           </div>
 
           <div class="card-starting-prompt">
-            <div class="csp-label">No Quiz? Start Here</div>
-            <div class="csp-text">"I work in [your role / industry]. The biggest thing I want AI to help me with is [describe your problem]. I want to walk away today with [describe your goal]. What's the best way to use Bob for this?"</div>
+            <div class="csp-label">Starting Prompt from the Bobathon Deck</div>
+            <div class="csp-text">"I have my own idea: [describe it]. Help me turn this into something working I can see and test."</div>
           </div>
         </div>
       </div>
@@ -2078,7 +1808,7 @@ Start my first lesson.</pre>
   </div><!-- end tracks-stream -->
 </section>
 
-<footer>Made with IBM Bob &nbsp;&middot;&nbsp; Atlanta Tech Week 2025 &nbsp;&middot;&nbsp; IBM</footer>
+<footer>Made with IBM Bob &nbsp;&middot;&nbsp; Winn Dixie Bobathon 2026 &nbsp;&middot;&nbsp; Winn-Dixie Stores</footer>
 
 <script>
 (function() {
@@ -2191,7 +1921,7 @@ Start my first lesson.</pre>
       cards.forEach(function(c) { c.classList.remove('open'); });
       if (!isOpen) {
         card.classList.add('open');
-        gtag('event', 'track_open', { track_id: card.id, track_name: { 'card-a': 'EngineeringAudit', 'card-b': 'SupplyChainDashboard', 'card-c': 'GuidedLearning', 'card-d': 'BringYourOwn' }[card.id] || card.id });
+        gtag('event', 'track_open', { track_id: card.id, track_name: { 'card-a': 'Dashboard', 'card-b': 'Debug', 'card-c': 'Learn', 'card-d': 'BringYourOwn' }[card.id] || card.id });
         setTimeout(function() {
           card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 100);
@@ -2343,8 +2073,8 @@ Start my first lesson.</pre>
   //   card-c: 6 copy btns (2 per sub-track × 3 sub-tracks)
   //   card-d: 1 copy btn (quiz result)
   var copyState = { 'card-a': new Set(), 'card-b': new Set(), 'card-c': new Set(), 'card-d': new Set() };
-  var copyTotals = { 'card-a': 8, 'card-b': 5, 'card-c': 4, 'card-d': 1 };
-  var trackNames = { 'card-a': 'EngineeringAudit', 'card-b': 'SupplyChainDashboard', 'card-c': 'GuidedLearning', 'card-d': 'BringYourOwn' };
+  var copyTotals = { 'card-a': 5, 'card-b': 3, 'card-c': 6, 'card-d': 1 };
+  var trackNames = { 'card-a': 'Dashboard', 'card-b': 'Debug', 'card-c': 'Learn', 'card-d': 'BringYourOwn' };
 
   // ── COPY BUTTONS ───────────────────────────────────────
   document.addEventListener('click', function(e) {
@@ -2443,34 +2173,6 @@ Start my first lesson.</pre>
 
   // ── QUIZ (Track D) ─────────────────────────────────────
   var quizAnswers = {};
-  var prompts = {
-    exec_automate_working:    "I'm a [your title] responsible for [your domain]. The process I want to automate is [describe the manual workflow — inputs, steps, outputs, frequency]. Build a working script or automation that handles this. Walk me through how it works so I can maintain it. Tell me what I need to install.",
-    exec_automate_prompt:     "I'm an executive and I need to automate [describe task]. Give me a Bob prompt I can reuse every week that produces [describe output] from [describe input] in under 2 minutes of my time.",
-    exec_analyze_working:     "I'm a [title] and I have [describe data / documents]. Analyze this for me: [paste content or describe it]. Give me the 5 most important insights, ranked by strategic impact. Flag anything I should act on immediately.",
-    exec_create_working:      "I'm a [title] and I need to produce [describe deliverable — board memo / investor update / strategic narrative]. Here's the context: [describe situation, audience, objective]. Produce a first draft that's ready for my edits, not yours.",
-    exec_understand_idea:     "I'm an executive exploring how to apply AI in [your industry / function]. Don't give me a generic overview. Tell me the 3 highest-ROI AI use cases for someone in my specific role, what the implementation path looks like, and what the biggest risk is for each.",
-    builder_automate_working: "I'm building [describe your product / business]. Here's a manual process in my workflow that I need to automate: [describe it — inputs, steps, outputs]. Build the automation. Use Python unless there's a better reason. Add comments explaining each section.",
-    builder_analyze_working:  "I'm building [describe startup / product]. I need to analyze [describe data / research / market]. Here's what I have: [paste or describe]. Give me structured competitive intelligence: what does this tell me about what to build, what to avoid, and what my unfair advantage should be?",
-    builder_create_working:   "I'm building [describe product]. I need to create [pitch deck narrative / investor email / product spec / PRD]. Here's my current thinking: [describe]. Produce a first draft that's sharp, specific, and assumes a sophisticated audience.",
-    builder_understand_idea:  "I'm building [describe idea] and I want to understand: is this worth pursuing? Pressure-test it. What problem does it solve, who pays for it, what's the business model, what are the top 3 failure modes, and what would make this a 10x better version of itself?",
-    professional_automate_working: "I do [describe manual task] every [frequency]. It involves [describe inputs, steps, outputs]. Build me a Python script or automation that does this for me. Walk me through how it works so I can modify it, and tell me what I need to install to run it.",
-    professional_automate_prompt:  "I need a reusable Bob prompt that [describe what it should do automatically]. I'll paste this prompt in Bob every [frequency] and it should produce [describe output] without me having to think about the structure each time.",
-    professional_analyze_working:  "I have [describe data / reports / documents — e.g., 'a 50-row CSV of sales data', 'a 20-page contract', 'a competitor's pricing page']. Analyze this: [paste or describe]. Give me the 5 most actionable insights specific to my role as [your role].",
-    professional_create_working:   "I need to write [describe document — report / proposal / email sequence / presentation]. My audience is [describe]. The goal is [describe]. Here's my raw thinking: [paste or describe]. Produce a polished first draft.",
-    explorer_understand_idea: "I'm new to AI and I want to understand what Bob can actually do — not in theory, but for someone like me. I work in [your field]. Give me 5 specific, concrete examples of how someone in my role is using AI right now to save time or produce better work. Then pick the easiest one to start with today and show me how."
-  };
-
-  function getPromptKey() {
-    var r = quizAnswers;
-    if (!r.dq1 || !r.dq2 || !r.dq3) return null;
-    var key = r.dq1 + '_' + r.dq2 + '_' + r.dq3;
-    if (prompts[key]) return key;
-    // fallback by first two dimensions
-    for (var k in prompts) {
-      if (k.indexOf(r.dq1 + '_' + r.dq2) === 0) return k;
-    }
-    return 'explorer_understand_idea';
-  }
 
   document.addEventListener('click', function(e) {
     var opt = e.target.closest('.quiz-opt');
@@ -2486,49 +2188,73 @@ Start my first lesson.</pre>
     quizAnswers[qId] = val;
     gtag('event', 'quiz_answer', { question: qId, answer: val });
 
-    var nextMap = { dq1: 'dq2', dq2: 'dq3' };
-    var nextId = nextMap[qId];
-    if (nextId) {
+    if (qId === 'dq1') {
       setTimeout(function() {
-        var nextQ = document.getElementById(nextId);
-        nextQ.style.display = '';
-        setTimeout(function() { nextQ.classList.add('qvisible'); }, 30);
-        nextQ.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        var dq2 = document.getElementById('dq2');
+        dq2.style.display = 'block';
+        setTimeout(function() { dq2.classList.add('qvisible'); }, 30);
+        dq2.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+    } else if (qId === 'dq2') {
+      setTimeout(function() {
+        var dq3 = document.getElementById('dq3');
+        dq3.style.display = 'block';
+        setTimeout(function() { dq3.classList.add('qvisible'); }, 30);
+        dq3.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+    } else if (qId === 'dq3') {
+      setTimeout(function() {
+        var revealBtn = document.getElementById('quiz-reveal-btn');
+        revealBtn.style.display = 'flex';
+        setTimeout(function() { revealBtn.classList.add('btn-visible'); }, 30);
+        revealBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }, 300);
     }
   });
 
-  var revealBtn = document.getElementById('quiz-reveal-btn');
-  if (revealBtn) {
-    revealBtn.addEventListener('click', function() {
-      if (!quizAnswers.dq1 || !quizAnswers.dq2 || !quizAnswers.dq3) {
-        revealBtn.textContent = 'Answer all 3 questions first';
-        setTimeout(function() { revealBtn.innerHTML = 'Generate My Bob Prompt &#x2192;'; }, 2000);
-        return;
-      }
-      var key = getPromptKey();
-      var promptText = prompts[key] || prompts['explorer_understand_idea'];
-      gtag('event', 'quiz_complete', { type: quizAnswers.dq1, value: quizAnswers.dq2, outcome: quizAnswers.dq3 });
-      var box = document.getElementById('quiz-result-box');
-      box.innerHTML =
-        '<div class="prompt-box" style="margin-top:0">' +
-          '<div class="prompt-label">Your custom Bob prompt — paste this in</div>' +
-          '<pre>' + promptText.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>' +
-          '<button class="copy-btn quiz-copy-btn">Copy</button>' +
-        '</div>';
-      box.style.display = 'block';
-      void box.offsetWidth;
-      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      box.querySelector('.quiz-copy-btn').addEventListener('click', function() {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(promptText).then(function() {
-            box.querySelector('.quiz-copy-btn').textContent = '\u2713 Copied!';
-            setTimeout(function() { box.querySelector('.quiz-copy-btn').textContent = 'Copy'; }, 2000);
-          });
-        }
-      });
-    });
-  }
+  document.getElementById('quiz-reveal-btn').addEventListener('click', function() {
+    var type    = quizAnswers['dq1'] || 'startup';
+    var blocker = quizAnswers['dq2'] || 'validation';
+    var res     = quizAnswers['dq3'] || 'efficiency';
+
+    // Blocker-specific closing line baked into the prompt
+    var blockerLine = {
+      validation: 'My biggest concern right now is whether this is actually worth pursuing — help me stress-test the idea before I invest more time.',
+      technical:  'My biggest blocker is the technical side — I need a concrete plan for how to actually build this, not just theory.',
+      pitch:      'My immediate goal is a compelling pitch for leadership or key stakeholders at Winn Dixie.',
+      team:       'I also need help thinking through what kind of collaborators or buy-in from my team I need to make this work.'
+    };
+
+    // Outcome-specific closing line
+    var resourceLine = {
+      efficiency:  'Finally, describe the 2-3 specific steps I should take this week to start saving time or reducing manual work with this idea.',
+      visibility:  'Finally, suggest how I could build a simple dashboard or report that makes this data immediately visible and useful to my team.',
+      customer:    'Finally, describe how this would improve the experience for Winn Dixie customers or associates and what metrics would prove it.',
+      prototype:   'Finally, give me a concrete plan for building a working prototype I can demo by the end of today.'
+    };
+
+    var basePrompts = {
+      startup:  "I have a process improvement idea for Winn Dixie: [describe your idea in 2-3 sentences]. I work in [your department/role]. Run a quick validation: identify the top 3 problems this solves, list any known obstacles, name the biggest risk, and give me 5 questions I should ask stakeholders this week.",
+      app:      "I want to build an internal tool or dashboard that [describe what it does] for Winn Dixie. I currently know [your tech skills]. Give me: a feature list for a V1, a recommended approach, a rough time estimate to build the core, and 3 risks I should plan for.",
+      research: "I want to do a data or analytics project on [your topic] for Winn Dixie's [department]. Identify 2-3 key questions the data could answer, write a 150-word problem statement, suggest an appropriate methodology, and list the data sources I'd likely need.",
+      notyet:   "I work at Winn Dixie in [your role/department] and I want to find a project idea that could make a real difference. Ask me 5 questions — one at a time — about my day-to-day frustrations, what I wish were automated, and the kind of impact I want to make. After I answer all 5, generate 3 project ideas tailored specifically to me."
+    };
+
+    gtag('event', 'quiz_complete', { type: type, blocker: blocker, outcome: res });
+    var prompt = basePrompts[type] + '\n\n' + blockerLine[blocker] + '\n\n' + resourceLine[res];
+
+    var box = document.getElementById('quiz-result-box');
+    box.innerHTML =
+      '<div class="prompt-box" style="margin-top:0">' +
+        '<div class="prompt-label">Your custom Bob prompt — paste this in</div>' +
+        '<pre>' + prompt + '</pre>' +
+        '<button class="copy-btn">Copy</button>' +
+      '</div>';
+    box.style.display = 'block';
+    // Trigger result-reveal animation
+    void box.offsetWidth;
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
 
 })();
 </script>
