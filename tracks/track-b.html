@@ -1,0 +1,270 @@
+<!-- ══════════════════════════════════════════════════════
+     TRACK B — SUPPLY CHAIN OPERATIONS DASHBOARD
+═══════════════════════════════════════════════════════════ -->
+<div class="bubble-card track-b" id="card-b">
+  <div class="card-summary">
+    <div class="card-icon" aria-label="Dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--cb)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+    <div class="card-text">
+      <div class="card-label">Track B</div>
+      <div class="card-title">Supply Chain Operations Dashboard</div>
+      <div class="card-desc">Step into the role of a regional operations director and use Bob to build a live supply chain dashboard — an interactive map with <strong>animated delivery trucks</strong>, per-store floor plan views, and a delivery timeline. No coding experience needed.</div>
+      <div class="card-meta">
+        <span class="card-tag">No experience needed</span>
+        <span class="card-tag">Animated trucks</span>
+        <span class="card-tag">~30 min</span>
+        <span class="card-tag">Fully guided</span>
+      </div>
+    </div>
+    <div class="card-chevron" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l5 5 5-5"/></svg>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="card-detail-inner">
+      <div class="detail-intro">You're a regional operations director. It's Monday morning and you've just been asked to get ahead of a potential supply chain disruption before the exec briefing at noon. In the next 30 minutes, you'll use Bob to build a fully interactive operations dashboard — a live map with animated delivery trucks, store floor plans you can click into, and a delivery tracker. Just follow the steps below.</div>
+
+      <div class="use-cases">
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div class="uc-title">Step 1 — Connect to the live data feed</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">The supply chain data is in <code>winn-dixie-data.json</code> — 3 warehouses, 12 stores, inventory levels, floor plans, and 15 delivery routes. Copy the prompt below and paste it into Bob to get started.</p>
+            <div class="mode-steps">
+              <div class="mode-step">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                  <div class="step-title">Download the data file into your workspace</div>
+                  <div class="step-desc">Copy this prompt and paste it into Bob. It downloads the supply chain data file directly into your workspace.</div>
+                  <div class="step-prompt">
+                    <pre>Please download the file at https://vladstol223.github.io/techweek.bob/winn-dixie-data.json and save it as `winn-dixie-data.json` in my workspace folder. Once saved, confirm the file is there and tell me you are ready for the next prompt.</pre>
+                    <button class="copy-btn" data-unlock-uc="uc-step2-b">Copy</button>
+                  </div>
+                  <button class="step-no-folder" data-ntb="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                    No folder open?
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="use-case uc-locked" id="uc-step2-b">
+          <div class="use-case-header">
+            <div class="uc-num"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div class="uc-title">Step 2 — Build the network map</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">Paste this prompt into Bob. It creates <code>dashboard.html</code> — a live interactive map using OpenStreetMap tiles with warehouse and store nodes, connecting lines, and pan/zoom.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Bob Prompt — Step 2</div>
+              <pre>Create a new file called `dashboard.html` in my workspace. Fully self-contained — all CSS inline, no external files except the Leaflet library loaded from CDN.
+
+This step builds ONLY the map. Do not add a side panel, delivery table, delivery timeline, or truck animation — those come in later steps.
+
+**Data:** Read `winn-dixie-data.json` and embed the full contents as `const WD = {...}` at the top of the script. All code reads from `WD`. No fetch or network requests for data.
+
+**Libraries:** Load Leaflet 1.9.4 in the &lt;head&gt;:
+  &lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/&gt;
+Load the Leaflet JS at the bottom of &lt;body&gt; (after the map div), then your init script after it:
+  &lt;script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"&gt;&lt;/script&gt;
+Do NOT add integrity or crossorigin attributes — they cause errors on file:// pages.
+
+**Layout:** The entire page must fit within the browser viewport with no vertical scrolling. Use `height: 100vh` on the body, a fixed-height header (~60px), the map div filling all remaining space via flex, and a fixed-height footer (~28px).
+
+**Header:** Dark navy (#002147), white text. Title "Winn-Dixie Operations Dashboard", subtitle "Supply Chain Overview". Legend: gold hexagon = Warehouse, colored circle = Store (green ≥70%, yellow 40–69%, red &lt;40%).
+
+**Map initialisation:**
+```js
+const map = L.map('map', { center: [27.8, -81.8], zoom: 7, zoomControl: true, scrollWheelZoom: true });
+L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+  maxZoom: 20, attribution: '© Stadia Maps © OpenStreetMap contributors'
+}).addTo(map);
+```
+
+**Coordinate conversion:** JSON stores positions as pixel x/y in 1792×1536 space:
+  lon_left: -88.59375, lon_right: -78.75, lat_top: 32.99023, lat_bottom: 24.20688
+```js
+function xyToLatLng(x, y) {
+  const lng = -88.59375 + (x / 1792) * (-78.75 - -88.59375);
+  const lat =  32.99023 - (y / 1536) * ( 32.99023 - 24.20688);
+  return [lat, lng];
+}
+```
+
+**Warehouse markers:** L.divIcon with gold hexagon shape, label = warehouse name + city.
+**Store markers:** L.divIcon with colored circle (green ≥70%, yellow 40–69%, red &lt;40%), label = city.
+**Connecting lines:** L.polyline from each store to its warehouse, store color, opacity 0.4.
+**Click popup:** Name, city, health status (stores) or dock utilisation (warehouses).
+**Globals:** window.WD = WD; window.xyToLatLng = xyToLatLng; window.leafletMap = map;
+**Footer:** "Winn-Dixie Operations Dashboard · © OpenStreetMap contributors"
+
+After saving, tell me to open `dashboard.html` in my browser.</pre>
+              <button class="copy-btn" data-unlock-uc="uc-step3-b">Copy</button>
+            </div>
+            <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
+              <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">After Bob finishes</div>
+              <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Open <code style="color:#b8c8e8">dashboard.html</code> in your browser. You should see a live OpenStreetMap of Florida with gold warehouse hexagons and coloured store circles. Pan by dragging, zoom with scroll. Move on to Step 3 when ready.</div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="use-case uc-locked" id="uc-step3-b">
+          <div class="use-case-header">
+            <div class="uc-num"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div class="uc-title">Step 3 — Add animated delivery trucks</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">Paste this prompt into Bob. It adds 15 animated trucks driving their routes in real time on the live map, color-coded by delivery status.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Bob Prompt — Step 3</div>
+              <pre>Update `dashboard.html` — read the existing file first, then write the complete updated file with the new feature added. Do NOT remove `const WD`, the Leaflet map, or any existing code.
+
+Add animated delivery trucks as Leaflet markers that move along routes in real time.
+
+**Truck icon:** L.divIcon — a small colored rectangle (12×18px) with a rounded top (cab), rotated to face direction of travel. Colors: green (#22c55e) for on_time, yellow (#eab308) for delayed, grey (#6b7280) for returned/delivered.
+
+**Animation loop** — setInterval at 100ms. For each delivery in WD.deliveries:
+```js
+const CYCLE_MS = 120000;
+function getTruckState(delivery, index) {
+  const phase = ((Date.now() + (index / WD.deliveries.length) * CYCLE_MS) % CYCLE_MS) / CYCLE_MS;
+  const wh = WD.warehouses.find(w => w.id === delivery.from_warehouse_id);
+  const st = WD.stores.find(s => s.id === delivery.to_store_id);
+  const [whLat, whLng] = window.xyToLatLng(wh.x, wh.y);
+  const [stLat, stLng] = window.xyToLatLng(st.x, st.y);
+  let lat, lng, dLat, dLng;
+  if (phase &lt; 0.5) {
+    const t = phase / 0.5;
+    lat = whLat + (stLat - whLat) * t; lng = whLng + (stLng - whLng) * t;
+    dLat = stLat - whLat; dLng = stLng - whLng;
+  } else {
+    const t = (phase - 0.5) / 0.5;
+    lat = stLat + (whLat - stLat) * t; lng = stLng + (whLng - stLng) * t;
+    dLat = whLat - stLat; dLng = whLng - stLng;
+  }
+  const angleDeg = Math.atan2(dLng, dLat) * 180 / Math.PI;
+  const liveStatus = phase &lt; 0.5 ? delivery.status : 'delivered';
+  const color = liveStatus === 'delayed' ? '#eab308' : liveStatus === 'delivered' ? '#6b7280' : '#22c55e';
+  return { lat, lng, angleDeg, direction: phase &lt; 0.5 ? 'Outbound' : 'Returning', liveStatus, color };
+}
+```
+Move each truck: `marker.setLatLng([state.lat, state.lng])` and update icon HTML for color + rotation.
+**Click popup:** delivery ID, "[warehouse] → [store]", live status badge, items, direction.
+Store `window.getTruckLiveStatus = (deliveryId) => liveStatus` for use in Step 5.
+
+After saving, tell me to refresh `dashboard.html`.</pre>
+              <button class="copy-btn" data-unlock-uc="uc-step4-b">Copy</button>
+            </div>
+            <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
+              <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">After Bob finishes</div>
+              <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code>. You should now see <strong>15 trucks moving in real time</strong> on the live map, color-coded green/yellow/grey. Click any truck to see its delivery details. Move on to Step 4 when ready.</div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="use-case uc-locked" id="uc-step4-b">
+          <div class="use-case-header">
+            <div class="uc-num"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+            <div class="uc-title">Step 4 — Add store &amp; warehouse drill-down</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">Paste this prompt into Bob. It updates <code>dashboard.html</code> so that clicking any node opens a side detail panel — a visual floor plan for stores, and a dock &amp; inventory breakdown for warehouses.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Bob Prompt — Step 4</div>
+              <pre>Update `dashboard.html` — read the existing file first, then write the complete updated file. Do NOT remove `const WD`, the Leaflet map, the truck animation, or any existing code.
+
+Add a side panel that slides in from the right when a warehouse or store marker is clicked.
+
+**Layout:** Page splits into map (left, remaining width) + panel (right, fixed 320px) on click. Call `window.leafletMap.invalidateSize()` after layout change. Close (×) button restores full-width map.
+
+**Store panel:** 1) Heading + health badge, 2) Overall Health % with label (Healthy/At-Risk/Critical), 3) Critical Sections callout (red box, ⚠ icon, sections &lt;30%), 4) Floor Plan CSS grid from store.floor_plan — "S"=#1e3a5f, "A"=white, "E"=#F0AB00@55%, "C"=#7c3aed@55%, gap:0, 1px #e5e7eb borders, shelf tiles show 9px section name + 5px fill bar (green/yellow/red).
+
+**Warehouse panel:** 1) Heading + gold badge, 2) Dock Utilization bar, 3) Inventory Table with colored fill bars, ⚠ for &lt;30%.
+
+**Delivery filtering:**
+- window.activeFilter = null
+- Store click → window.activeFilter = { type: 'store', id: storeId }
+- Warehouse click → window.activeFilter = { type: 'warehouse', id: warehouseId }
+- Panel close → window.activeFilter = null
+- window.getActiveFilter = () => window.activeFilter
+
+After saving, tell me to refresh `dashboard.html`.</pre>
+              <button class="copy-btn" data-unlock-uc="uc-step5-b">Copy</button>
+            </div>
+            <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
+              <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">After Bob finishes</div>
+              <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code>. Click any store or warehouse marker to open the drill-down panel. Move on to Step 5 when ready.</div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="use-case uc-locked" id="uc-step5-b">
+          <div class="use-case-header">
+            <div class="uc-num"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+            <div class="uc-title">Step 5 — Add the delivery timeline</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">Paste this final prompt into Bob. It adds a live delivery tracker below the map — a swimlane view of every active and completed delivery, with status badges and timeline bars.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Bob Prompt — Step 5</div>
+              <pre>Update `dashboard.html` — read the existing file first, then write the complete updated file. Do NOT remove `const WD`, the Leaflet map, the truck animation, or any existing code.
+
+Add a delivery section below the map. All data is in `window.WD`.
+
+**Section layout — three equal columns:**
+- Heading: "Deliveries" with inline count badges: red=delayed, green=on-time, grey=delivered
+- Three columns: "⚠ Delayed" (red), "✓ On Time" (green), "✔ Delivered" (grey)
+- Column assignment by live status via `window.getTruckLiveStatus(delivery.id)` (fallback: delivery.status). Re-render every 500ms.
+
+**Each delivery card:**
+1. Route: "[warehouse name] → [store name]" in bold
+2. Horizontal timeline bar (full width, 10px): dark track, filled = elapsed/total (depart→eta, using July 14 2026 9:00 AM as "now"). Fill: yellow=delayed, green=on_time, grey=delivered.
+3. ETA right-aligned — red if delayed
+4. Items: small muted text
+5. Delayed cards only: pulsing red "DELAYED" badge top-right
+
+**Filtering (window.getActiveFilter() from Step 4):**
+- null → all deliveries; 'store' → filter by to_store_id; 'warehouse' → filter by from_warehouse_id
+- Empty column → muted "No deliveries" placeholder
+- Poll every 300ms, store in window._deliveryPollId, clearInterval before starting.
+
+After saving, tell me to refresh `dashboard.html` to see the completed operations dashboard.</pre>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <div class="uc-open-hint" style="margin-top:14px;padding:12px 14px;background:#0d1b35;border-radius:10px;border:1px solid rgba(0,87,184,0.3)">
+              <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7db3f5;margin-bottom:5px;">After Bob finishes</div>
+              <div style="font-size:0.82rem;color:#8b92a8;line-height:1.6;">Refresh <code style="color:#b8c8e8">dashboard.html</code> one final time. Your full operations dashboard is complete — live OSM map, animated trucks, drill-down panels, and a live delivery tracker.</div>
+            </div>
+          </div></div>
+        </div>
+
+      </div><!-- end use-cases -->
+
+      <div class="card-starting-prompt">
+        <div class="csp-label">Starting Prompt</div>
+        <div class="csp-text">"I have a live data feed with warehouse, store, and delivery data. Help me build a visual operations dashboard — a live map with animated delivery trucks, store floor plans I can click into, and a delivery tracker."</div>
+      </div>
+    </div>
+    <div class="track-progress" id="progress-b">
+      <span class="track-progress-label">Track B</span>
+      <div class="track-progress-bar-wrap"><div class="track-progress-bar" id="progress-bar-b"></div></div>
+      <span class="track-progress-count" id="progress-count-b">0 / 5</span>
+    </div>
+  </div>
+</div><!-- end Track B -->
