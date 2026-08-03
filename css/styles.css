@@ -921,6 +921,40 @@ pre, code, kbd, samp {
 .back-btn:hover { border-color: var(--uah-blue); color: var(--uah-blue); }
 
 /* ── NEW TO BOB BUTTON + MODAL ─────────────── */
+.marketplace-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent;
+  border: 1.5px solid rgba(15,98,254,0.45);
+  color: #6ea8fe;
+  font-size: 0.88rem; font-weight: 600;
+  padding: 12px 28px; border-radius: 100px;
+  cursor: pointer; min-height: 44px;
+  margin-top: 16px;
+  text-decoration: none;
+  opacity: 0;
+  animation: hero-fade-up 560ms var(--ease-premium) 800ms forwards;
+  transition:
+    background   180ms var(--ease-out),
+    border-color 180ms var(--ease-out);
+  position: relative; z-index: 2;
+  overflow: hidden;
+}
+.marketplace-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 8px; left: 28px; right: 28px;
+  height: 1px;
+  background: #6ea8fe;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 200ms var(--ease-out);
+}
+.marketplace-btn:hover {
+  background: rgba(15,98,254,0.10);
+  border-color: #6ea8fe;
+}
+.marketplace-btn:hover::after { transform: scaleX(1); }
+
 .new-to-bob-btn {
   display: inline-flex; align-items: center; gap: 8px;
   background: transparent;

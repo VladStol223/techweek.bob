@@ -169,7 +169,7 @@
 - "Generate My Bob Prompt" reveal handler uses ATL structure
 - `detail-intro` references ATL Tech Week, not Winn Dixie
 - `card-starting-prompt` uses the ATL "No Quiz? Start Here" fallback prompt
-- Footer: "Made with IBM Bob · Atlanta Tech Week 2025 · IBM"
+- Footer: "Made with IBM Bob · Atlanta Tech Week 2026 · IBM"
 - GA `trackNames` map: `{ 'card-a': 'EngineeringAudit', 'card-b': 'LeanTime', 'card-c': 'GuidedLearning', 'card-d': 'BringYourOwn' }`
 - `copyTotals` updated for new Track A and C copy button counts
 
