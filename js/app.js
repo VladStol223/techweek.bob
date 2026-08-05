@@ -136,7 +136,7 @@
         card.classList.add('open');
         gtag('event', 'track_open', {
           track_id: card.id,
-          track_name: { 'card-a': 'EngineeringAudit', 'card-b': 'SupplyChainDashboard', 'card-c': 'GuidedLearning', 'card-d': 'BringYourOwn' }[card.id] || card.id
+          track_name: { 'card-a': 'EngineeringAudit', 'card-b': 'SupplyChainDashboard', 'card-c': 'GuidedLearning', 'card-d': 'DiscoverWithBob', 'card-e': 'BringYourOwn' }[card.id] || card.id
         });
         onTrackOpen(card.id);
         setTimeout(function() {
@@ -180,6 +180,7 @@
     if (stepsBlock) revealStep(stepsBlock, 2);
     if (link.closest('#card-a') && link.getAttribute('data-track-a-action')) recordTrackAAction('marketplace');
     if (link.closest('#card-c')) recordTrackCAction(link, 'marketplace');
+    if (link.closest('#card-e')) recordTrackEStep('marketplace-' + (link.getAttribute('data-eq-name') || 'item'));
   });
 
   // ── DOWNLOAD BUTTONS ───────────────────────────────────
@@ -267,8 +268,8 @@
   }
 
   // ── COPY COMPLETION TRACKING STATE ────────────────────
-  var copyState  = { 'card-a': new Set(), 'card-b': new Set(), 'card-c': new Set(), 'card-d': new Set() };
-  var copyTotals = { 'card-a': 3, 'card-b': 5, 'card-c': 12, 'card-d': 4 };
+  var copyState  = { 'card-a': new Set(), 'card-b': new Set(), 'card-c': new Set(), 'card-d': new Set(), 'card-e': new Set() };
+  var copyTotals = { 'card-a': 3, 'card-b': 5, 'card-c': 12, 'card-d': 4, 'card-e': 3 };
 
   // ── TRACK A: progress per-action (marketplace + confirm + copy) ──
   function recordTrackAAction(type) {
@@ -312,7 +313,7 @@
     updateGlobalFooter('card-c', done_count);
     if (done_count >= total) setTimeout(function() { celebrateTrack('card-c'); }, 2200);
   }
-  var trackNames = { 'card-a': 'EngineeringAudit', 'card-b': 'SupplyChainDashboard', 'card-c': 'GuidedLearning', 'card-d': 'BringYourOwn' };
+  var trackNames = { 'card-a': 'EngineeringAudit', 'card-b': 'SupplyChainDashboard', 'card-c': 'GuidedLearning', 'card-d': 'DiscoverWithBob', 'card-e': 'BringYourOwn' };
 
   // ── GLOBAL FOOTER + CONFETTI ──────────────────────────
   var GF_KEY      = 'atl-bob-progress-v2';
@@ -333,10 +334,11 @@
     'card-a': 'Track A — Engineering Audit',
     'card-b': 'Track B — Supply Chain',
     'card-c': 'Track C — Guided Learning',
-    'card-d': 'Track D — Bring Your Own'
+    'card-d': 'Track D — Discover with Bob',
+    'card-e': 'Track E — Bring Your Own Problem'
   };
   var trackColorVars = {
-    'card-a': '#7c3aed', 'card-b': '#0057B8', 'card-c': '#1a7a4a', 'card-d': '#c2790a'
+    'card-a': '#7c3aed', 'card-b': '#0057B8', 'card-c': '#1a7a4a', 'card-d': '#c2790a', 'card-e': '#c2120a'
   };
 
   function loadProgress() {
@@ -359,12 +361,14 @@
     if (done.indexOf(trackId) !== -1) return;
 
     gfNameEl.textContent = trackLabels[trackId] || trackId;
-    var hint0 = trackId === 'card-d' ? 'Answer the three questions to get your custom prompt' : 'Copy a prompt to get started';
+    var isQuiz = trackId === 'card-d' || trackId === 'card-e';
+    var hint0 = isQuiz ? 'Pick your problem type to find your tool' : 'Copy a prompt to get started';
+    if (trackId === 'card-d') hint0 = 'Answer the three questions to get your custom prompt';
     gfHintEl.textContent = count === 0
       ? hint0
       : count >= total
         ? 'All done — paste your prompt into Bob!'
-        : trackId === 'card-d'
+        : isQuiz
           ? 'Keep going — ' + (total - count) + ' step' + (total - count === 1 ? '' : 's') + ' left'
           : 'Paste into Bob, then come back for the next step';
     gfBarEl.style.width      = pct + '%';
@@ -459,11 +463,15 @@
     var pct   = Math.min(100, Math.round((count / total) * 100));
 
     gfNameEl.textContent     = trackLabels[trackId] || trackId;
+    var isQuizTrack = trackId === 'card-d' || trackId === 'card-e';
+    var openHint = trackId === 'card-d' ? 'Answer the three questions to get your custom prompt'
+                 : trackId === 'card-e' ? 'Pick your problem type to find your tool'
+                 : 'Copy a prompt to get started';
     gfHintEl.textContent     = count === 0
-      ? (trackId === 'card-d' ? 'Answer the three questions to get your custom prompt' : 'Copy a prompt to get started')
+      ? openHint
       : count >= total
         ? 'All done — paste your prompt into Bob!'
-        : (trackId === 'card-d'
+        : (isQuizTrack
             ? 'Keep going — ' + (total - count) + ' step' + (total - count === 1 ? '' : 's') + ' left'
             : 'Paste into Bob, then come back for the next step');
     gfBarEl.style.width      = pct + '%';
@@ -660,6 +668,132 @@
           box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 950);
       }, 300);
+    }
+  });
+
+  // ── TRACK E: Marketplace Quiz ──────────────────────────
+  var eTrackDone = new Set();
+
+  function recordTrackEStep(stepKey) {
+    if (eTrackDone.has(stepKey)) return;
+    eTrackDone.add(stepKey);
+    copyState['card-e'].add(stepKey);
+    var done_count = eTrackDone.size;
+    var prog = loadProgress();
+    prog['card-e'] = done_count;
+    saveProgress(prog);
+    updateGlobalFooter('card-e', done_count);
+    var bar   = document.getElementById('progress-bar-e');
+    var count = document.getElementById('progress-count-e');
+    var total = copyTotals['card-e'];
+    if (bar)   bar.style.width = Math.min(100, Math.round((done_count / total) * 100)) + '%';
+    if (count) count.textContent = done_count + ' / ' + total;
+    document.getElementById('progress-e').style.display = '';
+    if (done_count >= total) setTimeout(function() { celebrateTrack('card-e'); }, 2200);
+  }
+
+  function esc(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function renderEResults(category) {
+    var TE    = window.TRACK_E;
+    var recs  = TE.recommendations[category];
+    if (!recs) return;
+    var loader = document.getElementById('eq-generating');
+    var resultsEl = document.getElementById('eq-results');
+
+    loader.classList.add('active');
+    loader.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    setTimeout(function() {
+      loader.classList.remove('active');
+      resultsEl.innerHTML = recs.map(function(rec, i) {
+        var qParam   = encodeURIComponent(rec.install || rec.name);
+        var mktUrl   = 'https://vladstol223.github.io/bob.marketplace/?q=' + qParam;
+        var linkSvg  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:13px;height:13px;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+        return (
+          '<div class="eq-card">' +
+            '<div class="eq-card-header">' +
+              '<span class="eq-badge">' + esc(rec.type) + '</span>' +
+              '<span class="eq-name">' + esc(rec.name) + '</span>' +
+            '</div>' +
+            '<div class="eq-why">' + esc(rec.why) + '</div>' +
+            '<a class="step-download-btn eq-mkt-btn" href="' + mktUrl + '" target="_blank" rel="noopener" data-marketplace-link="true" data-eq-name="' + esc(rec.name) + '" style="margin-bottom:14px">' +
+              linkSvg + ' View on Marketplace' +
+            '</a>' +
+            '<div class="eq-prompt-label">Starter prompt — paste this into Bob</div>' +
+            '<pre>' + esc(rec.prompt) + '</pre>' +
+            '<button class="copy-btn" data-eq-idx="' + i + '" data-eq-cat="' + category + '">Copy</button>' +
+          '</div>'
+        );
+      }).join('') +
+      '<button class="eq-reset-btn" id="eq-reset">&#8592; Try a different problem type</button>';
+
+      resultsEl.style.display = '';
+      // apply pulse-cta to the freshly rendered marketplace links
+      resultsEl.querySelectorAll('[data-marketplace-link]').forEach(function(a) {
+        a.classList.add('pulse-cta');
+      });
+      void resultsEl.offsetWidth;
+      resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      gtag('event', 'eq_complete', { category: category });
+    }, 950);
+  }
+
+  document.addEventListener('click', function(e) {
+    // Category pick
+    var eOpt = e.target.closest('.eq-opt');
+    if (eOpt && eOpt.closest('#card-e')) {
+      var category = eOpt.getAttribute('data-ev');
+      if (!category) return;
+
+      // Clear previous results
+      document.getElementById('eq-results').innerHTML = '';
+      document.getElementById('eq-results').style.display = '';
+
+      // Mark selected
+      eOpt.closest('.eq-opts').querySelectorAll('.eq-opt').forEach(function(o) {
+        o.classList.remove('selected');
+      });
+      eOpt.classList.add('selected');
+
+      recordTrackEStep('pick');
+      renderEResults(category);
+      return;
+    }
+
+    // Copy button inside eq-card
+    var eBtn = e.target.closest('.copy-btn[data-eq-idx]');
+    if (eBtn && eBtn.closest('#card-e')) {
+      var idx      = parseInt(eBtn.getAttribute('data-eq-idx'), 10);
+      var cat      = eBtn.getAttribute('data-eq-cat');
+      var recs     = window.TRACK_E.recommendations[cat];
+      if (!recs || !recs[idx]) return;
+      var text = recs[idx].prompt;
+      function doneE() {
+        eBtn.textContent = '\u2713 Copied!';
+        eBtn.classList.remove('copied');
+        void eBtn.offsetWidth;
+        eBtn.classList.add('copied');
+        setTimeout(function() { eBtn.textContent = 'Copy'; eBtn.classList.remove('copied'); }, 2000);
+        recordTrackEStep('copy-' + cat + '-' + idx);
+        gtag('event', 'prompt_copy', { track_id: 'card-e', track_name: 'BringYourOwn', step: cat + '-' + idx });
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(doneE).catch(function() { fallbackCopy(text); doneE(); });
+      } else { fallbackCopy(text); doneE(); }
+      return;
+    }
+
+    // Reset button
+    if (e.target.id === 'eq-reset' && e.target.closest('#card-e')) {
+      document.getElementById('eq-results').innerHTML = '';
+      document.getElementById('eq-results').style.display = '';
+      document.getElementById('eq-generating').classList.remove('active');
+      document.querySelector('#card-e .eq-opts').querySelectorAll('.eq-opt').forEach(function(o) {
+        o.classList.remove('selected');
+      });
     }
   });
 

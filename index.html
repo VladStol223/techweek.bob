@@ -205,7 +205,7 @@
 -->
 <script>
 (function() {
-  var tracks = ['tracks/track-a.html', 'tracks/track-b.html', 'tracks/track-c.html', 'tracks/track-d.html'];
+  var tracks = ['tracks/track-a.html', 'tracks/track-b.html', 'tracks/track-c.html', 'tracks/track-d.html', 'tracks/track-e.html'];
   var stream = document.getElementById('tracks-stream');
 
   function loadScript(src) {
@@ -227,6 +227,8 @@
     stream.innerHTML = htmlParts.join('\n');
     // Load data first, then the main app
     return loadScript('js/track-d-data.js');
+  }).then(function() {
+    return loadScript('js/track-e-data.js');
   }).then(function() {
     return loadScript('js/app.js');
   }).catch(function(err) {

@@ -1,0 +1,58 @@
+<!-- ══════════════════════════════════════════════════════
+     TRACK E — BRING YOUR OWN PROBLEM
+     Marketplace router: one question → 3 matched modes/skills
+═══════════════════════════════════════════════════════════ -->
+<div class="bubble-card track-e" id="card-e">
+  <div class="card-summary">
+    <div class="card-icon" aria-label="Briefcase">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--ce)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2"/>
+        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        <line x1="12" y1="12" x2="12" y2="16"/>
+        <line x1="10" y1="14" x2="14" y2="14"/>
+      </svg>
+    </div>
+    <div class="card-text">
+      <div class="card-label">Track E</div>
+      <div class="card-title">Bring Your Own Problem</div>
+      <div class="card-desc">You know what you want to solve. Pick the type of problem and Bob's marketplace will surface the <strong>three best modes and skills</strong> for it — with a ready-to-paste starter prompt for each.</div>
+      <div class="card-meta">
+        <span class="card-tag">You pick the problem</span>
+        <span class="card-tag">Marketplace match</span>
+        <span class="card-tag">Copy &amp; go</span>
+        <span class="card-tag">Any role</span>
+      </div>
+    </div>
+    <div class="card-chevron" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l5 5 5-5"/></svg>
+    </div>
+  </div>
+
+  <div class="card-detail">
+    <div class="card-detail-inner">
+      <div class="detail-intro">You already know what you want to do. Tell us the kind of problem and we'll match you to the best tools in Bob's marketplace — with starter prompts you can paste in and run right now.</div>
+
+      <div class="quiz-section" id="quiz-e">
+        <div class="quiz-q qvisible" id="eq1" style="opacity:1;transform:none">
+          <h5>What kind of problem are you solving?</h5>
+          <div class="quiz-opts eq-opts">
+            <div class="quiz-opt eq-opt" data-ev="build"><div class="qdot eq-dot"></div> Build or code something</div>
+            <div class="quiz-opt eq-opt" data-ev="analyze"><div class="qdot eq-dot"></div> Analyze data, a document, or a codebase</div>
+            <div class="quiz-opt eq-opt" data-ev="create"><div class="qdot eq-dot"></div> Write, pitch, or create content</div>
+            <div class="quiz-opt eq-opt" data-ev="learn"><div class="qdot eq-dot"></div> Learn a skill or understand a new technology</div>
+          </div>
+        </div>
+
+        <div class="eq-generating" id="eq-generating"></div>
+        <div class="eq-results" id="eq-results"></div>
+      </div>
+
+      <div class="track-progress" id="progress-e" style="display:none">
+        <div class="track-progress-bar-wrap">
+          <div class="track-progress-bar" id="progress-bar-e" style="width:0%"></div>
+        </div>
+        <div class="track-progress-count" id="progress-count-e">0 / 3</div>
+      </div>
+    </div>
+  </div>
+</div><!-- end Track E -->
