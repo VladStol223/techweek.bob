@@ -105,8 +105,28 @@
   });
   document.getElementById('ntb-close').addEventListener('click', closeNtb);
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeNtb();
+    if (e.key === 'Escape') { closeNtb(); closeAgenda(); }
   });
+
+  // ── AGENDA MODAL ───────────────────────────────────────
+  var agendaOverlay = document.getElementById('agenda-overlay');
+
+  function openAgenda() {
+    agendaOverlay.classList.add('active');
+    document.getElementById('agenda-close').focus();
+  }
+  function closeAgenda() {
+    agendaOverlay.classList.remove('active');
+  }
+
+  document.getElementById('agenda-btn').addEventListener('click', function() {
+    gtag('event', 'agenda_open');
+    openAgenda();
+  });
+  agendaOverlay.addEventListener('click', function(e) {
+    if (e.target === agendaOverlay) closeAgenda();
+  });
+  document.getElementById('agenda-close').addEventListener('click', closeAgenda);
 
   // ── BUBBLE POP-IN via IntersectionObserver ─────────────
   var cards = document.querySelectorAll('.bubble-card');
