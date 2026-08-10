@@ -67,7 +67,7 @@
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Paste this prompt into Bob. It creates <code>dashboard.html</code> — a live interactive map using OpenStreetMap tiles with warehouse and store nodes, connecting lines, and pan/zoom.</p>
+            <p class="uc-desc">Paste this prompt into Bob. It creates <code>dashboard.html</code> — a live interactive map with warehouse and store nodes, connecting lines, and pan/zoom.</p>
             <div class="prompt-box">
               <div class="prompt-label">Bob Prompt — Step 2</div>
               <pre>Create a new file called `dashboard.html` in my workspace. Fully self-contained — all CSS inline, no external files except the Leaflet library loaded from CDN.
@@ -89,8 +89,8 @@ Do NOT add integrity or crossorigin attributes — they cause errors on file:// 
 **Map initialisation:**
 ```js
 const map = L.map('map', { center: [27.8, -81.8], zoom: 7, zoomControl: true, scrollWheelZoom: true });
-L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
-  maxZoom: 20, attribution: '© Stadia Maps © OpenStreetMap contributors'
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 ```
 
