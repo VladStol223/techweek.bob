@@ -1712,6 +1712,17 @@ footer {
   margin-bottom: 12px;
 }
 
+.badge-api-note {
+  display: flex; align-items: flex-start; gap: 7px;
+  font-size: 0.78rem; color: var(--uah-gold); line-height: 1.55;
+  padding: 10px 13px;
+  background: rgba(240,171,0,0.07);
+  border: 1px solid rgba(240,171,0,0.28);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.badge-api-note svg { flex-shrink: 0; margin-top: 1px; stroke: var(--uah-gold); }
+
 /* Action copy buttons (Step 1 and Step 4) */
 .badge-action-btn {
   display: inline-flex; align-items: center; gap: 8px;

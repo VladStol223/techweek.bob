@@ -488,7 +488,7 @@
       if (auditTextarea) auditTextarea.value = BADGE_AUDIT_PROMPTS[trackId] || '';
       // Update modal subtitle to name the track
       var sub = document.getElementById('badge-modal-sub');
-      if (sub) sub.textContent = (trackLabels[trackId] || trackId) + ' — 4 steps to your Credly badge';
+      if (sub) sub.textContent = (trackLabels[trackId] || trackId) + ' — 5 steps to your Credly badge';
     }
     badgeOverlay.classList.add('active');
     document.getElementById('badge-close').focus();
