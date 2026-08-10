@@ -106,6 +106,7 @@
   document.getElementById('ntb-close').addEventListener('click', closeNtb);
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') { closeNtb(); closeAgenda(); }
+    // badge modal Escape is handled in its own listener below
   });
 
   // ── AGENDA MODAL ───────────────────────────────────────
@@ -295,14 +296,14 @@
   function recordTrackAAction(type) {
     if (copyState['card-a'].has(type)) return;
     copyState['card-a'].add(type);
-    var done_count = copyState['card-a'].size;
+    var prog = loadProgress();
+    var done_count = Math.max(copyState['card-a'].size, prog['card-a'] || 0);
     var total      = copyTotals['card-a'];
     var pct        = Math.min(100, Math.round((done_count / total) * 100));
     var bar   = document.getElementById('progress-bar-a');
     var count = document.getElementById('progress-count-a');
     if (bar)   bar.style.width = pct + '%';
     if (count) count.textContent = done_count + ' / ' + total;
-    var prog = loadProgress();
     prog['card-a'] = done_count;
     saveProgress(prog);
     updateGlobalFooter('card-a', done_count);
@@ -320,14 +321,14 @@
     var key = trackCActionKey(el, type);
     if (copyState['card-c'].has(key)) return;
     copyState['card-c'].add(key);
-    var done_count = copyState['card-c'].size;
+    var prog = loadProgress();
+    var done_count = Math.max(copyState['card-c'].size, prog['card-c'] || 0);
     var total      = copyTotals['card-c'];
     var pct        = Math.min(100, Math.round((done_count / total) * 100));
     var bar   = document.getElementById('progress-bar-c');
     var count = document.getElementById('progress-count-c');
     if (bar)   bar.style.width = pct + '%';
     if (count) count.textContent = done_count + ' / ' + total;
-    var prog = loadProgress();
     prog['card-c'] = done_count;
     saveProgress(prog);
     updateGlobalFooter('card-c', done_count);
@@ -457,6 +458,118 @@
     else { confettiRunning = false; confettiCanvas.style.display = 'none'; }
   }
 
+  // ── BADGE MODAL + CREDLY CHIP ─────────────────────────
+
+  // Per-track audit prompts (hidden from UI, copied by Step 4 button)
+  var BADGE_AUDIT_PROMPTS = {
+    'card-a': 'I have just completed Track A — Audit Your Codebase Now — at the IBM Bob Atlanta Tech Week Bobathon.\n\nTrack A completion standards:\n• I installed the engineering-audit skill from the Bob Marketplace\n• I opened Bob inside a real project or codebase directory (not just any empty folder)\n• I ran the full /engineering-audit command and Bob executed all 9 autonomous stages:\n  Stage 1 — Repository Discovery (produced an architecture map)\n  Stage 2 — Technical Audit (classified findings as Critical, High, Medium, Low, or False Positive)\n  Stage 3 — Product Decision Gate (escalated any business-decision findings)\n  Stage 4 — Remediation (implemented fixes for all Critical and High findings)\n  Stage 5 — Independent Verification (re-audited the codebase to confirm all fixes)\n  Stage 6 — Validation (ran type check, lint, build, and tests — reported PASS/FAIL/SKIP)\n  Stage 7 — First-Time User Journey Audit (traced all user flows as a new user)\n  Stage 8 — Beta Readiness Triage (classified all open findings by priority)\n  Stage 9 — Release Report (produced a Go / Go With Conditions / No-Go verdict)\n• The final release report exists in this workspace\n• All Critical and High findings were resolved before the release verdict\n\nPlease audit my workspace now. Check for the engineering audit output, verify the 9 stages were completed, confirm the release report exists and contains a verdict, and then guide me through the Credly badge claim process.',
+
+    'card-b': 'I have just completed Track B — Supply Chain Operations Dashboard — at the IBM Bob Atlanta Tech Week Bobathon.\n\nTrack B completion standards:\n• I downloaded winn-dixie-data.json into my workspace using a Bob prompt\n• Bob created dashboard.html — a fully self-contained interactive supply chain dashboard\n• The dashboard runs in a browser with no errors and no missing files\n• Step 2: The dashboard contains a live OpenStreetMap (Leaflet 1.9.4) centered on Florida with gold hexagon warehouse markers and color-coded store circle markers (green ≥70%, yellow 40–69%, red <40%), connecting route lines, and clickable popups on every node\n• Step 3: 15 animated delivery trucks move in real time along their routes, color-coded by status (green = on time, yellow = delayed, grey = delivered/returning), with click popups showing delivery details\n• Step 4: Clicking any store or warehouse opens a slide-in side panel — stores show a CSS grid floor plan with section health bars, warehouses show dock utilization and inventory breakdown\n• Step 5: A delivery timeline section below the map shows all 15 deliveries organized in three swimlane columns (Delayed / On Time / Delivered), with timeline bars, ETAs, and live filtering when a node panel is open\n• The entire page fits within the browser viewport with no vertical scrolling\n\nPlease audit my workspace now. Check that dashboard.html exists and contains all five layers of functionality. Verify the file is self-contained and the Leaflet map, truck animation, drill-down panels, and delivery timeline are all present in the source. Then guide me through the Credly badge claim process.',
+
+    'card-c': 'I have just completed Track C — Guided Learning Modes — at the IBM Bob Atlanta Tech Week Bobathon.\n\nTrack C completion standards:\n• I installed at least one of the four guided learning modes from the Bob Marketplace: QisBob Quantum Mentor, PyBob Python Mentor, SqlBob Database Mentor, or Jenny the Language Mentor\n• I switched Bob to that mode using the mode picker\n• I sent the track\'s start prompt and began a real learning session\n• The learning session was interactive — Bob assessed my level, I answered questions or wrote code or responded to prompts, and the session progressed past the introduction into actual lesson content\n• For QisBob: I reached the point where Bob walked me through at least one Qiskit concept or circuit, and I responded to at least one Socratic checkpoint question\n• For PyBob: I reached the point where Bob identified a real project for me to learn through and taught me at least one Python concept with working code\n• For SqlBob: I reached the point where Bob created a sample database in my field and I wrote at least one SQL query against it with Bob\'s feedback\n• For Jenny: I started a lesson in a real language and completed at least one conversational exchange or vocabulary/grammar checkpoint\n• The conversation history in this workspace shows the session was substantive — not just the opening prompt\n\nPlease audit my workspace now. Review the conversation history or any files created during the learning session. Confirm that at least one guided learning mode was used and that the session went beyond the start prompt into real lesson content. Then guide me through the Credly badge claim process.',
+
+    'card-d': 'I have just completed Track D — Discover Where Bob Can Help — at the IBM Bob Atlanta Tech Week Bobathon.\n\nTrack D completion standards:\n• I answered all three discovery quiz questions on the Track D card:\n  Question 1: My role / background (technical, lead, communicator, builder, or new)\n  Question 2: What would be most valuable to me right now (automate, analyze, create, or understand)\n  Question 3: How I want to work with Bob (done-for-you result, reusable prompt, or guided walkthrough)\n• The quiz generated a custom Bob prompt matched to my three answers\n• I copied that custom-generated prompt and pasted it into Bob\n• Bob responded substantively to my custom prompt — it understood my role, my goal, and the format I asked for\n• I engaged with Bob\'s response and either iterated on it, asked a follow-up, or applied the output to something real\n• The custom prompt was not just copied and ignored — it produced a real, useful output that I found valuable\n\nPlease audit my workspace now. Look for any files, notes, or conversation output that shows I used the custom-generated prompt from Track D. Confirm that the session produced a meaningful result aligned with one of the four goal categories (automate, analyze, create, or understand). Then guide me through the Credly badge claim process.',
+
+    'card-e': 'I have just completed Track E — Bring Your Own Problem — at the IBM Bob Atlanta Tech Week Bobathon.\n\nTrack E completion standards:\n• I selected one of the four problem categories on the Track E card (build/code, analyze, write/create, or learn)\n• The marketplace router surfaced three matched Bob modes or skills for my problem type\n• I installed at least one of the three recommended modes or skills from the Bob Marketplace\n• I used the ready-to-paste starter prompt for the mode or skill I installed\n• I ran the mode or skill against my own real problem — not a test or demo input, but something I actually care about or work on\n• The output was substantive and relevant to my real use case — a piece of code, an analysis, a document draft, a learning session, or a tool recommendation that I could actually use\n• For "build/code": Bob helped me design, scaffold, or implement something real in my workspace\n• For "analyze": Bob read and analyzed a real file, codebase, or document I provided and produced findings or insights\n• For "write/create": Bob produced a draft, pitch, proposal, or content piece for a real topic I provided\n• For "learn": Bob taught me something in my chosen area and I progressed past the introduction into actual learning content\n\nPlease audit my workspace now. Look for any output files, conversation history, or deliverables that show I completed Track E with a real problem. Confirm the output is substantive and tied to a real use case — not just the starter prompt pasted and left unanswered. Then guide me through the Credly badge claim process.'
+  };
+
+  var badgeOverlay     = document.getElementById('badge-overlay');
+  var credlyChip       = document.getElementById('credly-chip');
+  var credlyDismissBtn = document.getElementById('credly-chip-dismiss');
+  var chipDismissed    = false;
+  var chipEverShown    = false;
+  var currentBadgeTrack = null;
+
+  function openBadgeModal(trackId) {
+    if (trackId) {
+      currentBadgeTrack = trackId;
+      // Populate the hidden audit prompt textarea with this track's prompt
+      var auditTextarea = document.getElementById('badge-audit-prompt-text');
+      if (auditTextarea) auditTextarea.value = BADGE_AUDIT_PROMPTS[trackId] || '';
+      // Update modal subtitle to name the track
+      var sub = document.getElementById('badge-modal-sub');
+      if (sub) sub.textContent = (trackLabels[trackId] || trackId) + ' — 4 steps to your Credly badge';
+    }
+    badgeOverlay.classList.add('active');
+    document.getElementById('badge-close').focus();
+    gtag('event', 'badge_modal_open', { track_id: currentBadgeTrack || 'unknown' });
+  }
+  function closeBadgeModal() {
+    badgeOverlay.classList.remove('active');
+    if (chipEverShown && !chipDismissed) showCredlyChip();
+  }
+
+  function showCredlyChip() {
+    chipEverShown = true;
+    chipDismissed = false;
+    credlyChip.classList.remove('chip-dismissed');
+    requestAnimationFrame(function() { credlyChip.classList.add('chip-visible'); });
+  }
+  function hideCredlyChip() {
+    credlyChip.classList.add('chip-dismissed');
+    credlyChip.classList.remove('chip-visible');
+  }
+
+  // Modal close
+  document.getElementById('badge-close').addEventListener('click', closeBadgeModal);
+  badgeOverlay.addEventListener('click', function(e) {
+    if (e.target === badgeOverlay) closeBadgeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && badgeOverlay.classList.contains('active')) closeBadgeModal();
+  });
+
+  // Credly chip — click body (not dismiss) opens modal
+  credlyChip.addEventListener('click', function(e) {
+    if (e.target.closest('.credly-chip-dismiss')) return;
+    openBadgeModal(currentBadgeTrack);
+  });
+  credlyChip.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBadgeModal(currentBadgeTrack); }
+  });
+
+  // Dismiss chip
+  credlyDismissBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    chipDismissed = true;
+    hideCredlyChip();
+    gtag('event', 'badge_chip_dismissed');
+  });
+
+  // Generic copy-from-element helper used by both badge copy buttons
+  function makeBadgeCopyBtn(btn, getTextFn, label) {
+    btn.addEventListener('click', function() {
+      var text = getTextFn();
+      var originalHTML = btn.innerHTML;
+      function onCopied() {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.innerHTML = originalHTML;
+          btn.classList.remove('copied');
+        }, 2200);
+        gtag('event', 'badge_prompt_copy', { label: label });
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(onCopied).catch(function() { fallbackCopy(text); onCopied(); });
+      } else { fallbackCopy(text); onCopied(); }
+    });
+  }
+
+  // Step 1: copy the VSIX install prompt
+  makeBadgeCopyBtn(
+    document.getElementById('badge-copy-vsix-btn'),
+    function() { return document.getElementById('badge-vsix-prompt-text').value; },
+    'vsix-install'
+  );
+
+  // Step 4: copy the track-specific audit prompt
+  makeBadgeCopyBtn(
+    document.getElementById('badge-copy-audit-btn'),
+    function() { return document.getElementById('badge-audit-prompt-text').value; },
+    'track-audit'
+  );
+
   function celebrateTrack(trackId) {
     var done = loadDone();
     if (done.indexOf(trackId) !== -1) return;
@@ -464,11 +577,29 @@
     saveDone(done);
     dismissGlobalFooter();
     setTimeout(spawnConfetti, 350);
+    // Pre-load the track-specific audit prompt so it's ready when the chip is clicked
+    currentBadgeTrack = trackId;
+    var auditTextarea = document.getElementById('badge-audit-prompt-text');
+    if (auditTextarea) auditTextarea.value = BADGE_AUDIT_PROMPTS[trackId] || '';
+    // Show Credly chip after confetti settles
+    setTimeout(showCredlyChip, 1800);
   }
 
   (function checkReturnVisit() {
     var prog = loadProgress();
     var done = loadDone();
+
+    // If a track was already completed on a previous visit, show the chip right away
+    if (done.length > 0) {
+      var lastDone = done[done.length - 1];
+      currentBadgeTrack = lastDone;
+      var auditTextarea = document.getElementById('badge-audit-prompt-text');
+      if (auditTextarea) auditTextarea.value = BADGE_AUDIT_PROMPTS[lastDone] || '';
+      setTimeout(showCredlyChip, 600);
+      return;
+    }
+
+    // Otherwise check if progress just crossed the threshold this session
     var toFire = [];
     Object.keys(copyTotals).forEach(function(id) {
       if ((prog[id] || 0) >= copyTotals[id] && done.indexOf(id) === -1) toFire.push(id);
@@ -506,6 +637,8 @@
   document.addEventListener('click', function(e) {
     var btn = e.target.closest('.copy-btn');
     if (!btn) return;
+    // Track E copy buttons have data-eq-idx and are handled by their own listener below.
+    if (btn.hasAttribute('data-eq-idx')) return;
     var pre = btn.parentElement.querySelector('pre');
     if (!pre) return;
     var text = pre.textContent;
@@ -543,7 +676,7 @@
         if (dTrackDone.size >= copyTotals['card-d']) {
           gtag('event', 'track_complete', { track_id: cardId, track_name: trackNames[cardId] || cardId });
         }
-      } else if (cardId !== 'card-a' && copyState[cardId]) {
+      } else if (cardId !== 'card-a' && cardId !== 'card-e' && copyState[cardId]) {
         copyState[cardId].add(btn);
         if (copyState[cardId].size >= copyTotals[cardId]) {
           gtag('event', 'track_complete', { track_id: cardId, track_name: trackNames[cardId] || cardId });
@@ -623,8 +756,10 @@
     if (dTrackDone.has(stepKey)) return;
     dTrackDone.add(stepKey);
     copyState['card-d'].add(stepKey);
-    var done_count = dTrackDone.size;
     var prog = loadProgress();
+    // Use the higher of the live Set size and the saved count so that a
+    // page-refresh mid-track never causes the bar to go backward.
+    var done_count = Math.max(dTrackDone.size, prog['card-d'] || 0);
     prog['card-d'] = done_count;
     saveProgress(prog);
     updateGlobalFooter('card-d', done_count);
@@ -698,8 +833,10 @@
     if (eTrackDone.has(stepKey)) return;
     eTrackDone.add(stepKey);
     copyState['card-e'].add(stepKey);
-    var done_count = eTrackDone.size;
     var prog = loadProgress();
+    // Same floor fix as Track D: never let an in-session count go below
+    // what was already persisted from a previous session.
+    var done_count = Math.max(eTrackDone.size, prog['card-e'] || 0);
     prog['card-e'] = done_count;
     saveProgress(prog);
     updateGlobalFooter('card-e', done_count);
@@ -743,8 +880,10 @@
               linkSvg + ' View on Marketplace' +
             '</a>' +
             '<div class="eq-prompt-label">Starter prompt — paste this into Bob</div>' +
-            '<pre>' + esc(rec.prompt) + '</pre>' +
-            '<button class="copy-btn" data-eq-idx="' + i + '" data-eq-cat="' + category + '">Copy</button>' +
+            '<div class="eq-prompt-wrap">' +
+              '<pre>' + esc(rec.prompt) + '</pre>' +
+              '<button class="copy-btn" data-eq-idx="' + i + '" data-eq-cat="' + category + '">Copy</button>' +
+            '</div>' +
           '</div>'
         );
       }).join('') +

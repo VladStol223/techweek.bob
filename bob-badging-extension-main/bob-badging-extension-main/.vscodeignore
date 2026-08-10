@@ -1,0 +1,13 @@
+.vscode/**
+.bob/**
+src/**
+out/badgePanel.js
+out/badgePanel.js.map
+out/badgeSidebar.js
+out/badgeSidebar.js.map
+out/extension.js.map
+tsconfig.json
+.gitignore
+*.vsix
+node_modules/**
+assets/mcp/**

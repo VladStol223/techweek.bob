@@ -37,13 +37,7 @@
   <h1>
     <span class="word-mask"><span class="word-inner" style="--d:200ms">What</span></span>&#32;<span class="word-mask"><span class="word-inner" style="--d:260ms">Could</span></span>&#32;<span class="word-mask"><span class="word-inner word-gold" style="--d:320ms">AI</span></span>&#32;<span class="word-mask"><span class="word-inner" style="--d:380ms">Do</span></span><br/><span class="word-mask"><span class="word-inner" style="--d:440ms">For</span></span>&#32;<span class="word-mask"><span class="word-inner" style="--d:500ms">You?</span></span>
   </h1>
-  <p>Four tracks for every background — developers, founders, learners, executives. Pick the path that fits where you are today. Click in, grab a prompt, and build something real in the next 15 minutes.</p>
-  <button class="hero-cta" id="hero-cta-btn">
-    Pick Your Track
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
+  <p>Five tracks for every background — developers, founders, learners, executives. Pick the path that fits where you are today. Click in, grab a prompt, and build something real in the next 15 minutes.</p>
   <div class="hero-pill-row">
     <button class="new-to-bob-btn" id="new-to-bob-btn" aria-haspopup="dialog">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -67,6 +61,12 @@
       Event Agenda
     </button>
   </div>
+  <button class="hero-cta" id="hero-cta-btn">
+    Pick Your Track
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 </section>
 
 <!-- ═══ NEW-TO-BOB MODAL ══════════════════════════════════ -->
@@ -311,6 +311,131 @@
 </section>
 
 <footer>Made with IBM Bob &nbsp;&middot;&nbsp; Atlanta Tech Week 2026 &nbsp;&middot;&nbsp; IBM</footer>
+
+<!-- ═══ CREDLY BADGE MODAL ════════════════════════════════ -->
+<div class="badge-overlay" id="badge-overlay" role="dialog" aria-modal="true" aria-labelledby="badge-modal-title">
+  <div class="badge-modal">
+
+    <button class="badge-close" id="badge-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="badge-modal-header">
+      <div class="badge-medal-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="26" r="12" fill="rgba(240,171,0,0.15)" stroke="#F0AB00" stroke-width="1.5"/>
+          <polygon points="20,18 22.5,23 28,23.5 24,27 25.5,32.5 20,29.5 14.5,32.5 16,27 12,23.5 17.5,23" fill="#F0AB00" opacity="0.85"/>
+          <rect x="17" y="4" width="6" height="10" rx="2" fill="rgba(240,171,0,0.3)" stroke="#F0AB00" stroke-width="1.2"/>
+          <path d="M17 13 L14 18 M23 13 L26 18" stroke="#F0AB00" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div id="badge-modal-title" class="badge-modal-title">Claim Your Credly Badge</div>
+        <div class="badge-modal-sub" id="badge-modal-sub">Complete the steps below to earn your IBM Bob badge</div>
+      </div>
+    </div>
+
+    <div class="badge-modal-body">
+
+      <div class="badge-track-note" id="badge-track-note">
+        You've completed a track — great work! Follow the four steps below to claim your Credly badge.
+      </div>
+
+      <!-- ── Step 1: Install the VSIX via Bob prompt ── -->
+      <div class="badge-step">
+        <div class="badge-step-num">1</div>
+        <div class="badge-step-body">
+          <div class="badge-step-title">Install the Badging Extension</div>
+          <div class="badge-step-desc">Copy this prompt and paste it into Bob. Bob will automatically download the <code>bob-badge-ext-0.0.6.vsix</code> extension into your workspace folder.</div>
+          <button class="badge-action-btn badge-action-btn--copy" id="badge-copy-vsix-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy Install Prompt
+          </button>
+          <!-- Hidden prompt text — copied by JS, never shown -->
+          <textarea id="badge-vsix-prompt-text" class="badge-hidden-prompt" aria-hidden="true" tabindex="-1" readonly>Please download the file at https://vladstol223.github.io/bob.marketplace/extensions/bob-badge-ext-0.0.6.vsix and save it as `bob-badge-ext-0.0.6.vsix` in the current workspace directory. Once the file is saved, confirm it is present and tell me you are ready for the next step.</textarea>
+        </div>
+      </div>
+
+      <!-- ── Step 2: Install VSIX from Extensions panel ── -->
+      <div class="badge-step">
+        <div class="badge-step-num">2</div>
+        <div class="badge-step-body">
+          <div class="badge-step-title">Install the Extension in Bob</div>
+          <div class="badge-step-desc">Once Bob has saved the file, install it from the Extensions panel:</div>
+          <ol class="badge-vsix-steps">
+            <li>Open the <strong>Extensions</strong> panel (puzzle-piece icon in the left sidebar)</li>
+            <li>Click the <strong>⋯ More Actions</strong> button (three dots, top-right of the panel)</li>
+            <li>Select <strong>Install from VSIX…</strong></li>
+            <li>Choose <code>bob-badge-ext-0.0.6.vsix</code> from your workspace folder</li>
+            <li>Bob will reload — the badging skill is now installed</li>
+          </ol>
+          <div class="badge-gif-placeholder">
+            <div class="badge-gif-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Install from VSIX — walkthrough
+            </div>
+            <div class="badge-gif-area">
+              <img src="vsix-install.gif" alt="Animated walkthrough: how to install a VSIX extension in Bob" class="badge-gif-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Step 3: Switch to Bob Badge Auditor mode ── -->
+      <div class="badge-step">
+        <div class="badge-step-num">3</div>
+        <div class="badge-step-body">
+          <div class="badge-step-title">Switch to Bob Badge Auditor Mode</div>
+          <div class="badge-step-desc">After the extension installs, switch Bob to the <strong>Bob Badge Auditor</strong> mode using the mode picker at the bottom-left of the chat panel.</div>
+          <div class="badge-gif-placeholder">
+            <div class="badge-gif-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              How to switch modes in Bob
+            </div>
+            <div class="badge-gif-area">
+              <img src="agent_switch.gif" alt="Animated demo showing how to switch modes in Bob" class="badge-gif-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Step 4: Copy track-specific audit prompt ── -->
+      <div class="badge-step">
+        <div class="badge-step-num">4</div>
+        <div class="badge-step-body">
+          <div class="badge-step-title">Start the Badge Audit</div>
+          <div class="badge-step-desc">You're in Badge Auditor mode. Copy your track's audit prompt and paste it into Bob — it contains all the completion criteria Bob needs to evaluate your work and guide you through the Credly claim.</div>
+          <button class="badge-action-btn badge-action-btn--audit" id="badge-copy-audit-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy Audit Prompt
+          </button>
+          <!-- Hidden track-specific prompts — swapped by JS on track complete -->
+          <textarea id="badge-audit-prompt-text" class="badge-hidden-prompt" aria-hidden="true" tabindex="-1" readonly></textarea>
+        </div>
+      </div>
+
+    </div><!-- end badge-modal-body -->
+  </div>
+</div>
+
+<!-- ═══ CREDLY NOTIFICATION CHIP ══════════════════════════ -->
+<div class="credly-chip" id="credly-chip" role="button" tabindex="0" aria-label="Claim your Credly badge">
+  <div class="credly-chip-inner">
+    <div class="credly-chip-icon" aria-hidden="true">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="9" fill="rgba(240,171,0,0.18)" stroke="#F0AB00" stroke-width="1.4"/>
+        <polygon points="11,6 12.8,9.5 16.5,10 13.75,12.6 14.6,16.3 11,14.4 7.4,16.3 8.25,12.6 5.5,10 9.2,9.5" fill="#F0AB00" opacity="0.9"/>
+      </svg>
+    </div>
+    <div class="credly-chip-text">
+      <div class="credly-chip-title">Track Complete!</div>
+      <div class="credly-chip-sub">Claim your Credly badge →</div>
+    </div>
+    <button class="credly-chip-dismiss" id="credly-chip-dismiss" aria-label="Dismiss badge notification" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
 
 <!-- ═══ GLOBAL PROGRESS FOOTER ═══════════════════════════ -->
 <div class="global-footer" id="global-footer" aria-live="polite" aria-label="Track progress">
