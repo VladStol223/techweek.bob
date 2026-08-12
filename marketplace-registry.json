@@ -77,17 +77,6 @@
     "install_name": "UI/UX Pro Max"
   },
   {
-    "id": "master-developer",
-    "type": "mode",
-    "icon": "shield",
-    "file": "modes/master-developer.yaml",
-    "name": "Master Developer",
-    "tagline": "Zero-defect, blueprint-first engineering for critical production work.",
-    "desc": "Perfectionist developer mode with encyclopedic knowledge of software architecture and system integrations. Follows a rigorous pipeline: blueprinting → TDD → comprehensive QA → flawless deployment. No oversights.",
-    "audience": ["developer"],
-    "install_name": "Master Developer"
-  },
-  {
     "id": "agentic-sdlc",
     "type": "mode",
     "icon": "branch",
@@ -154,206 +143,6 @@
     "install_name": "IBM i Bob Developer"
   },
   {
-    "id": "advanced-web-developer",
-    "type": "skill",
-    "icon": "grid",
-    "file": "skills/advanced-web-developer.md",
-    "name": "advanced-web-developer",
-    "tagline": "AI-powered web pipeline: Stitch mockups → 21st.dev components → Nano Banana slides.",
-    "desc": "Fuses four tools into one workflow: UI/UX Pro Max for design systems, Google Stitch for AI mockups, 21st.dev Magic for 3D/reactive components, and Nano Banana 2 for image-based client presentations.",
-    "audience": ["developer", "pm"]
-  },
-  {
-    "id": "boblore",
-    "type": "skill",
-    "icon": "chat",
-    "file": "skills/boblore.md",
-    "name": "boblore",
-    "tagline": "Generate IBM Bob branded LinkedIn posts in the BobLore two-line format.",
-    "desc": "Writes IBM Project Bob branded LinkedIn posts across four archetypes (#ShouldveGotBOB, #HeUsesBOB, #SheUsesBOB, #HeIsBOB) in the canonical two-line format with hashtag and URL.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "builtin-llm-models",
-    "type": "skill",
-    "icon": "bars",
-    "file": "skills/builtin-llm-models.md",
-    "name": "builtin-llm-models",
-    "tagline": "Reference catalog for Manus's built-in LLM proxy — models, pricing, and request shapes.",
-    "desc": "Full reference for Manus's OpenAI-compatible LLM proxy: model catalog, capabilities, pricing, correct request shapes for thinking/JSON/vision/tools, and per-model gotchas. Read before any bulk LLM scripting.",
-    "audience": ["developer"]
-  },
-  {
-    "id": "design-motion-principles",
-    "type": "skill",
-    "icon": "refresh",
-    "file": "skills/design-motion-principles.md",
-    "name": "design-motion-principles",
-    "tagline": "Motion and interaction design based on Kowalski, Krehel, and Tompkins techniques.",
-    "desc": "Two modes: build interactive components with purposeful motion, or audit existing animations to catch AI-slop patterns and emit an HTML report with looping demos. Works with Framer Motion, CSS, and React.",
-    "audience": ["developer", "pm"]
-  },
-  {
-    "id": "destructive-command-guard",
-    "type": "skill",
-    "icon": "shield",
-    "file": "skills/destructive-command-guard.md",
-    "name": "destructive-command-guard",
-    "tagline": "Intercepts high-risk shell commands and requires explicit typed confirmation.",
-    "desc": "Activates before any command that could cause irreversible data loss — file deletion, database drops, disk wipes, destructive git ops. Surfaces the risk, explains it, and refuses to run unless the user explicitly confirms.",
-    "audience": ["developer", "devops"]
-  },
-  {
-    "id": "greenlight",
-    "type": "skill",
-    "icon": "check",
-    "file": "skills/greenlight.md",
-    "name": "greenlight",
-    "tagline": "Pre-submission App Store compliance scanner — fix every rejection risk before you submit.",
-    "desc": "Runs automated compliance checks on iOS, macOS, tvOS, watchOS, or visionOS apps (Swift, ObjC, RN, Expo). Iterates fix → re-scan until the app reaches GREENLIT status. Covers Swift, Objective-C, React Native, and Expo.",
-    "audience": ["developer"]
-  },
-  {
-    "id": "bob-training-curriculum",
-    "type": "skill",
-    "icon": "edit",
-    "file": "skills/bob-training-curriculum.md",
-    "name": "bob-training-curriculum",
-    "tagline": "IBM BOB adoption lane: training curriculum builder for customer success teams.",
-    "desc": "Generates training curricula for IBM Bob adoption. Acts as customer success manager, adoption lead, and enablement designer — reducing manual research and coordination for seller teams.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "bob-training-materials",
-    "type": "skill",
-    "icon": "edit",
-    "file": "skills/bob-training-materials.md",
-    "name": "bob-training-materials",
-    "tagline": "IBM BOB adoption lane: training materials generator.",
-    "desc": "Produces ready-to-use training materials for IBM Bob rollouts — slide decks, job aids, and enablement content — aligned to the adoption and value realization lane.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "bob-account-plan",
-    "type": "skill",
-    "icon": "bars",
-    "file": "skills/bob-account-plan.md",
-    "name": "bob-account-plan",
-    "tagline": "IBM BOB account team leadership lane: strategic account plan generator.",
-    "desc": "Generates comprehensive strategic account plans for complex IBM Bob deals. Acts as account team leader and strategic account director — reducing manual research and coordination.",
-    "audience": ["exec", "pm"]
-  },
-  {
-    "id": "bob-demo-generator",
-    "type": "skill",
-    "icon": "monitor",
-    "file": "skills/bob-demo-generator.md",
-    "name": "bob-demo-generator",
-    "tagline": "Generate WOW-First 5-minute leave-behind IBM Bob demo videos.",
-    "desc": "Pulls validated app ideas from Reddit, builds a working PostgreSQL-backed prototype, and structures a demo script that starts with the final working app and works backwards to the prompt. Perfect for client engagement leave-behinds.",
-    "audience": ["pm", "exec", "developer"]
-  },
-  {
-    "id": "bob-lead-intelligence",
-    "type": "skill",
-    "icon": "globe",
-    "file": "skills/bob-lead-intelligence.md",
-    "name": "bob-lead-intelligence",
-    "tagline": "Deep B2B lead intelligence: decision makers, pain points, IBM solution mapping, ROI.",
-    "desc": "Generates multi-level B2B lead intelligence databases for IBM Automation (Turbonomic, Apptio, CP4I, watsonx). Maps decision makers, pain points, IBM solution fit, and revenue potential for each prospect.",
-    "audience": ["exec", "pm"]
-  },
-  {
-    "id": "bob-action-plan",
-    "type": "skill",
-    "icon": "file",
-    "file": "skills/bob-action-plan.md",
-    "name": "bob-action-plan",
-    "tagline": "IBM BOB solution design lane: mutual action plan (MAP) creator.",
-    "desc": "Creates Mutual Action Plans for IBM Bob deals — structured agreements between seller and customer covering milestones, owners, and timelines. Reduces manual coordination for solution consultants.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "bob-action-plan-advanced",
-    "type": "skill",
-    "icon": "file",
-    "file": "skills/bob-action-plan-advanced.md",
-    "name": "bob-action-plan-advanced",
-    "tagline": "IBM BOB solution design lane: advanced mutual action plan.",
-    "desc": "Advanced MAP creator with deeper value architecture integration. Produces multi-phase plans with risk tracking, dependency mapping, and exec sponsorship sections for complex IBM Bob deals.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "bob-cfo-whisperer",
-    "type": "skill",
-    "icon": "bars",
-    "file": "skills/bob-cfo-whisperer.md",
-    "name": "bob-cfo-whisperer",
-    "tagline": "CFO Whisperer — translates IBM tech value into financial language for the C-suite.",
-    "desc": "Converts technical IBM Bob capabilities into CFO-friendly financial narratives — ROI, payback period, NPV, and risk-adjusted value. Bridges the gap between solution consultants and executive buyers.",
-    "audience": ["exec", "pm"]
-  },
-  {
-    "id": "bob-meeting-notes",
-    "type": "skill",
-    "icon": "edit",
-    "file": "skills/bob-meeting-notes.md",
-    "name": "bob-meeting-notes",
-    "tagline": "IBM BOB sales method lane: meeting notes synthesizer.",
-    "desc": "Synthesizes raw meeting notes into structured call summaries, key decisions, action items with owners, and next steps — formatted for CRM entry. Cuts post-meeting admin from 30 minutes to 2.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "bob-business-case",
-    "type": "skill",
-    "icon": "file",
-    "file": "skills/bob-business-case.md",
-    "name": "bob-business-case",
-    "tagline": "IBM BOB proposal lane: business case builder.",
-    "desc": "Builds structured IBM Bob business cases — problem framing, solution fit, financial model, risk analysis, and exec recommendation — suitable for internal approval or customer-facing proposals.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "bob-exec-summary",
-    "type": "skill",
-    "icon": "edit",
-    "file": "skills/bob-exec-summary.md",
-    "name": "bob-exec-summary",
-    "tagline": "IBM BOB proposal lane: executive summary generator.",
-    "desc": "Generates tight executive summaries for IBM Bob proposals — one page, problem/solution/value/ask structure, tuned for C-level readers who have 90 seconds.",
-    "audience": ["exec", "pm"]
-  },
-  {
-    "id": "bob-pitch-outline",
-    "type": "skill",
-    "icon": "bars",
-    "file": "skills/bob-pitch-outline.md",
-    "name": "bob-pitch-outline",
-    "tagline": "IBM BOB proposal lane: presentation outline generator.",
-    "desc": "Produces structured presentation outlines for IBM Bob pitches — slide-by-slide structure with speaker notes, key messages, and visual recommendations aligned to the audience level.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "bob-meeting-recap",
-    "type": "skill",
-    "icon": "check",
-    "file": "skills/bob-meeting-recap.md",
-    "name": "bob-meeting-recap",
-    "tagline": "IBM BOB qualification lane: meeting recap and action items generator.",
-    "desc": "Turns raw discovery or qualification call notes into a crisp recap with confirmed pain points, qualification signals, open questions, action items, and next-step owners.",
-    "audience": ["pm", "exec"]
-  },
-  {
-    "id": "imagegen",
-    "type": "skill",
-    "icon": "grid",
-    "file": "skills/imagegen.md",
-    "name": "imagegen",
-    "tagline": "Smart routing for visual deliverables — Mermaid, Python plots, or AI image gen.",
-    "desc": "Decides the correct production route for any visual request: Mermaid diagrams, Python charting, static layout screenshots, web dev, or AI image generation/editing. Prevents wasted effort on the wrong tool.",
-    "audience": ["developer", "pm", "data"]
-  },
-  {
     "id": "linkedin-storyteller",
     "type": "skill",
     "icon": "chat",
@@ -362,36 +151,6 @@
     "tagline": "Write viral LinkedIn personal stories that resonate and drive engagement.",
     "desc": "Writes LinkedIn posts in a highly specific personal storytelling style — emotionally resonant, easy to read, optimized for engagement. Transforms raw experiences into narratives that convey a business or life lesson.",
     "audience": ["pm", "exec"]
-  },
-  {
-    "id": "master-developer-skill",
-    "type": "skill",
-    "icon": "shield",
-    "file": "skills/master-developer.md",
-    "name": "master-developer",
-    "tagline": "Encyclopedic technical skill for flawless, zero-oversight production execution.",
-    "desc": "Skill version of the Master Developer persona. Enforces a zero-defect mindset: blueprint → TDD → QA → deploy. Use for critical projects where partial completion is not acceptable.",
-    "audience": ["developer"]
-  },
-  {
-    "id": "master-storytelling",
-    "type": "skill",
-    "icon": "chat",
-    "file": "skills/master-storytelling.md",
-    "name": "master-storytelling",
-    "tagline": "Turn raw information into stories people understand, feel, and remember.",
-    "desc": "Blends Kallaway retention architecture, Adrian Per's cinematic emotional arc, and Philipp Humm's moment-level immersion. For videos, speeches, presentations, social posts, and brand narratives.",
-    "audience": ["pm", "exec", "learner"]
-  },
-  {
-    "id": "motion-design",
-    "type": "skill",
-    "icon": "refresh",
-    "file": "skills/motion-design.md",
-    "name": "motion-design",
-    "tagline": "Emotionally-driven animations with proper timing, easing, and Disney principles.",
-    "desc": "Applies motion design principles to create technically sound animations and transitions. Covers timing, easing, choreography, and Disney principles adapted for UI — works with CSS, Framer Motion, GSAP, Lottie, and Spring.",
-    "audience": ["developer", "pm"]
   },
   {
     "id": "qisbob-mentor-skill",
@@ -414,106 +173,6 @@
     "audience": ["developer", "learner"]
   },
   {
-    "id": "relentless-developer",
-    "type": "skill",
-    "icon": "refresh",
-    "file": "skills/relentless-developer.md",
-    "name": "relentless-developer",
-    "tagline": "Concept to fully working implementation — no interruptions, no excuses.",
-    "desc": "Takes ideas from concept to complete, working implementation without stopping to ask permission. Orchestrates sub-agents to ensure full delivery. Use when partial completion is not an option.",
-    "audience": ["developer"]
-  },
-  {
-    "id": "tsc-orchestrator",
-    "type": "skill",
-    "icon": "branch",
-    "file": "skills/tsc-orchestrator.md",
-    "name": "tsc-orchestrator",
-    "tagline": "TSC lifecycle orchestrator — Jira-to-DOORS-to-design-to-code-to-test-to-measure.",
-    "desc": "Runs the full TSC lifecycle orchestration workflow. Decides which specialized mode handles each step and validates end-to-end traceability. Start here for new TSC projects and customer demos.",
-    "audience": ["developer", "devops", "pm"]
-  },
-  {
-    "id": "tsc-requirements-refiner",
-    "type": "skill",
-    "icon": "edit",
-    "file": "skills/tsc-requirements-refiner.md",
-    "name": "tsc-requirements-refiner",
-    "tagline": "Turn Jira stories into clean, traceable DOORS Next requirements.",
-    "desc": "Bridges Jira intake and DOORS Next authoring. Separates requirements from design and implementation details, creates EARS-format statements, and prepares them for DOORS Next baseline.",
-    "audience": ["developer", "pm"]
-  },
-  {
-    "id": "tsc-solution-architect",
-    "type": "skill",
-    "icon": "grid",
-    "file": "skills/tsc-solution-architect.md",
-    "name": "tsc-solution-architect",
-    "tagline": "C4 diagrams, sequence flows, data models, and ADRs from baselined requirements.",
-    "desc": "Creates solution architecture artifacts after requirements baseline: C4 context/container/component diagrams, sequence diagrams, data models, and Architecture Decision Records. Covers ETS, OMS MCP, and partner onboarding.",
-    "audience": ["developer", "devops"]
-  },
-  {
-    "id": "tsc-ets-backend-engineer",
-    "type": "skill",
-    "icon": "db",
-    "file": "skills/tsc-ets-backend-engineer.md",
-    "name": "tsc-ets-backend-engineer",
-    "tagline": "ETS backend implementation: Spring Boot, JPA, Liquibase, Kafka, Redis, FarEye.",
-    "desc": "Implements ETS backend services after specs are approved. Covers Spring Boot microservices, JPA entities, Liquibase migrations, Kafka publishing, Redis caching, and FarEye integration.",
-    "audience": ["developer"]
-  },
-  {
-    "id": "tsc-test-strategy-engineer",
-    "type": "skill",
-    "icon": "check",
-    "file": "skills/tsc-test-strategy-engineer.md",
-    "name": "tsc-test-strategy-engineer",
-    "tagline": "Derive test packs from requirements and design automation strategy.",
-    "desc": "Creates test cases from requirements after architecture review. Designs test packs for ETS, partner onboarding, Blue Yonder, and Store Ops. Validates test coverage and prepares DevOps Loop Test content.",
-    "audience": ["developer", "devops"]
-  },
-  {
-    "id": "tsc-devops-loop-test-manager",
-    "type": "skill",
-    "icon": "check",
-    "file": "skills/tsc-devops-loop-test-manager.md",
-    "name": "tsc-devops-loop-test-manager",
-    "tagline": "Manage tests in IBM DevOps Loop — map, analyze failures, create defects.",
-    "desc": "Maps Bob-generated tests into DevOps Loop, analyzes failed tests and creates linked defects, and shows requirements-to-test-to-defect traceability for release gate evidence.",
-    "audience": ["developer", "devops"]
-  },
-  {
-    "id": "tsc-traceability-manager",
-    "type": "skill",
-    "icon": "branch",
-    "file": "skills/tsc-traceability-manager.md",
-    "name": "tsc-traceability-manager",
-    "tagline": "Full evidence chains from requirements to tests to code — for demos and audits.",
-    "desc": "Prepares traceability chains for customer presentations and impact analysis. Validates coverage from requirements to tests and design to code. Shows how IBM differentiates from generic coding assistants.",
-    "audience": ["developer", "devops", "pm"]
-  },
-  {
-    "id": "ui-ux-pro-max-skill",
-    "type": "skill",
-    "icon": "grid",
-    "file": "skills/ui-ux-pro-max.md",
-    "name": "ui-ux-pro-max",
-    "tagline": "50+ styles, 161 palettes, 10 stacks — comprehensive UI/UX design intelligence.",
-    "desc": "Skill version of UI/UX Pro Max. Full design database: 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, 25 chart types across React, Next.js, Vue, Svelte, SwiftUI, Flutter, and more.",
-    "audience": ["developer", "pm"]
-  },
-  {
-    "id": "uncodixfy",
-    "type": "skill",
-    "icon": "edit",
-    "file": "skills/uncodixfy.md",
-    "name": "uncodixfy",
-    "tagline": "Force normal, human-designed UI — escape the AI aesthetic of gradients and glass.",
-    "desc": "Strict ruleset that prevents 'Codex UI': no oversized rounded corners, no soft gradients, no floating glassmorphism, no dramatic shadows. Pushes toward interfaces that look like they were designed by a human.",
-    "audience": ["developer", "pm"]
-  },
-  {
     "id": "engineering-audit",
     "type": "skill",
     "icon": "check",
@@ -533,18 +192,9 @@
     "audience": ["developer", "data"],
     "guided": false,
     "install_methods": {
-      "windows": {
-        "preferred": "winget",
-        "command": "winget install --id Python.Python.3.12 -e --source winget"
-      },
-      "macos": {
-        "preferred": "brew",
-        "command": "brew install python@3.12"
-      },
-      "linux": {
-        "preferred": "apt",
-        "command": "sudo apt-get update && sudo apt-get install -y python3 python3-pip python3-venv"
-      }
+      "windows": { "preferred": "winget", "command": "winget install --id Python.Python.3.12 -e --source winget" },
+      "macos": { "preferred": "brew", "command": "brew install python@3.12" },
+      "linux": { "preferred": "apt", "command": "sudo apt-get update && sudo apt-get install -y python3 python3-pip python3-venv" }
     },
     "verify": ["python --version", "pip --version"],
     "requires_admin": false,
@@ -560,18 +210,9 @@
     "audience": ["developer"],
     "guided": false,
     "install_methods": {
-      "windows": {
-        "preferred": "winget",
-        "command": "winget install --id OpenJS.NodeJS.LTS -e --source winget"
-      },
-      "macos": {
-        "preferred": "brew",
-        "command": "brew install node"
-      },
-      "linux": {
-        "preferred": "apt",
-        "command": "sudo apt-get update && sudo apt-get install -y nodejs npm"
-      }
+      "windows": { "preferred": "winget", "command": "winget install --id OpenJS.NodeJS.LTS -e --source winget" },
+      "macos": { "preferred": "brew", "command": "brew install node" },
+      "linux": { "preferred": "apt", "command": "sudo apt-get update && sudo apt-get install -y nodejs npm" }
     },
     "verify": ["node --version", "npm --version"],
     "requires_admin": false,
@@ -587,18 +228,9 @@
     "audience": ["developer", "pm"],
     "guided": false,
     "install_methods": {
-      "windows": {
-        "preferred": "winget",
-        "command": "winget install --id Git.Git -e --source winget"
-      },
-      "macos": {
-        "preferred": "brew",
-        "command": "brew install git"
-      },
-      "linux": {
-        "preferred": "apt",
-        "command": "sudo apt-get update && sudo apt-get install -y git"
-      }
+      "windows": { "preferred": "winget", "command": "winget install --id Git.Git -e --source winget" },
+      "macos": { "preferred": "brew", "command": "brew install git" },
+      "linux": { "preferred": "apt", "command": "sudo apt-get update && sudo apt-get install -y git" }
     },
     "verify": ["git --version"],
     "requires_admin": false,
@@ -614,18 +246,9 @@
     "audience": ["developer"],
     "guided": false,
     "install_methods": {
-      "windows": {
-        "preferred": "npm",
-        "command": "npm install -g pnpm"
-      },
-      "macos": {
-        "preferred": "npm",
-        "command": "npm install -g pnpm"
-      },
-      "linux": {
-        "preferred": "npm",
-        "command": "npm install -g pnpm"
-      }
+      "windows": { "preferred": "npm", "command": "npm install -g pnpm" },
+      "macos": { "preferred": "npm", "command": "npm install -g pnpm" },
+      "linux": { "preferred": "npm", "command": "npm install -g pnpm" }
     },
     "verify": ["pnpm --version"],
     "requires_admin": false,
@@ -641,18 +264,9 @@
     "audience": ["developer", "data"],
     "guided": false,
     "install_methods": {
-      "windows": {
-        "preferred": "winget",
-        "command": "winget install --id Astral-sh.uv -e --source winget"
-      },
-      "macos": {
-        "preferred": "brew",
-        "command": "brew install uv"
-      },
-      "linux": {
-        "preferred": "script",
-        "command": "curl -LsSf https://astral.sh/uv/install.sh | sh"
-      }
+      "windows": { "preferred": "winget", "command": "winget install --id Astral-sh.uv -e --source winget" },
+      "macos": { "preferred": "brew", "command": "brew install uv" },
+      "linux": { "preferred": "script", "command": "curl -LsSf https://astral.sh/uv/install.sh | sh" }
     },
     "verify": ["uv --version"],
     "requires_admin": false,
